@@ -11,7 +11,7 @@ Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Imple
 \label{fig:piramide_pruebas}
 \vspace{2cm} % Espacio reservado para la imagen
 \begin{center}
-\textit{[Espacio reservado para la Figura 6: Pirámide de pruebas]}
+\textit{[Espacio reservado para la Figura 16: Pirámide de pruebas]}
 \end{center}
 \vspace{2cm}
 \textit{Nota.} Representa los tres niveles de la pirámide de pruebas —pruebas unitarias en la base, pruebas de integración en el nivel intermedio y pruebas de aceptación (UAT) en la cúspide— aplicados sobre los módulos billing.py, security.py, schemas.py, la API REST, SQLAlchemy, PostgreSQL y WebSockets.
@@ -41,129 +41,812 @@ RxJS & 7.x & Pruebas de flujos reactivos (WebSocket, Observables) & Frontend \\
 \textit{Nota.} Enumera las herramientas de prueba utilizadas en cada capa del sistema, con su versión y propósito técnico.
 \end{table}
 
-\subsection{2.2. REPORTE DE ERRORES}
-
-Durante las etapas de desarrollo, integración y despliegue del sistema se registraron incidencias técnicas que fueron debidamente categorizadas, diagnosticadas y subsanadas. Cada error fue documentado con su identificador, componente afectado, descripción detallada de la falla, nivel de impacto, causa raíz técnica y la solución aplicada.
+\subsubsection{Cuadros consolidados de evaluación endpoint por endpoint}
 
 \begin{table}[hbt!]
-\caption{Registro formal de errores identificados y resueltos}
-\label{tab:registro_errores}
-\begin{tabular}{@{}p{1cm} p{2.5cm} p{3.5cm} p{1.5cm} p{3cm} p{3.5cm}@{}}
+\caption{Pruebas unitarias y de integración en endpoints — Backend (FastAPI / Python)}
+\label{tab:pruebas_backend}
+\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{3.5cm} p{3.5cm} p{3cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Componente} & \textbf{Descripción de la falla} & \textbf{Impacto} & \textbf{Causa raíz} & \textbf{Solución aplicada} \\
+\textbf{Endpoint} & \textbf{Tipo prueba} & \textbf{Tech} & \textbf{V1: tiempo/errores} & \textbf{V2: correcciones} & \textbf{Recomendaciones} \\
 \midrule
-ERR-01 & Base de Datos & Condición de carrera: dos usuarios intentando reservar el mismo cajón al mismo tiempo producía reservas duplicadas. & Alto & Sin bloqueo transaccional; dos transacciones concurrentes leían el espacio como disponible simultáneamente. & Validación estricta con SELECT ... WHERE estado='disponible' dentro de la misma transacción atómica; expire\_on\_commit=False garantiza consistencia. \\
-ERR-02 & WebSockets & Desconexión silenciosa de WebSockets tras periodos de inactividad en la conexión del operador de garita. & Medio & El socket cliente carecía de lógica de reconexión automática; la red WiFi de la caseta presentaba micro-cortes intermitentes. & Mecanismo de reconexión automática en el WebSocketService de Angular con retardo de 3 segundos; el ConnectionManager del backend limpia conexiones muertas. \\
-ERR-03 & Zonas Horarias & Desfase de 5 horas en los comprobantes PDF (mostraban hora UTC). & Medio & El servidor almacena en TIMESTAMPTZ (UTC), mientras la sede requiere UTC-5. & Transformación explícita con \texttt{zoneinfo.ZoneInfo("America/Lima")} en backend y frontend. \\
-ERR-04 & Stripe API & Excepción HTTP 400 al procesar cobros menores a S/ 2.00 en línea. & Medio & Stripe impone un cargo mínimo equivalente a 0.50 USD. & Validación en backend que restringe pagos en línea menores a S/ 2.00 y deriva a efectivo. \\
-ERR-05 & CORS / Deploy & Error CORS al conectar frontend en Railway con backend. & Alto & \texttt{ALLOWED\_ORIGINS} no contemplaba subdominios dinámicos de Railway. & Configuración de regex en middleware CORS de FastAPI. \\
+POST /auth/login & Unit / Integr. & pytest, httpx & 120 ms. Error HTTP 500 si usuario no existía. & Manejo HTTP 401. Tiempo: 85 ms. & Rate limiting (5/min). \\
+POST /auth/register & Unitaria & pytest, Pydantic & 95 ms. Aceptaba contraseñas cortas y correos inválidos. & Validación estricta con Pydantic. Tiempo: 80 ms. & Verificación correo por token. \\
+POST /reservations & Integración & pytest, SQLAlch. & 200 ms. Condición de carrera en reservas concurrentes. & Validación dentro de transacción atómica. Tiempo: 110 ms. & SELECT FOR UPDATE. \\
+GET /spaces & Unitaria & pytest, httpx & 150 ms. Consultas N+1 por reserva. & joinedload() e índice B-Tree. Tiempo: 42 ms. & Caché Redis (TTL 5s). \\
+POST /payments & Integración & pytest, Stripe & 300 ms. Timeout y errores en montos menores a S/2.00. & Reintentos y validación de monto mínimo. Tiempo: 250 ms. & Webhooks Stripe en 2do plano. \\
+POST /vehicles & Unitaria & pytest, asyncio & 140 ms. Aceptaba placas nulas/vacías. & Validación regex estricta (Pydantic). Tiempo: 90 ms. & OCR en garita. \\
+PATCH /vehicles/../checkout & Integración & pytest, SQLAlch. & 190 ms. Cálculo incorrecto de duración a medianoche. & math.ceil y timezone.utc consistentes. Tiempo: 18 ms. & Alerta por >24 horas de estadía. \\
+GET /reports/pdf/id & Integración & pytest, ReportLab & 350 ms. Desfase UTC de 5 horas. & zoneinfo.ZoneInfo("America/Lima"). Tiempo: 280 ms. & Worker Celery+RabbitMQ para PDF. \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Registra los cinco errores críticos y de impacto medio identificados durante el ciclo de desarrollo.
+\textit{Nota.} Consolida la evolución de las pruebas backend en el formato Versión 1 $\rightarrow$ Versión 2 $\rightarrow$ Recomendaciones.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Pruebas de consumo de endpoints — Frontend (Angular 18 / TypeScript)}
+\label{tab:pruebas_frontend}
+\begin{tabular}{@{}p{3.5cm} p{1.5cm} p{2cm} p{3cm} p{3cm} p{2.5cm}@{}}
+\toprule
+\textbf{Componente} & \textbf{Tipo prueba} & \textbf{Tech} & \textbf{V1: tiempo/errores} & \textbf{V2: correcciones} & \textbf{Recomendaciones} \\
+\midrule
+AuthService $\rightarrow$ login & Unitaria & Jasmine, Karma & 180 ms. UI bloqueada sin mensaje ante credencial errónea. & JwtInterceptor y MatSnackBar. Redirección rol. & Pruebas E2E (Cypress). \\
+RegisterComponent & Unitaria & Jasmine, Karma & 200 ms. Sin error en tiempo real. & Validaciones FormGroup reactivas. & Debounce validación correo. \\
+NewReservationComponent & Unitaria & Jasmine, Karma & 250 ms. Mapa no refrescaba tras reserva. & Angular Signals y evento WebSocket. & Animaciones (fade-in ámbar). \\
+MapComponent & Integración & Jasmine, RxJS & 300 ms. Polling HTTP de alto consumo. & WebSocketService; fin de polling. & Canvas/WebGL para $>1000$ espacios. \\
+GaritaPanelComponent & Integración & Jasmine, Karma & 200 ms. Desconexión silenciosa WS. & Reconexión automática (3s) y alerta. & Modo offline (PWA). \\
+PaymentComponent & Integración & Jasmine, HttpClient & 280 ms. Doble clic sin spinner. & Deshabilitación y spinner; validación monto. & Integrar Yape/Plin. \\
+CheckoutComponent & Integración & Jasmine, Karma & 220 ms. PDF no descargaba auto. & blob y window.open(). & Impresora POS térmica. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Consolida la evolución de las pruebas frontend en el formato Versión 1 $\rightarrow$ Versión 2 $\rightarrow$ Recomendaciones.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Reporte de errores generales y optimización de rendimiento por módulo}
+\label{tab:errores_generales}
+\begin{tabular}{@{}p{2.5cm} p{2cm} p{2cm} p{3.5cm} p{3cm} p{3cm}@{}}
+\toprule
+\textbf{Módulo/Capa} & \textbf{Tipo análisis} & \textbf{Tech} & \textbf{V1: problemas} & \textbf{V2: mejoras} & \textbf{Recomendaciones} \\
+\midrule
+Base de datos & Rendimiento & PostgreSQL & Consultas lentas por placa, queries O(N). & Índices B-Tree en 10 campos. O(log N). & Particionar vehicle\_logs. \\
+Facturación & Error & ReportLab & Desfase UTC en PDF. & zoneinfo America/Lima en backend/front. & PDFs asíncronos. \\
+Frontend SPA & Rendimiento & Angular 18 & FCP de 3.8s en móviles. & Standalone Components y Lazy Loading. FCP 1.1s. & Habilitar SSR (Angular Univ.). \\
+API REST & Error & FastAPI & CORS bloqueado en Railway. & Regex allow\_origin\_regex. & CSP y restricción CORS. \\
+WebSockets & Error & FastAPI+Ang. & Desconexión silenciosa. & Reconexión automática. & Ping/pong heartbeat. \\
+Pasarela & Error & Stripe API & HTTP 400 por $<$ S/ 2.00. & Derivación a efectivo. & MercadoPago alternativo. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza los hallazgos y mejoras de rendimiento y estabilidad a nivel de sistema completo.
+\end{table}
+
+\subsubsection{2.1.1. Pruebas unitarias (Unit Testing)}
+
+Las pruebas unitarias verificaron de forma aislada las funciones puras y algoritmos críticos del sistema, sin dependencia de bases de datos externas ni servidores HTTP. Se ejecutaron 30 pruebas unitarias distribuidas en tres componentes fundamentales del backend.
+
+\textbf{Archivo fuente: backend/tests/test\_unit\_billing.py} \\
+\textbf{a) Motor de facturación (billing.py) — 14 pruebas}\\
+Se verificó que el algoritmo calculase exactamente los minutos efectivos a partir de la diferencia entre fecha\_ingreso y fecha\_salida, redondeando hacia arriba (math.ceil).
+
+\begin{verbatim}
+# UT-04 — Redondeo hacia arriba (ceil)
+def test_ut04_redondeo_hacia_arriba(self):
+    ingreso = datetime(2026, 8, 15, 10, 0, 0, tzinfo=timezone.utc)
+    salida = ingreso + timedelta(seconds=90)
+    result = calculate_duration_minutes(ingreso, salida)
+    assert result == 2
+\end{verbatim}
+
+\textbf{b) Seguridad criptográfica (security.py) — 10 pruebas}\\
+Se verificó la integridad del hash Argon2id y validación JWT.
+
+\begin{verbatim}
+# UT-15 — Hash Argon2 nunca es texto plano
+def test_ut15_hash_no_es_texto_plano(self):
+    plain = "admin123"
+    hashed = hash_password(plain)
+    assert hashed != plain
+    assert "$argon2" in hashed
+\end{verbatim}
+
+\textbf{c) Validación de esquemas Pydantic (schemas.py) — 6 pruebas}
+\begin{verbatim}
+# UT-26 — Password menor a 8 caracteres
+def test_ut26_registro_password_corto(self):
+    with pytest.raises(ValidationError):
+        RegisterRequest(nombre="Test", correo="t@t.com", password="123")
+\end{verbatim}
+
+\begin{table}[hbt!]
+\caption{Matriz completa de pruebas unitarias (30 pruebas)}
+\label{tab:matriz_ut}
+\begin{tabular}{@{}p{2.5cm} p{3.5cm} p{4cm} p{3.5cm} p{2cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Componente} & \textbf{Entrada} & \textbf{Salida esperada} & \textbf{Resultado} \\
+\midrule
+UT-01 a UT-08 & billing.py / calculate\_dur & Casos de duración exactos/fracc. & Minutos con redondeo ceil & Conforme \\
+UT-09 a UT-14 & billing.py / calculate\_chr & Tipo veh., minutos, tarifa & Monto total calculado & Conforme \\
+UT-15 a UT-19 & security.py / hash, verify & Contraseñas prueba & Hash Argon2, validación ok & Conforme \\
+UT-20 a UT-24 & security.py / JWT & Payloads acceso/refresco & Tokens gen/decod/rech & Conforme \\
+UT-25 a UT-30 & schemas.py & Datos válidos/inválidos & ValidationError o ok & Conforme \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Resume la matriz completa de 30 pruebas unitarias.
+\end{table}
+
+\subsubsection{2.1.2. Pruebas de integración (Integration Testing)}
+
+Se ejecutaron 12 pruebas de integración.
+
+\begin{verbatim}
+# IT-02 — Crear reserva cambia espacio a 'reservado'
+async def test_it02_crear_reserva_cambia_espacio_a_reservado(...):
+    assert sample_space.estado == SpaceStatus.disponible
+    # Insert logic...
+    assert space_db.estado == SpaceStatus.reservado
+\end{verbatim}
+
+\begin{table}[hbt!]
+\caption{Matriz completa de pruebas de integración (12 pruebas)}
+\label{tab:matriz_it}
+\begin{tabular}{@{}p{2cm} p{4cm} p{4cm} p{3cm} p{2cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Escenario} & \textbf{Procedimiento} & \textbf{Criterio de éxito} & \textbf{Resultado} \\
+\midrule
+IT-01a/b/c & Autenticación endpoints & Petición sin token/inválido & HTTP 401/403/200 & Conforme \\
+IT-02 & Reserva $\rightarrow$ reservado & Crear reserva cajón disp. & Espacio actualizado & Conforme \\
+IT-03 & Doble reserva placa & Segunda reserva placa activa & Validación impide dup & Conforme \\
+IT-04, 11-12 & Búsquedas indexadas & Consulta código, placa & Búsqueda eficiente & Conforme \\
+IT-05 & Cancelación libera espacio & Cancelar reserva pendiente & Espacio disponible & Conforme \\
+IT-06, 07 & Transición garita & Walk-in y checkout & Estado cambia ocup/disp & Conforme \\
+IT-08 & Cajón bloqueado & reservable=False & HTTP 409 Rechazo & Conforme \\
+IT-09, 10 & Bitácora vehicle\_logs & Ingreso/salida walk-in & Log persistido con mins & Conforme \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Resume la matriz completa de 12 pruebas de integración.
+\end{table}
+
+\subsubsection{2.1.3. Pruebas de aceptación (UAT)}
+
+Se ejecutaron 6 pruebas de aceptación (Gherkin).
+
+\begin{table}[hbt!]
+\caption{Matriz de pruebas de aceptación (6 pruebas)}
+\label{tab:matriz_uat}
+\begin{tabular}{@{}p{4cm} p{3.5cm} p{3.5cm} p{4.5cm}@{}}
+\toprule
+\textbf{Escenario} & \textbf{Condición previa (Dado)} & \textbf{Acción (Cuando)} & \textbf{Resultado (Entonces)} \\
+\midrule
+UAT-01: Reserva exitosa & Conductor autenticado & Fija fecha/hora y reserva & Código 8 dig, notificación \\
+UAT-02: Admisión walk-in & Operador en garita & Digita placa, confirma & Autoasignación, espacio ocupado \\
+UAT-03: Cobro exacto al min & Vehículo permaneció 75min & Pulsa "Dar Salida" & 75 min * tarifa = S/6.25, recibo \\
+UAT-04: WebSocket push & Operador con WS activo & Conductor crea reserva web & Evento refresco en $<$ 200ms \\
+UAT-05: Cancelación reserva & Conductor reserva B-03 & Pulsa "Cancelar" & Cajón disp, reserva cancelada \\
+UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencida, cajón liberado \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza los seis flujos de aceptación validados en formato Gherkin.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Resumen del total de pruebas ejecutadas por nivel}
+\label{fig:resumen_pruebas}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 17]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Gráfico de barras que muestra la distribución de las 48 pruebas automatizadas ejecutadas (30 unitarias, 12 de integración y 6 de aceptación), con una tasa de éxito del 100 por ciento en todas ellas.
+\end{figure}
+
+\subsection{2.2. REPORTE DE ERRORES}
+
+\begin{table}[hbt!]
+\caption{Registro formal de errores identificados y resueltos}
+\label{tab:registro_errores_v2}
+\begin{tabular}{@{}p{1cm} p{2cm} p{4cm} p{1.5cm} p{3cm} p{3.5cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Capa} & \textbf{Falla} & \textbf{Impacto} & \textbf{Causa} & \textbf{Solución} \\
+\midrule
+ERR-01 & Base de Datos & Condición de carrera: reservas duplicadas simultáneas. & Alto & Sin bloqueo transaccional concurrente. & SELECT ... WHERE estado='disponible' (expire\_on\_commit=False). \\
+ERR-02 & WebSockets & Desconexión silenciosa en inactividad. & Medio & Sin reconexión, micro-cortes WiFi. & Reconexión (3s) en Angular, limpieza de sockets backend. \\
+ERR-03 & Zonas Horarias & Desfase de 5h UTC en PDF. & Medio & Servidor UTC, sede UTC-5. & zoneinfo.ZoneInfo("America/Lima"). \\
+ERR-04 & Stripe API & HTTP 400 por cobro $<$ S/ 2.00. & Medio & Mínimo de Stripe 0.50 USD. & Validación backend: derivar a efectivo. \\
+ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_ORIGINS estático. & Regex allow\_origin\_regex en middleware CORS. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Registra los cinco errores críticos y de impacto medio.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
+\label{fig:flujo_errores}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 18]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Diagrama de flujo que ilustra el proceso seguido para cada incidencia.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Distribución de errores por nivel de impacto}
+\label{tab:distribucion_errores}
+\begin{tabular}{@{}p{6cm} p{3cm} p{6cm}@{}}
+\toprule
+\textbf{Nivel de impacto} & \textbf{Cantidad} & \textbf{Identificadores} \\
+\midrule
+Alto (bloqueante para producción) & 2 & ERR-01, ERR-05 \\
+Medio (afecta experiencia/precisión) & 3 & ERR-02, ERR-03, ERR-04 \\
+Bajo (mejoras de UX sin bloqueo) & 2 & Hallazgos UAT en sección 2.4 \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Clasifica los errores documentados según su severidad.
 \end{table}
 
 \subsection{2.3. OPTIMIZACIÓN DEL RENDIMIENTO}
 
 \subsubsection{2.3.1. Frontend: Lazy Loading y Standalone Components}
 
-El uso de \texttt{Standalone Components} y \texttt{Lazy Loading} redujo drásticamente el peso inicial de la aplicación. Los módulos de administrador, trabajador y conductor se cargan solo cuando el usuario navega a su sección.
-
 \begin{table}[hbt!]
 \caption{Componentes con Lazy Loading implementado}
-\label{tab:lazy_loading}
-\begin{tabular}{@{}p{3cm} p{10cm} p{3cm}@{}}
+\label{tab:lazy_loading_v2}
+\begin{tabular}{@{}p{3cm} p{9cm} p{3cm}@{}}
 \toprule
-\textbf{Módulo} & \textbf{Componentes Lazy-Loaded} & \textbf{Ahorro estimado} \\
+\textbf{Módulo} & \textbf{Componentes Lazy-Loaded} & \textbf{Ahorro est.} \\
 \midrule
-Administrador & Financials, Personnel, Settings, Support, Audit, Clients, AdminReviews. & \sim180 KB \\
-Conductor & SecuritySettings, NotificationSettings, Receipt, PendingPayments. & \sim120 KB \\
-Público & ResetPassword, Terms, PublicLegal, PublicSupport. & \sim60 KB \\
+Administrador & Financials, Personnel, Settings, Support, Audit, Clients, AdminReviews, TransactionDetail & $\sim$ 180 KB \\
+Conductor & SecuritySettings, NotificationSettings, EditProfile, Receipt, PendingPayments, PaymentSuccess & $\sim$ 120 KB \\
+Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSuccess & $\sim$ 60 KB \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Distribución de componentes cargados de forma diferida por módulo.
+\textit{Nota.} Detalla la distribución de componentes cargados de forma diferida.
 \end{table}
 
-\textbf{Resultado:} el \textit{First Contentful Paint} (FCP) se redujo de 3.8 segundos a 1.1 segundos (mejora del 71\%).
+\begin{figure}[hbt!]
+\caption{Comparativa de First Contentful Paint antes y después de la optimización}
+\label{fig:comparativa_fcp}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 19]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Gráfico comparativo que muestra la reducción del FCP de 3.8 segundos a 1.1 segundos.
+\end{figure}
 
 \subsubsection{2.3.2. Backend y base de datos: asyncpg e indexación}
 
-Se adoptó el driver nativo \texttt{asyncpg} con SQLAlchemy 2.0 Async, permitiendo a FastAPI atender múltiples peticiones concurrentes sin bloquear el hilo principal. El throughput incrementó a más de 800 peticiones por segundo.
-
 \begin{table}[hbt!]
 \caption{Campos indexados en el sistema}
-\label{tab:indices_bd}
-\begin{tabular}{@{}p{3cm} p{3cm} p{3cm} p{6cm}@{}}
+\label{tab:indices_bd_v2}
+\begin{tabular}{@{}p{3cm} p{3.5cm} p{3.5cm} p{5cm}@{}}
 \toprule
 \textbf{Tabla} & \textbf{Campo} & \textbf{Tipo de índice} & \textbf{Uso principal} \\
 \midrule
-\texttt{users} & correo & UNIQUE & Login y registro \\
-\texttt{spaces} & codigo & UNIQUE & Búsqueda por nombre de cajón \\
-\texttt{reservations} & codigo\_reserva & UNIQUE & Búsqueda de reserva en garita \\
-\texttt{vehicle\_logs} & placa & B-Tree & Búsqueda rápida por placa \\
+users & correo & UNIQUE & Login y registro \\
+spaces & codigo & UNIQUE & Búsqueda de cajón \\
+reservations & codigo\_reserva & UNIQUE & Búsqueda en garita \\
+reservations & usuario\_id & B-Tree FK & Listado por conductor \\
+reservations & espacio\_id & B-Tree FK & Verificación de disponibilidad \\
+vehicle\_logs & placa & B-Tree & Búsqueda por placa \\
+vehicle\_logs & reserva\_id & B-Tree FK & Join reservations \\
+vehicle\_logs & espacio\_id & B-Tree FK & Historial por espacio \\
+payments & vehicle\_log\_id & B-Tree FK & Asociación pago-registro \\
+payments & reserva\_id & B-Tree FK & Asociación pago-reserva \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Muestra una selección de los 10 índices B-Tree creados para reducir la latencia.
+\textit{Nota.} Enumera los diez índices creados sobre columnas de mayor frecuencia.
 \end{table}
+
+\begin{table}[hbt!]
+\caption{Métricas de optimización y benchmarks}
+\label{tab:metricas_optimizacion}
+\begin{tabular}{@{}p{5cm} p{3cm} p{3cm} p{4cm}@{}}
+\toprule
+\textbf{Indicador} & \textbf{Valor base} & \textbf{Valor opt.} & \textbf{Mejora} \\
+\midrule
+First Contentful Paint (FCP) & 3.8 s & 1.1 s & 71\% más rápido \\
+Latencia /spaces/availability & 280 ms & 42 ms & 85\% de reducción \\
+Tiempo de cálculo de checkout & 190 ms & 18 ms & 90\% de reducción \\
+Consumo de RAM en reposo & 180 MB & 78 MB & 56\% más liviano \\
+Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza las métricas de rendimiento antes y después.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
+\label{fig:arquitectura_indexacion}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 20]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree.
+\end{figure}
+
+\begin{figure}[hbt!]
+\caption{Comparativa de throughput del servidor antes y después de la optimización}
+\label{fig:comparativa_throughput}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 21]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Gráfico de barras que compara el throughput del servidor.
+\end{figure}
 
 \subsection{2.4. PRUEBAS DE USUARIO (UAT)}
 
-Las pruebas se ejecutaron en un entorno controlado simulando los roles: Administrador, Trabajador de garita y Conductor. 
+\begin{table}[hbt!]
+\caption{Parámetros de ejecución de las pruebas de usuario}
+\label{tab:parametros_uat}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Detalle} \\
+\midrule
+Fecha de ejecución & Agosto del 2026 \\
+Lugar & Sede ParkSys Central — Ayacucho \\
+Participantes & Tres usuarios (un administrador, un trabajador y un conductor) \\
+Dispositivos empleados & PC de escritorio (garita), laptop (admin), smartphone Android \\
+Entorno de prueba & Producción (Railway), conectado a PostgreSQL remoto \\
+Metodología aplicada & Observación directa, cuestionario post-uso y registro de incidencias \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe las condiciones de ejecución de las pruebas.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
+\label{fig:evidencia_uat}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 22]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Registra el momento de la ejecución de las pruebas con usuarios operando el sistema.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Escenarios de prueba — Rol Conductor}
+\label{tab:uat_conductor}
+\begin{tabular}{@{}p{0.5cm} p{4.5cm} p{4.5cm} p{1.5cm} p{4cm}@{}}
+\toprule
+\textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
+\midrule
+1 & Registro correo/pass & Cuenta creada e inicio & Cumplido & 45 segundos \\
+2 & Agregar vehículo & Listado en "Mis Vehículos" & Cumplido & Sin dificultad \\
+3 & Crear reserva mapa 2D & Código y cajón en ámbar & Cumplido & Muy intuitivo \\
+4 & Consultar estado & Estado "pendiente" & Cumplido & - \\
+5 & Cancelar reserva & Estado "cancelada" & Cumplido & Sugirió confirmación UI \\
+6 & Pagar Stripe online & Checkout exitoso/recibo & Cumplido & Redirect de 3 seg \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla las tareas ejecutadas por el conductor.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Escenarios de prueba — Rol Trabajador de Garita}
+\label{tab:uat_trabajador}
+\begin{tabular}{@{}p{0.5cm} p{4cm} p{4cm} p{1.5cm} p{4.5cm}@{}}
+\toprule
+\textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
+\midrule
+1 & Iniciar sesión panel & Mapa en tiempo real & Cumplido & Carga en 1.2s \\
+2 & Ingreso walk-in & Espacio/hora registrada & Cumplido & $<$ 10 seg \\
+3 & Dar salida (checkout) & Monto mostrado, PDF & Cumplido & PDF automático \\
+4 & Verificación mapa WS & Espacio cambia color auto & Cumplido & $<$ 200 ms via WebSocket \\
+5 & Buscar por placa & Resultado rápido & Cumplido & 40 ms indexado \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe las tareas del trabajador de garita.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Escenarios de prueba — Rol Administrador}
+\label{tab:uat_admin}
+\begin{tabular}{@{}p{0.5cm} p{4cm} p{4cm} p{1.5cm} p{4.5cm}@{}}
+\toprule
+\textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
+\midrule
+1 & Acceder dashboard KPIs & Indicadores visibles & Cumplido & Vista consolidada OK \\
+2 & Gestionar espacios & CRUD cajones & Cumplido & - \\
+3 & Gestionar personal & CRUD trabajadores & Cumplido & - \\
+4 & Configurar tarifas & Tarifas reflejadas & Cumplido & Verificó cobro moto \\
+5 & Reportes financieros & Filtrados por fechas & Cumplido & - \\
+6 & Revisar auditoría & Registro temporal OK & Cumplido & - \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla las tareas administrativas del administrador.
+\end{table}
 
 \begin{table}[hbt!]
 \caption{Resultados consolidados de las pruebas de usuario}
-\label{tab:resultados_uat}
+\label{tab:resultados_uat_v2}
 \begin{tabular}{@{}p{8cm} p{7cm}@{}}
 \toprule
 \textbf{Métrica} & \textbf{Resultado} \\
 \midrule
-Tasa de completitud de tareas & 100\% (17 de 17 tareas) \\
+Tasa de completitud de tareas & 100\% (17 de 17 tareas completadas) \\
 Errores críticos durante pruebas & 0 \\
-Errores menores (sugerencias UX) & 2 (Diálogo de confirmación, Auto-mayúsculas) \\
-Satisfacción general (1 a 5) & 4.7 \\
+Errores menores (sugerencias UX) & 2 (Confirmación cancelación, auto-mayúsculas) \\
+Satisfacción general (escala 1-5) & 4.7 \\
+Tiempo promedio aprendizaje & Menos de 3 minutos por rol \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Sintetiza los indicadores cuantitativos obtenidos en las pruebas UAT.
+\textit{Nota.} Sintetiza los indicadores cuantitativos de UAT.
 \end{table}
 
 \subsection{2.5. DOCUMENTACIÓN TÉCNICA Y MANUAL DE USUARIO}
 
-\subsubsection{2.5.1. Documentación Técnica}
-
-El repositorio aloja documentación detallada: \texttt{README.md} (configuración y ejecución), \texttt{CAPITULO\_1.md} y \texttt{CAPITULO\_2\_PRUEBAS.md}. Adicionalmente, FastAPI expone la documentación OpenAPI en \texttt{/docs}.
-
-\subsubsection{2.5.2. Manual de Usuario}
-
-Se redactó un manual por perfiles:
-\begin{itemize}
-    \item \textbf{Conductor:} Registro, adición de vehículo, reserva de cajón y pago online.
-    \item \textbf{Trabajador:} Ingreso por reserva o walk-in, liquidación de checkout y emisión de boleta.
-    \item \textbf{Administrador:} Supervisión de KPIs, edición de mapa 2D, tarifas y auditoría.
-\end{itemize}
-
-\subsection{2.6. DESPLIEGUE DEL SISTEMA}
-
-La plataforma emplea contenedores Docker mediante \texttt{docker-compose.yml} para el entorno local y Railway (PaaS) para producción.
-
 \begin{table}[hbt!]
-\caption{Configuración de despliegue}
-\label{tab:despliegue_config}
-\begin{tabular}{@{}p{3cm} p{12cm}@{}}
+\caption{Documentos técnicos del repositorio}
+\label{tab:documentos_tecnicos}
+\begin{tabular}{@{}p{4cm} p{4cm} p{7.5cm}@{}}
 \toprule
-\textbf{Componente} & \textbf{Configuración en Producción (Railway)} \\
+\textbf{Documento} & \textbf{Ubicación} & \textbf{Contenido} \\
 \midrule
-Backend (FastAPI) & Imagen Docker nativa (\texttt{python:3.11-slim}), comando \texttt{alembic upgrade head \&\& uvicorn ...} \\
-Frontend (Angular) & Node.js, \texttt{ng build --configuration production}, servicio estático de Railway \\
-Base de Datos & PostgreSQL 16 (addon de Railway), copias de seguridad automáticas \\
+README.md & ./README.md & Descripción, stack, instalación \\
+CAPITULO\_1.md & ./CAPITULO\_1.md & Análisis, modelos, arquitectura API \\
+CAPITULO\_2\_PRUEBAS & ./CAP...\_PRUEBAS.md & Unit/Integration/UAT, errores \\
+DESCRIPCION.md & ./DESCRIPCION.md & Requisitos funcionales \\
+.env.example & ./backend/.env... & Plantilla de entorno \\
+pyproject.toml & ./backend/py... & Config pytest asíncrono \\
+docker-compose.yml & ./docker-compose... & Orquestación local (PG + FastAPI) \\
+Dockerfile & ./backend/Docker... & Imagen Python Uvicorn \\
+Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Resume los parámetros de despliegue en producción.
+\textit{Nota.} Enumera artefactos documentales.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Arquitectura del sistema (Resumen técnico de capas)}
+\label{fig:arquitectura_capas}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 23]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Ilustra la disposición en capas del sistema.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Endpoints de la API REST (15 routers registrados)}
+\label{tab:endpoints_api}
+\begin{tabular}{@{}p{3.5cm} p{3.5cm} p{8cm}@{}}
+\toprule
+\textbf{Prefijo} & \textbf{Router} & \textbf{Descripción} \\
+\midrule
+/api/v1/auth & auth.py & Login, registro, token refresh, OAuth \\
+/api/v1/spaces & spaces.py & CRUD cajones, 2D mapa \\
+/api/v1/reservations & reservations.py & Reservas, cancelación \\
+/api/v1/vehicles & vehicles.py & Walk-in, checkout \\
+/api/v1/payments & payments.py & Stripe checkout, transacciones \\
+/api/v1/reviews & reviews.py & Reseñas conductores \\
+/api/v1/notifications & notifications.py & Alertas, mensajes \\
+/api/v1/reports & reports.py & Reportes PDF (ReportLab) \\
+/api/v1/settings & settings.py & Tarifas, horarios, tolerancias \\
+/api/v1/workers & workers.py & Personal garita \\
+/api/v1/history & history.py & Historial log vehicular \\
+/api/v1/terms & terms.py & Términos legales \\
+/api/v1/audit & audit.py & Bitácora inmutable \\
+/api/v1/users & users.py & CRUD perfiles \\
+/api/v1/ws & websockets.py & Real-time WebSockets \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Conjunto de controladores REST de la API.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Modelos de base de datos referenciados en la documentación}
+\label{tab:modelos_bd}
+\begin{tabular}{@{}p{3cm} p{3cm} p{9cm}@{}}
+\toprule
+\textbf{Modelo} & \textbf{Tabla} & \textbf{Campos principales} \\
+\midrule
+User & users & id, nombre, correo, password\_hash, rol \\
+Space & spaces & id, codigo, tipo\_vehiculo, estado, reservable... \\
+Reservation & reservations & id, usuario\_id, espacio\_id, placa, estado \\
+VehicleLog & vehicle\_logs & id, placa, ingreso, salida \\
+Payment & payments & id, vehicle\_log\_id, monto, estado \\
+Rate & rates & id, tipo\_vehiculo, precio\_hora \\
+ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Referencia rápida de ORMs.
+\end{table}
+
+\subsubsection{2.5.2. Manual de Usuario (Dirigido al Usuario Final)}
+
+\begin{table}[hbt!]
+\caption{Manual del Conductor}
+\label{tab:manual_conductor_v2}
+\begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
+\toprule
+\textbf{Paso} & \textbf{Acción} & \textbf{Pantalla} \\
+\midrule
+1 & Ingresar a la URL del sistema web & Landing Page \\
+2 & Pulsar "Registrarse" y completar formulario & Registro \\
+3 & Iniciar sesión con correo y contraseña & Login \\
+4 & Ingresar a "Mis Vehículos" y agregar & Vehículos \\
+5 & Ingresar a "Nueva Reserva" y seleccionar cajón 2D & Mapa 2D \\
+6 & Fijar fecha/hora y reservar & Reserva \\
+7 & Anotar código alfanumérico & Confirmación \\
+8 & Consultar estado en "Mis Reservas" & Listado \\
+9 & Pago Stripe online / Efectivo & Pago \\
+10 & Descargar comprobante PDF & Historial \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Procedimiento paso a paso para el conductor.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Manual del Trabajador de Garita}
+\label{tab:manual_trabajador_v2}
+\begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
+\toprule
+\textbf{Paso} & \textbf{Acción} & \textbf{Pantalla} \\
+\midrule
+1 & Iniciar sesión & Login \\
+2 & Visualizar panel en tiempo real & Panel Garita \\
+3 & Ingreso con reserva (validar código 8 dígitos) & Búsqueda \\
+4 & Ingreso walk-in (digitar placa, auto-asignar) & Form walk-in \\
+5 & Dar salida por placa (Checkout autom.) & Checkout \\
+6 & Registrar pago (efectivo/tarjeta) & Registro pago \\
+7 & Comprobante PDF entregado & Comprobante \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Operativa en garita.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Manual del Administrador}
+\label{tab:manual_admin_v2}
+\begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
+\toprule
+\textbf{Paso} & \textbf{Acción} & \textbf{Pantalla} \\
+\midrule
+1 & Iniciar sesión admin & Login \\
+2 & Visualizar KPIs en tiempo real & Dashboard \\
+3 & CRUD de cajones & Gestor espacios \\
+4 & CRUD personal trabajador & Personal \\
+5 & Tarifas, horarios, tolerancias & Configuración \\
+6 & Reportes PDF de caja & Finanzas \\
+7 & Auditoría temporal de eventos & Auditoría \\
+8 & Listado clientes & Clientes \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Funciones administrativas.
+\end{table}
+
+\subsection{2.6. DESPLIEGUE DEL SISTEMA}
+
+\begin{figure}[hbt!]
+\caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
+\label{fig:arquitectura_despliegue}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 24]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Ilustra la disposición de los servicios en producción y local.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Configuración del servicio de base de datos (entorno local)}
+\label{tab:config_bd_local}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Imagen & postgres:16-alpine \\
+Base de datos & parksys \\
+Puerto expuesto & 5432 \\
+Volumen persistente & postgres\_data \\
+Healthcheck & pg\_isready, cada 5 segundos, 5 reintentos \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Contenedor PostgreSQL local.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Configuración del servicio backend (entorno local)}
+\label{tab:config_backend_local}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Build & ./backend/Dockerfile \\
+Imagen base & python:3.11-slim \\
+Puerto & 8000 \\
+Dependencia & Espera healthcheck PostgreSQL \\
+Comando & alembic upgrade head \&\& uvicorn app.main:app \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Contenedor FastAPI local.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Criterios de selección de la plataforma de despliegue (Railway)}
+\label{tab:criterios_railway}
+\begin{tabular}{@{}p{3.5cm} p{12cm}@{}}
+\toprule
+\textbf{Criterio} & \textbf{Justificación} \\
+\midrule
+Costo & Capa gratuita MVP \\
+Facilidad & CI/CD automático con GitHub Webhook \\
+PostgreSQL & Soporte nativo manejado con backups \\
+Docker & Soporte nativo de Dockerfile \\
+Certificados & HTTPS automático let's encrypt \\
+Variables entorno & Panel unificado amigable \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Justifica Railway como PaaS productivo.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Configuración del backend en Railway}
+\label{tab:config_railway_backend}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Directorio raíz & /backend \\
+Comando Build & pip install -r requirements.txt \\
+Comando Inicio & alembic upgrade head \&\& uvicorn ... --port \$PORT \\
+Uso Dockerfile & Sí \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Backend productivo.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Configuración del frontend en Railway}
+\label{tab:config_railway_frontend}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Directorio raíz & /frontend \\
+Comando Build & npm install \&\& ng build --configuration production \\
+Dir de salida & dist/frontend/browser \\
+Tipo de servicio & Sitio estático SPA \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Frontend productivo SPA.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
+\label{fig:pipeline_cicd}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 25]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Ilustra la secuencia desde GitHub hasta producción automática.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Variables de entorno configuradas en el entorno de producción}
+\label{tab:env_produccion}
+\begin{tabular}{@{}p{6cm} p{9cm}@{}}
+\toprule
+\textbf{Variable} & \textbf{Descripción} \\
+\midrule
+DATABASE\_URL & Conexión PG (Railway inject) \\
+JWT\_SECRET & Firma HS256 JWT \\
+STRIPE\_SECRET\_KEY & Pasarela de pagos secreta \\
+ALLOWED\_ORIGINS & Dominios CORS permitidos \\
+SMTP\_USER & Credenciales correo alertas \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza el .env productivo.
 \end{table}
 
 \subsection{2.7. ENTREGA Y PUESTA EN MARCHA}
 
-La entrega formal se verificó mediante un checklist que acreditó el 100\% de operatividad del frontend, backend, migración de base de datos, generación de PDFs, pasarela Stripe y documentación. Se elaboró un Plan de Contingencia y el cliente firmó el \textbf{Acta de Aceptación Final} sin observaciones técnicas.
+\begin{table}[hbt!]
+\caption{Checklist de entregables del proyecto ParkSys}
+\label{tab:checklist_entregables}
+\begin{tabular}{@{}p{1cm} p{4cm} p{7cm} p{2cm}@{}}
+\toprule
+\textbf{N.°} & \textbf{Entregable} & \textbf{Descripción} & \textbf{Estado} \\
+\midrule
+1 & Código fuente & Repositorio Git completo & Entregado \\
+2 & Base de datos & PG 16 migrado + seed & Entregado \\
+3 & Backend desplegado & FastAPI activo en Railway & Operativo \\
+4 & Frontend desplegado & Angular 18 activo & Operativo \\
+5 & Documentación & Manuales técnicos MD & Entregado \\
+6 & Manual Usuario & Manuales por perfil & Entregado \\
+7 & Seed Data & seed.py ejecutado & Ejecutado \\
+8 & Credenciales & Cuentas admin/trab/cond & Entregado \\
+9 & Suite de pruebas & 48 automatizadas (100\% ok) & Entregado \\
+10 & Docker local & Config docker-compose & Entregado \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Consolida el estado de cumplimiento entregables.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Fases del procedimiento de puesta en marcha}
+\label{tab:fases_puesta_marcha}
+\begin{tabular}{@{}p{0.5cm} p{9.5cm} p{2cm} p{2cm}@{}}
+\toprule
+\textbf{Fase} & \textbf{Actividad} & \textbf{Respon.} & \textbf{Estado} \\
+\midrule
+1 & Verificación infraestructura red garita & Técnico & Cumplido \\
+2 & Despliegue producción Railway & Dev & Cumplido \\
+3 & Migración DDL alembic & Dev & Cumplido \\
+4 & Carga inicial seed.py & Dev & Cumplido \\
+5 & Configuración tarifas/tolerancia admin & Admin & Cumplido \\
+6 & Diseño mapa 2D interactivo & Admin & Cumplido \\
+7 & Capacitación de garita (walk-in/checkout) & Dev/Trabaj & Cumplido \\
+8 & Prueba completa real E2E & Todos & Cumplido \\
+9 & Acta Aceptación & Admin & Cumplido \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe las 9 fases de puesta en marcha operativa.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
+\label{fig:diagrama_puesta_marcha}
+\vspace{2cm}
+\begin{center}
+\textit{[Espacio reservado para la Figura 26]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Ilustra la secuencia cronológica de puesta en marcha.
+\end{figure}
+
+\begin{table}[hbt!]
+\caption{Plan de contingencia post-entrega}
+\label{tab:plan_contingencia}
+\begin{tabular}{@{}p{4cm} p{8cm} p{3cm}@{}}
+\toprule
+\textbf{Riesgo} & \textbf{Acción} & \textbf{Responsable} \\
+\midrule
+Caída servidor Railway & Auto-restart; o levantar Docker local. & Dev \\
+Pérdida internet garita & Log manual temporal (libreta), sync posterior. & Trabajador \\
+Error Base de datos & Restaurar backup diario Railway automático. & Dev \\
+Bug productivo & Hotfix git push $\rightarrow$ auto-deploy. & Dev \\
+Aumento de tráfico & Scale up de memoria/CPU en Railway panel. & Dev \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Acciones previstas ante escenarios operativos.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Acta de aceptación final del proyecto ParkSys}
+\label{tab:acta_aceptacion}
+\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Detalle} \\
+\midrule
+Proyecto & ParkSys — Sistema de Gestión Estacionamiento \\
+Cliente & Estacionamiento Central — Ayacucho \\
+Fecha entrega & Agosto 2026 \\
+Equipo & Aspur Yaranga, Condori Cotaquispe \\
+Módulos entregados & Conductor, Garita, Admin, Stripe, WS, PDF, Aud \\
+Pruebas ejecutadas & 48 automatizadas, 17 tareas reales \\
+Tasa de éxito & 100\% ok \\
+Conformidad & Aceptado sin observaciones \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Documenta formalmente la conformidad del cliente.
+\end{table}

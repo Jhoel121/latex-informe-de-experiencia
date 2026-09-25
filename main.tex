@@ -19,12 +19,17 @@
 % Sangría de 1.27 cm (0.5 pulgadas) en la primera línea de cada párrafo
 \setlength{\parindent}{0.5in}
 
-% Paginación en la esquina superior derecha
+% Paginación y encabezados personalizados
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{} % Limpiar encabezados y pies
-\renewcommand{\headrulewidth}{0pt} % Sin línea en el encabezado
-\rhead{\thepage} % Número de página a la derecha
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[L]{\includegraphics[height=1.2cm]{IMAGENES/CARATULA.png}}
+\fancyhead[R]{\small\textbf{ESCUELA DE EDUCACIÓN SUPERIOR TECNOLÓGICA PRIVADA LA}\\\textbf{DIRECCIÓN ACADÉMICA}}
+\fancyfoot[L]{\small Informe Ejecutivo de Experiencias Formativas en Situaciones Reales de Trabajo}
+\fancyfoot[R]{\small pág. \thepage}
+
 
 % ----- CONFIGURACIÓN DE TÍTULOS (JERARQUÍA APA 7) -----
 \usepackage{titlesec}
@@ -74,16 +79,11 @@
 
 % ----- CARÁTULA -----
 \begin{titlepage}
+    \thispagestyle{fancy} % Forzar encabezado y pie en la carátula
     \begin{center}
-        \singlespacing % La portada suele tener un espaciado más controlado, aunque APA dice doble espacio en todo, respetamos el diseño visual solicitado
+        \singlespacing 
         
-        \textbf{ESCUELA DE EDUCACIÓN SUPERIOR TECNOLÓGICA PRIVADA LA PONTIFICIA} \\
-        \vspace{0.2cm}
-        \textbf{DIRECCIÓN ACADÉMICA} \\
-        \vspace{0.2cm}
-        \rule{\textwidth}{1pt} \\
-        \vspace{0.5cm}
-        
+        \vspace*{0.5cm}
         \textbf{ESCUELA DE EDUCACIÓN SUPERIOR TECNOLÓGICA PRIVADA LA PONTIFICIA} \\
         \vspace{0.5cm}
         
@@ -91,9 +91,9 @@
         en la modalidad de Proyecto Productivo y/o Proyecto de Innovación \\
         \vspace{1.5cm}
         
-        % Logo (Placeholder)
-        % \includegraphics[width=5cm]{IMAGENES/logo_elp.png} \\
-        \vspace{2cm}
+        % Logo principal de la carátula
+        \includegraphics[width=8cm]{IMAGENES/CARATULA.png} \\
+        \vspace{1.5cm}
         
         \textbf{Informe Ejecutivo de Experiencias Formativas en Situaciones Reales de Trabajo IV} \\
         \textbf{de la carrera profesional de Ingeniería de Sistemas de Información} \\
