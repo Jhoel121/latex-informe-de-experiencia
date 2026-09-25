@@ -1,6 +1,5 @@
 \section{CAPÍTULO 1: DESARROLLO E IMPLEMENTACIÓN DEL SISTEMA}
 
-\newpage
 \subsection{1.1. DESCRIPCIÓN DEL SISTEMA ELEGIDO}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -80,14 +79,22 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \begin{figure}[hbt!]
 \caption{Diagrama general de la arquitectura del sistema ParkSys}
 \label{fig:arquitectura_general}
-% \includegraphics[width=\textwidth]{IMAGENES/figura_1.png}
+% \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figura_1.png}
 \begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_1.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_1.png}
 \end{center}
 \textit{Nota.} Muestra la relación e interoperabilidad entre el Portal del Conductor, el Módulo de Garita, el Dashboard Administrativo, la API RESTful de FastAPI y la Base de Datos central PostgreSQL.
 \end{figure}
 
-\newpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_2.png}
+\caption{Mapa de módulos del sistema ParkSys}
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Representa gráficamente los cinco módulos funcionales principales de ParkSys y su interacción coordinada con el núcleo transaccional del sistema (ParkSys Core Engine). \par}
+\end{figure}
+
 \subsection{1.2. CONFIGURACIÓN DEL ENTORNO DE DESARROLLO}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -181,7 +188,7 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_3.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
 \caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría. \par}
@@ -265,13 +272,12 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_4.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
 \caption{Arquitectura de contenedores Docker}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml. \par}
 \end{figure}
 
-\newpage
 \subsection{1.3. ESTRUCTURACIÓN DEL PROYECTO Y CONTROL DE VERSIONES}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -323,7 +329,7 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_5.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
 \caption{Árbol de directorios del proyecto ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Se detalla el contenido de la carpeta app/models/, evidenciando los once archivos ORM. \par}
@@ -341,13 +347,12 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_6.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
 \caption{Flujo de control de versiones con Git (ParkSys)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo. \par}
 \end{figure}
 
-\newpage
 \subsection{1.4. DESARROLLO DEL BACKEND}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -409,7 +414,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_7.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
 \caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar. \par}
@@ -417,7 +422,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_8.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
 \caption{Secuencia del procesamiento de pagos mediante Stripe}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona. \par}
@@ -425,7 +430,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_9.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
 \caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra el funcionamiento del ConnectionManager, que distribuye notificaciones push. \par}
@@ -440,7 +445,7 @@ A continuación se presenta el diccionario de datos exhaustivo de las doce tabla
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_10.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
 \caption{Modelo relacional de ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Se presenta el diccionario de datos exhaustivo de las doce tablas. \par}
@@ -728,7 +733,6 @@ fecha & TIMESTAMPTZ & 8 bytes & No & Index & Momento del evento. \\
 \textit{Nota.} Pista de auditoría inalterable.
 \end{table}
 
-\newpage
 \subsection{1.5. DESARROLLO DEL FRONTEND}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -792,13 +796,12 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_11.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
 \caption{Arquitectura de Lazy Loading del frontend}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa la división y carga diferida de los módulos de Angular. \par}
 \end{figure}
 
-\newpage
 \subsection{1.6. INTEGRACIÓN DE MÓDULOS}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -827,13 +830,12 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_12.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
 \caption{Secuencia completa del flujo de reserva}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta. \par}
 \end{figure}
 
-\newpage
 \subsection{1.7. VALIDACIÓN DE DATOS Y MANEJO DE ERRORES}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -868,7 +870,15 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 \textit{Nota.} Enumera los códigos de estado HTTP manejados formalmente por la plataforma y su tratamiento.
 \end{table}
 
-\newpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_13.png}
+\caption{Flujo del manejo de errores}
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Describe la captura y transformación de excepciones desde el backend hasta su despliegue mediante componentes emergentes MatSnackBar en el frontend. \par}
+\end{figure}
+
 \subsection{1.8. IMPLEMENTACIÓN DE LA SEGURIDAD Y AUTENTICACIÓN}
 
 % [INSERTAR TEXTO AQUÍ]
@@ -893,6 +903,15 @@ conductor & Acceso de autoservicio: exploración de mapa, apartado de cajones, p
 \end{table}
 
 \begin{table}[hbt!]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_15.png}
+\caption{Esquema de capas de seguridad del sistema ParkSys}
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Resume las cuatro capas concéntricas de protección implementadas, desde el perímetro de red hasta el almacenamiento seguro de datos. \par}
+\end{figure}
+
 \caption{Cuadro resumen de las capas de seguridad implementadas}
 \label{tab:seguridad_capas}
 \begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
@@ -914,7 +933,7 @@ Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{a
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_14.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
 \caption{Flujo completo de autenticación y autorización}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos. \par}

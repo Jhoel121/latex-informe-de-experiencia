@@ -1,12 +1,10 @@
 \section{CAPÍTULO 2: PRUEBAS, OPTIMIZACIÓN Y DESPLIEGUE}
 
-\newpage
 \subsection{2.1. PRUEBAS UNITARIAS, DE INTEGRACIÓN Y DE ACEPTACIÓN}
 
 
 
 
-\newpage
 \subsubsection{Estrategia general de pruebas}
 
 
@@ -16,13 +14,12 @@ Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Imple
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_16.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_16.png}
 \caption{Pirámide de pruebas de software aplicada a ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa los tres niveles de la pirámide de pruebas —pruebas unitarias en la base, pruebas de integración en el nivel intermedio y pruebas de aceptación (UAT) en la cúspide— aplicados sobre los módulos billing.py, security.py, schemas.py, la API REST, SQLAlchemy, PostgreSQL y WebSockets. \par}
 \end{figure}
 
-\newpage
 \subsubsection{Herramientas y tecnologías utilizadas}
 
 
@@ -50,7 +47,6 @@ RxJS & 7.x & Pruebas de flujos reactivos (WebSocket, Observables) & Frontend \\
 \textit{Nota.} Enumera las herramientas de prueba utilizadas en cada capa del sistema, con su versión y propósito técnico.
 \end{table}
 
-\newpage
 \subsubsection{Cuadros consolidados de evaluación endpoint por endpoint}
 
 
@@ -116,7 +112,6 @@ Pasarela & Error & Stripe API & HTTP 400 por $<$ S/ 2.00. & Derivación a efecti
 \textit{Nota.} Sintetiza los hallazgos y mejoras de rendimiento y estabilidad a nivel de sistema completo.
 \end{table}
 
-\newpage
 \subsubsection{2.1.1. Pruebas unitarias (Unit Testing)}
 
 
@@ -175,7 +170,6 @@ UT-25 a UT-30 & schemas.py & Datos válidos/inválidos & ValidationError o ok & 
 \textit{Nota.} Resume la matriz completa de 30 pruebas unitarias.
 \end{table}
 
-\newpage
 \subsubsection{2.1.2. Pruebas de integración (Integration Testing)}
 
 
@@ -212,7 +206,6 @@ IT-09, 10 & Bitácora vehicle\_logs & Ingreso/salida walk-in & Log persistido co
 \textit{Nota.} Resume la matriz completa de 12 pruebas de integración.
 \end{table}
 
-\newpage
 \subsubsection{2.1.3. Pruebas de aceptación (UAT)}
 
 Diseñadas bajo el formato formal Gherkin (Dado / Cuando / Entonces), simulando los flujos completos que los usuarios ejecutarían en producción en el local ParkSys Central Ayacucho. Se ejecutaron 6 pruebas de aceptación.
@@ -264,13 +257,12 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_17.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_17.png}
 \caption{Resumen del total de pruebas ejecutadas por nivel}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico de barras que muestra la distribución de las 48 pruebas automatizadas ejecutadas (30 unitarias, 12 de integración y 6 de aceptación), con una tasa de éxito del 100 por ciento en todas ellas. \par}
 \end{figure}
 
-\newpage
 \subsection{2.2. REPORTE DE ERRORES}
 
 Durante las etapas de desarrollo, integración y despliegue del sistema se registraron incidencias técnicas que fueron debidamente categorizadas, diagnosticadas y subsanadas. Cada error fue documentado con su identificador, componente afectado, descripción detallada de la falla, nivel de impacto, causa raíz técnica y la solución aplicada.
@@ -298,7 +290,7 @@ ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_18.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_18.png}
 \caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Diagrama de flujo que ilustra el proceso seguido para cada incidencia. \par}
@@ -320,7 +312,6 @@ Bajo (mejoras de UX sin bloqueo) & 2 & Hallazgos UAT en sección 2.4 \\
 \textit{Nota.} Clasifica los errores documentados según su severidad.
 \end{table}
 
-\newpage
 \subsection{2.3. OPTIMIZACIÓN DEL RENDIMIENTO}
 
 Para asegurar que ParkSys mantenga tiempos de respuesta mínimos bajo condiciones de alta concurrencia en horas punta, se ejecutaron optimizaciones de ingeniería en dos capas: Frontend y Backend.
@@ -328,7 +319,6 @@ Para asegurar que ParkSys mantenga tiempos de respuesta mínimos bajo condicione
 
 
 
-\newpage
 \subsubsection{2.3.1. Frontend: Lazy Loading y Standalone Components}
 
 Angular 18 permite definir cada componente como Standalone (standalone: true), eliminando la necesidad de NgModules tradicionales. ParkSys aprovecha esta capacidad junto con Lazy Loading para reducir drásticamente el peso inicial de la aplicación. Los módulos de administrador, trabajador y conductor se cargan solo cuando el usuario navega a su sección correspondiente mediante \texttt{loadComponent()} en el archivo \texttt{app.routes.ts}.
@@ -354,13 +344,12 @@ Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSucces
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_19.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_19.png}
 \caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico comparativo que muestra la reducción del FCP de 3.8 segundos a 1.1 segundos. \par}
 \end{figure}
 
-\newpage
 \subsubsection{2.3.2. Backend y base de datos: asyncpg e indexación}
 
 \textbf{Driver asíncrono asyncpg}
@@ -434,7 +423,7 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_20.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_20.png}
 \caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree. \par}
@@ -442,13 +431,12 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_21.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_21.png}
 \caption{Comparativa de throughput del servidor antes y después de la optimización}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico de barras que compara el throughput del servidor. \par}
 \end{figure}
 
-\newpage
 \subsection{2.4. PRUEBAS DE USUARIO (UAT)}
 
 Las pruebas de usuario se ejecutaron en un entorno controlado con usuarios reales representando los tres roles del sistema: Administrador, Trabajador de garita y Conductor. El objetivo fue validar que los flujos de trabajo del sistema se ejecutaran de manera intuitiva, eficiente y libre de errores desde la perspectiva del usuario final, y no exclusivamente desde la del desarrollador.
@@ -477,7 +465,7 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_22.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_22.png}
 \caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Registra el momento de la ejecución de las pruebas con usuarios operando el sistema. \par}
@@ -557,10 +545,8 @@ Tiempo promedio aprendizaje & Menos de 3 minutos por rol \\
 \textit{Nota.} Sintetiza los indicadores cuantitativos de UAT.
 \end{table}
 
-\newpage
 \subsection{2.5. DOCUMENTACIÓN TÉCNICA Y MANUAL DE USUARIO}
 
-\newpage
 \subsubsection{2.5.1. Documentación Técnica (Dirigida al Desarrollador)}
 
 La documentación técnica de ParkSys se encuentra distribuida en los siguientes artefactos del repositorio del proyecto:
@@ -592,7 +578,7 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_23.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_23.png}
 \caption{Arquitectura del sistema (Resumen técnico de capas)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la disposición en capas del sistema: el frontend en Angular 18 con sus tres módulos por rol, el backend en FastAPI con los routers, la capa de servicios y el ORM asíncrono, y la base de datos PostgreSQL 16 con sus índices B-Tree. \par}
@@ -646,7 +632,6 @@ ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 \textit{Nota.} Referencia rápida de ORMs.
 \end{table}
 
-\newpage
 \subsubsection{2.5.2. Manual de Usuario (Dirigido al Usuario Final)}
 
 El manual de usuario fue diseñado para los tres perfiles del sistema, con instrucciones secuenciales para cada flujo de trabajo principal.
@@ -715,7 +700,6 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 \textit{Nota.} Funciones administrativas.
 \end{table}
 
-\newpage
 \subsection{2.6. DESPLIEGUE DEL SISTEMA}
 
 
@@ -723,7 +707,7 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_24.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la disposición de los servicios en producción y local. \par}
@@ -820,7 +804,7 @@ Tipo de servicio & Sitio estático SPA \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_25.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
 \caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la secuencia desde GitHub hasta producción automática. \par}
@@ -844,7 +828,6 @@ SMTP\_USER & Credenciales correo alertas \\
 \textit{Nota.} Sintetiza el .env productivo.
 \end{table}
 
-\newpage
 \subsection{2.7. ENTREGA Y PUESTA EN MARCHA}
 
 
@@ -897,7 +880,7 @@ SMTP\_USER & Credenciales correo alertas \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_26.png}
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}
 \caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la secuencia cronológica de puesta en marcha. \par}
