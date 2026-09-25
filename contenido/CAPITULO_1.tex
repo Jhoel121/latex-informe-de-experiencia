@@ -179,13 +179,12 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 \textit{Nota.} Consolida las doce tablas del sistema, precisando su archivo ORM de origen y el bloque funcional al que pertenecen.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_3.png}
 \caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
-\label{fig:der}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
-\end{center}
-\textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría. \par}
 \end{figure}
 
 \begin{table}[hbt!]
@@ -264,13 +263,12 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
     \item \textbf{Gestor de Contenedores:} Docker Desktop con Docker Compose v2.
 \end{itemize}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_4.png}
 \caption{Arquitectura de contenedores Docker}
-\label{fig:docker}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
-\end{center}
-\textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml. \par}
 \end{figure}
 
 \newpage
@@ -323,13 +321,12 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \textit{Nota.} Describe la organización modular por características implementada en el cliente web Angular.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_5.png}
 \caption{Árbol de directorios del proyecto ParkSys}
-\label{fig:directorios}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
-\end{center}
-\textit{Nota.} Se detalla el contenido de la carpeta app/models/, evidenciando los once archivos ORM.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Se detalla el contenido de la carpeta app/models/, evidenciando los once archivos ORM. \par}
 \end{figure}
 
 \subsubsection{Control de versiones con Git}
@@ -342,13 +339,12 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
     \item \textbf{Commits Granulares:} registro estandarizado de cambios detallando mejoras de interfaz, reglas de negocio y migraciones de datos.
 \end{itemize}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_6.png}
 \caption{Flujo de control de versiones con Git (ParkSys)}
-\label{fig:git_flow}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
-\end{center}
-\textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo. \par}
 \end{figure}
 
 \newpage
@@ -411,31 +407,28 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \textit{Nota.} Resume el framework, ORM y herramientas del backend.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_7.png}
 \caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
-\label{fig:billing}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
-\end{center}
-\textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar. \par}
 \end{figure}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_8.png}
 \caption{Secuencia del procesamiento de pagos mediante Stripe}
-\label{fig:stripe}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
-\end{center}
-\textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona. \par}
 \end{figure}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_9.png}
 \caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
-\label{fig:websockets}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
-\end{center}
-\textit{Nota.} Ilustra el funcionamiento del ConnectionManager, que distribuye notificaciones push.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Ilustra el funcionamiento del ConnectionManager, que distribuye notificaciones push. \par}
 \end{figure}
 
 \subsubsection{Diccionario de datos completo de la base de datos (12 tablas)}
@@ -445,13 +438,12 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 A continuación se presenta el diccionario de datos exhaustivo de las doce tablas del modelo relacional de ParkSys.
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_10.png}
 \caption{Modelo relacional de ParkSys}
-\label{fig:modelo_relacional}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
-\end{center}
-\textit{Nota.} Se presenta el diccionario de datos exhaustivo de las doce tablas.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Se presenta el diccionario de datos exhaustivo de las doce tablas. \par}
 \end{figure}
 
 \paragraph{BLOQUE A: NÚCLEO TRANSACCIONAL OPERATIVO (TABLAS 1 A 6)}
@@ -798,13 +790,12 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 \textit{Nota.} Compara la complementariedad técnica entre RxJS y Angular Signals.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_11.png}
 \caption{Arquitectura de Lazy Loading del frontend}
-\label{fig:lazy_loading}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
-\end{center}
-\textit{Nota.} Representa la división y carga diferida de los módulos de Angular.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Representa la división y carga diferida de los módulos de Angular. \par}
 \end{figure}
 
 \newpage
@@ -834,13 +825,12 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 \textit{Nota.} Detalla paso a paso la coreografía entre el cliente web, la API RESTful y el motor de base de datos.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_12.png}
 \caption{Secuencia completa del flujo de reserva}
-\label{fig:flujo_reserva_secuencia}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
-\end{center}
-\textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta. \par}
 \end{figure}
 
 \newpage
@@ -922,11 +912,10 @@ Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{a
 \textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
 \end{table}
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{IMAGENES/figuras/figura_14.png}
 \caption{Flujo completo de autenticación y autorización}
-\label{fig:flujo_auth}
-\begin{center}
-\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
-\end{center}
-\textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos. \par}
 \end{figure}
