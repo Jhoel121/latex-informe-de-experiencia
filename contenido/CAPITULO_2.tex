@@ -13,9 +13,9 @@
 Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Implementación de Pruebas de Software), el aseguramiento de la calidad de ParkSys se ejecutó bajo la metodología de la Pirámide de Pruebas de Software, segmentando la verificación en tres niveles formales. La estrategia adoptada consistió en realizar una auditoría endpoint por endpoint tanto en el Backend (API REST con FastAPI) como en el Frontend (Angular 18), registrando para cada funcionalidad la tecnología utilizada, los errores detectados en la primera versión, las correcciones aplicadas en la segunda versión y las recomendaciones pendientes para futuras iteraciones.
 
 \begin{figure}[H]
+\caption{Pirámide de pruebas de software aplicada a ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_16.png}
-\caption{Pirámide de pruebas de software aplicada a ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa los tres niveles de la pirámide de pruebas —pruebas unitarias en la base, pruebas de integración en el nivel intermedio y pruebas de aceptación (UAT) en la cúspide— aplicados sobre los módulos billing.py, security.py, schemas.py, la API REST, SQLAlchemy, PostgreSQL y WebSockets. \par}
 \end{figure}
@@ -256,9 +256,9 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 \end{table}
 
 \begin{figure}[H]
+\caption{Resumen del total de pruebas ejecutadas por nivel}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_17.png}
-\caption{Resumen del total de pruebas ejecutadas por nivel}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico de barras que muestra la distribución de las 48 pruebas automatizadas ejecutadas (30 unitarias, 12 de integración y 6 de aceptación), con una tasa de éxito del 100 por ciento en todas ellas. \par}
 \end{figure}
@@ -289,9 +289,9 @@ ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_
 \end{table}
 
 \begin{figure}[H]
+\caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_18.png}
-\caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Diagrama de flujo que ilustra el proceso seguido para cada incidencia. \par}
 \end{figure}
@@ -343,9 +343,9 @@ Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSucces
 \end{table}
 
 \begin{figure}[H]
+\caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_19.png}
-\caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico comparativo que muestra la reducción del FCP de 3.8 segundos a 1.1 segundos. \par}
 \end{figure}
@@ -422,17 +422,17 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \end{table}
 
 \begin{figure}[H]
+\caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_20.png}
-\caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree. \par}
 \end{figure}
 
 \begin{figure}[H]
+\caption{Comparativa de throughput del servidor antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_21.png}
-\caption{Comparativa de throughput del servidor antes y después de la optimización}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Gráfico de barras que compara el throughput del servidor. \par}
 \end{figure}
@@ -464,9 +464,9 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \end{table}
 
 \begin{figure}[H]
+\caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_22.png}
-\caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Registra el momento de la ejecución de las pruebas con usuarios operando el sistema. \par}
 \end{figure}
@@ -577,9 +577,9 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \end{table}
 
 \begin{figure}[H]
+\caption{Arquitectura del sistema (Resumen técnico de capas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_23.png}
-\caption{Arquitectura del sistema (Resumen técnico de capas)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la disposición en capas del sistema: el frontend en Angular 18 con sus tres módulos por rol, el backend en FastAPI con los routers, la capa de servicios y el ORM asíncrono, y la base de datos PostgreSQL 16 con sus índices B-Tree. \par}
 \end{figure}
@@ -706,9 +706,9 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 
 
 \begin{figure}[H]
+\caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
-\caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la disposición de los servicios en producción y local. \par}
 \end{figure}
@@ -803,9 +803,9 @@ Tipo de servicio & Sitio estático SPA \\
 \end{table}
 
 \begin{figure}[H]
+\caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
-\caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la secuencia desde GitHub hasta producción automática. \par}
 \end{figure}
@@ -879,9 +879,9 @@ SMTP\_USER & Credenciales correo alertas \\
 \end{table}
 
 \begin{figure}[H]
+\caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}
-\caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra la secuencia cronológica de puesta en marcha. \par}
 \end{figure}

@@ -88,9 +88,9 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 
 
 \begin{figure}[H]
+\caption{Mapa de módulos del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_2.png}
-\caption{Mapa de módulos del sistema ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa gráficamente los cinco módulos funcionales principales de ParkSys y su interacción coordinada con el núcleo transaccional del sistema (ParkSys Core Engine). \par}
 \end{figure}
@@ -187,9 +187,9 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 \end{table}
 
 \begin{figure}[H]
+\caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
-\caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría. \par}
 \end{figure}
@@ -271,9 +271,9 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 \end{itemize}
 
 \begin{figure}[H]
+\caption{Arquitectura de contenedores Docker}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
-\caption{Arquitectura de contenedores Docker}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml. \par}
 \end{figure}
@@ -328,9 +328,9 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \end{table}
 
 \begin{figure}[H]
+\caption{Árbol de directorios del proyecto ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
-\caption{Árbol de directorios del proyecto ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Se detalla el contenido de la carpeta app/models/, evidenciando los once archivos ORM. \par}
 \end{figure}
@@ -346,9 +346,9 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \end{itemize}
 
 \begin{figure}[H]
+\caption{Flujo de control de versiones con Git (ParkSys)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
-\caption{Flujo de control de versiones con Git (ParkSys)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo. \par}
 \end{figure}
@@ -413,25 +413,25 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \end{table}
 
 \begin{figure}[H]
+\caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
-\caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar. \par}
 \end{figure}
 
 \begin{figure}[H]
+\caption{Secuencia del procesamiento de pagos mediante Stripe}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
-\caption{Secuencia del procesamiento de pagos mediante Stripe}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona. \par}
 \end{figure}
 
 \begin{figure}[H]
+\caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
-\caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra el funcionamiento del ConnectionManager, que distribuye notificaciones push. \par}
 \end{figure}
@@ -444,9 +444,9 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 A continuación se presenta el diccionario de datos exhaustivo de las doce tablas del modelo relacional de ParkSys.
 
 \begin{figure}[H]
+\caption{Modelo relacional de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
-\caption{Modelo relacional de ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Se presenta el diccionario de datos exhaustivo de las doce tablas. \par}
 \end{figure}
@@ -795,9 +795,9 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 \end{table}
 
 \begin{figure}[H]
+\caption{Arquitectura de Lazy Loading del frontend}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
-\caption{Arquitectura de Lazy Loading del frontend}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Representa la división y carga diferida de los módulos de Angular. \par}
 \end{figure}
@@ -829,9 +829,9 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 \end{table}
 
 \begin{figure}[H]
+\caption{Secuencia completa del flujo de reserva}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
-\caption{Secuencia completa del flujo de reserva}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta. \par}
 \end{figure}
@@ -872,9 +872,9 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 
 
 \begin{figure}[H]
+\caption{Flujo del manejo de errores}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_13.png}
-\caption{Flujo del manejo de errores}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Describe la captura y transformación de excepciones desde el backend hasta su despliegue mediante componentes emergentes MatSnackBar en el frontend. \par}
 \end{figure}
@@ -905,9 +905,9 @@ conductor & Acceso de autoservicio: exploración de mapa, apartado de cajones, p
 \begin{table}[hbt!]
 
 \begin{figure}[H]
+\caption{Esquema de capas de seguridad del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_15.png}
-\caption{Esquema de capas de seguridad del sistema ParkSys}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Resume las cuatro capas concéntricas de protección implementadas, desde el perímetro de red hasta el almacenamiento seguro de datos. \par}
 \end{figure}
@@ -932,9 +932,36 @@ Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{a
 \end{table}
 
 \begin{figure}[H]
+\caption{Flujo completo de autenticación y autorización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
+\vspace{0.2cm}
+{\raggedright \textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos. \par}
+\end{figure}
+
+\caption{Cuadro resumen de las capas de seguridad implementadas}
+\label{tab:seguridad_capas}
+\begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
+\toprule
+\textbf{Capa de seguridad} & \textbf{Mecanismo técnico} & \textbf{Herramienta / Estándar} \\
+\midrule
+Persistencia de Claves & Hashing criptográfico unidireccional con sal & Argon2id (passlib) \\
+Autenticación & Tokens criptográficos sin estado con expiración & JSON Web Tokens (HS256) \\
+Identidad Federada & Verificación asimétrica de tokens de terceros & Google OAuth2 \\
+Autorización (RBAC) & Control de acceso por roles inyectable & \texttt{require\_role()} (FastAPI) \\
+Rutas en Frontend & Guards reactivos de navegación cliente & authGuard y roleGuard \\
+Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitelist, nosniff \\
+Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
+\end{table}
+
+\begin{figure}[H]
 \caption{Flujo completo de autenticación y autorización}
+\centering
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
 \vspace{0.2cm}
 {\raggedright \textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos. \par}
 \end{figure}
