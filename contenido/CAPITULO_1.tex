@@ -38,7 +38,7 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 \begin{table}[hbt!]
 \caption{Usuarios involucrados en el sistema}
 \label{tab:usuarios}
-\begin{tabular}{@{}p{3cm} p{12cm}@{}}
+\begin{tabular}{@{}p{5cm} p{10cm}@{}}
 \toprule
 \textbf{Rol} & \textbf{Funciones principales} \\
 \midrule
@@ -251,7 +251,7 @@ ParkSys sigue la arquitectura de un monorepositorio con separación estricta de 
 \begin{table}[hbt!]
 \caption{Estructura del backend (/backend)}
 \label{tab:backend_struct}
-\begin{tabular}{@{}p{3cm} p{12cm}@{}}
+\begin{tabular}{@{}p{5cm} p{10cm}@{}}
 \toprule
 \textbf{Carpeta / Archivo} & \textbf{Responsabilidad arquitectónica} \\
 \midrule
@@ -273,7 +273,7 @@ main.py & Punto de entrada de la aplicación FastAPI. \\
 \begin{table}[hbt!]
 \caption{Estructura del frontend (/frontend)}
 \label{tab:frontend_struct}
-\begin{tabular}{@{}p{3cm} p{12cm}@{}}
+\begin{tabular}{@{}p{5cm} p{10cm}@{}}
 \toprule
 \textbf{Carpeta / Archivo} & \textbf{Responsabilidad arquitectónica} \\
 \midrule
@@ -415,7 +415,7 @@ A continuación se presenta el diccionario de datos exhaustivo de las doce tabla
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{users}}
 \label{tab:dict_users}
-\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -440,7 +440,7 @@ updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Última actualización del perfil
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{spaces}}
 \label{tab:dict_spaces}
-\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -465,7 +465,7 @@ rotation & FLOAT & 8 bytes & No & - & Grados de rotación geométrica. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{rates}}
 \label{tab:dict_rates}
-\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -486,7 +486,7 @@ vigente & BOOLEAN & 1 byte & No & - & Indica si es aplicable actualmente. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{reservations}}
 \label{tab:dict_reservations}
-\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{2.5cm}@{}}
+\begin{tabular}{@{}p{5.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -511,7 +511,7 @@ fecha\_vencimiento\_tolerancia & TIMESTAMPTZ & 8 bytes & No & - & Límite de tie
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{vehicle\_logs}}
 \label{tab:dict_vehicle_logs}
-\begin{tabular}{@{}p{3.5cm} p{3.5cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
+\begin{tabular}{@{}p{6cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -535,7 +535,7 @@ tiempo\_permanencia\_minutos & INTEGER & 4 bytes & Sí & - & Minutos netos. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{payments}}
 \label{tab:dict_payments}
-\begin{tabular}{@{}p{3.5cm} p{3.5cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
+\begin{tabular}{@{}p{6cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -561,7 +561,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Momento de la transacción. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{parking\_info}}
 \label{tab:dict_parking_info}
-\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{2.5cm}@{}}
+\begin{tabular}{@{}p{5.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -588,7 +588,7 @@ updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{reviews}}
 \label{tab:dict_reviews}
-\begin{tabular}{@{}p{3cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -610,7 +610,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Emisión de reseña. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{notifications}}
 \label{tab:dict_notifications}
-\begin{tabular}{@{}p{2cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -633,7 +633,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{terms}}
 \label{tab:dict_terms}
-\begin{tabular}{@{}p{3.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
+\begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -655,7 +655,7 @@ fecha\_publicacion & TIMESTAMPTZ & 8 bytes & No & - & Entrada en vigencia. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{terms\_acceptance}}
 \label{tab:dict_terms_acceptance}
-\begin{tabular}{@{}p{3.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
+\begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -674,7 +674,7 @@ fecha\_aceptacion & TIMESTAMPTZ & 8 bytes & No & - & Momento exacto. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{audit\_log}}
 \label{tab:dict_audit_log}
-\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
