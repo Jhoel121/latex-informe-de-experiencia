@@ -9,11 +9,9 @@ Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Imple
 \begin{figure}[hbt!]
 \caption{Pirámide de pruebas de software aplicada a ParkSys}
 \label{fig:piramide_pruebas}
-\vspace{2cm} % Espacio reservado para la imagen
 \begin{center}
-\textit{[Espacio reservado para la Figura 16: Pirámide de pruebas]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_16.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Representa los tres niveles de la pirámide de pruebas —pruebas unitarias en la base, pruebas de integración en el nivel intermedio y pruebas de aceptación (UAT) en la cúspide— aplicados sobre los módulos billing.py, security.py, schemas.py, la API REST, SQLAlchemy, PostgreSQL y WebSockets.
 \end{figure}
 
@@ -46,7 +44,7 @@ RxJS & 7.x & Pruebas de flujos reactivos (WebSocket, Observables) & Frontend \\
 \begin{table}[hbt!]
 \caption{Pruebas unitarias y de integración en endpoints — Backend (FastAPI / Python)}
 \label{tab:pruebas_backend}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{3.5cm} p{3.5cm} p{3cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{1.8cm} p{2.2cm} p{3.0cm} p{3.5cm} p{3cm}@{}}
 \toprule
 \textbf{Endpoint} & \textbf{Tipo prueba} & \textbf{Tech} & \textbf{V1: tiempo/errores} & \textbf{V2: correcciones} & \textbf{Recomendaciones} \\
 \midrule
@@ -67,7 +65,7 @@ GET /reports/pdf/id & Integración & pytest, ReportLab & 350 ms. Desfase UTC de 
 \begin{table}[hbt!]
 \caption{Pruebas de consumo de endpoints — Frontend (Angular 18 / TypeScript)}
 \label{tab:pruebas_frontend}
-\begin{tabular}{@{}p{3.5cm} p{1.5cm} p{2cm} p{3cm} p{3cm} p{2.5cm}@{}}
+\begin{tabular}{@{}p{3.5cm} p{2.0cm} p{2cm} p{2.5cm} p{3cm} p{2.5cm}@{}}
 \toprule
 \textbf{Componente} & \textbf{Tipo prueba} & \textbf{Tech} & \textbf{V1: tiempo/errores} & \textbf{V2: correcciones} & \textbf{Recomendaciones} \\
 \midrule
@@ -217,11 +215,9 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 \begin{figure}[hbt!]
 \caption{Resumen del total de pruebas ejecutadas por nivel}
 \label{fig:resumen_pruebas}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 17]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_17.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Gráfico de barras que muestra la distribución de las 48 pruebas automatizadas ejecutadas (30 unitarias, 12 de integración y 6 de aceptación), con una tasa de éxito del 100 por ciento en todas ellas.
 \end{figure}
 
@@ -230,7 +226,7 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 \begin{table}[hbt!]
 \caption{Registro formal de errores identificados y resueltos}
 \label{tab:registro_errores_v2}
-\begin{tabular}{@{}p{1cm} p{2cm} p{4cm} p{1.5cm} p{3cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{1.2cm} p{2cm} p{4cm} p{1.8cm} p{2.5cm} p{3.5cm}@{}}
 \toprule
 \textbf{ID} & \textbf{Capa} & \textbf{Falla} & \textbf{Impacto} & \textbf{Causa} & \textbf{Solución} \\
 \midrule
@@ -248,11 +244,9 @@ ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_
 \begin{figure}[hbt!]
 \caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \label{fig:flujo_errores}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 18]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_18.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Diagrama de flujo que ilustra el proceso seguido para cada incidencia.
 \end{figure}
 
@@ -295,11 +289,9 @@ Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSucces
 \begin{figure}[hbt!]
 \caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \label{fig:comparativa_fcp}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 19]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_19.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Gráfico comparativo que muestra la reducción del FCP de 3.8 segundos a 1.1 segundos.
 \end{figure}
 
@@ -349,22 +341,18 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \begin{figure}[hbt!]
 \caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \label{fig:arquitectura_indexacion}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 20]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_20.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree.
 \end{figure}
 
 \begin{figure}[hbt!]
 \caption{Comparativa de throughput del servidor antes y después de la optimización}
 \label{fig:comparativa_throughput}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 21]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_21.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Gráfico de barras que compara el throughput del servidor.
 \end{figure}
 
@@ -392,18 +380,16 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \begin{figure}[hbt!]
 \caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \label{fig:evidencia_uat}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 22]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_22.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Registra el momento de la ejecución de las pruebas con usuarios operando el sistema.
 \end{figure}
 
 \begin{table}[hbt!]
 \caption{Escenarios de prueba — Rol Conductor}
 \label{tab:uat_conductor}
-\begin{tabular}{@{}p{0.5cm} p{4.5cm} p{4.5cm} p{1.5cm} p{4cm}@{}}
+\begin{tabular}{@{}p{0.5cm} p{4.5cm} p{4.5cm} p{1.8cm} p{3.7cm}@{}}
 \toprule
 \textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
 \midrule
@@ -422,7 +408,7 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \begin{table}[hbt!]
 \caption{Escenarios de prueba — Rol Trabajador de Garita}
 \label{tab:uat_trabajador}
-\begin{tabular}{@{}p{0.5cm} p{4cm} p{4cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{0.5cm} p{3.7cm} p{4cm} p{1.8cm} p{4.5cm}@{}}
 \toprule
 \textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
 \midrule
@@ -440,7 +426,7 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \begin{table}[hbt!]
 \caption{Escenarios de prueba — Rol Administrador}
 \label{tab:uat_admin}
-\begin{tabular}{@{}p{0.5cm} p{4cm} p{4cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{0.5cm} p{3.7cm} p{4cm} p{1.8cm} p{4.5cm}@{}}
 \toprule
 \textbf{N.°} & \textbf{Tarea} & \textbf{Criterio de éxito} & \textbf{Result.} & \textbf{Observaciones} \\
 \midrule
@@ -501,11 +487,9 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \begin{figure}[hbt!]
 \caption{Arquitectura del sistema (Resumen técnico de capas)}
 \label{fig:arquitectura_capas}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 23]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_23.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra la disposición en capas del sistema.
 \end{figure}
 
@@ -628,11 +612,9 @@ ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 \begin{figure}[hbt!]
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \label{fig:arquitectura_despliegue}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 24]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra la disposición de los servicios en producción y local.
 \end{figure}
 
@@ -728,11 +710,9 @@ Tipo de servicio & Sitio estático SPA \\
 \begin{figure}[hbt!]
 \caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \label{fig:pipeline_cicd}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 25]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra la secuencia desde GitHub hasta producción automática.
 \end{figure}
 
@@ -804,11 +784,9 @@ SMTP\_USER & Credenciales correo alertas \\
 \begin{figure}[hbt!]
 \caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \label{fig:diagrama_puesta_marcha}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 26]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra la secuencia cronológica de puesta en marcha.
 \end{figure}
 

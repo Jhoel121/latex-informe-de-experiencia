@@ -65,11 +65,9 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \caption{Diagrama general de la arquitectura del sistema ParkSys}
 \label{fig:arquitectura_general}
 % \includegraphics[width=\textwidth]{IMAGENES/figura_1.png}
-\vspace{2cm} % Espacio reservado para la imagen
 \begin{center}
-\textit{[Espacio reservado para la Figura 1: Diagrama general de la arquitectura del sistema ParkSys]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_1.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Muestra la relación e interoperabilidad entre el Portal del Conductor, el Módulo de Garita, el Dashboard Administrativo, la API RESTful de FastAPI y la Base de Datos central PostgreSQL.
 \end{figure}
 
@@ -80,7 +78,7 @@ Para el desarrollo de ParkSys se implementó un entorno de trabajo full-stack mo
 \begin{table}[hbt!]
 \caption{Lenguajes de programación empleados}
 \label{tab:lenguajes}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{2cm} p{8cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{2.2cm} p{2.2cm} p{8cm}@{}}
 \toprule
 \textbf{Componente} & \textbf{Lenguaje} & \textbf{Versión} & \textbf{Características y uso} \\
 \midrule
@@ -161,11 +159,9 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 \begin{figure}[hbt!]
 \caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \label{fig:der}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 3: Diagrama Entidad-Relación (DER)]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría.
 \end{figure}
 
@@ -242,11 +238,9 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 \begin{figure}[hbt!]
 \caption{Arquitectura de contenedores Docker}
 \label{fig:docker}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 4: Arquitectura de contenedores Docker]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml.
 \end{figure}
 
@@ -299,11 +293,9 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \begin{figure}[hbt!]
 \caption{Árbol de directorios del proyecto ParkSys}
 \label{fig:directorios}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 5: Árbol de directorios]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Se detalla el contenido de la carpeta app/models/, evidenciando los once archivos ORM.
 \end{figure}
 
@@ -317,11 +309,9 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \begin{figure}[hbt!]
 \caption{Flujo de control de versiones con Git (ParkSys)}
 \label{fig:git_flow}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 6: Flujo de control de versiones]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo.
 \end{figure}
 
@@ -381,33 +371,27 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \begin{figure}[hbt!]
 \caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \label{fig:billing}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 7: Flujo de liquidación]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar.
 \end{figure}
 
 \begin{figure}[hbt!]
 \caption{Secuencia del procesamiento de pagos mediante Stripe}
 \label{fig:stripe}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 8: Secuencia de pagos]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona.
 \end{figure}
 
 \begin{figure}[hbt!]
 \caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \label{fig:websockets}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 9: Arquitectura WebSockets]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra el funcionamiento del ConnectionManager, que distribuye notificaciones push.
 \end{figure}
 
@@ -418,11 +402,9 @@ A continuación se presenta el diccionario de datos exhaustivo de las doce tabla
 \begin{figure}[hbt!]
 \caption{Modelo relacional de ParkSys}
 \label{fig:modelo_relacional}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 10: Modelo Relacional]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Se presenta el diccionario de datos exhaustivo de las doce tablas.
 \end{figure}
 
@@ -433,7 +415,7 @@ A continuación se presenta el diccionario de datos exhaustivo de las doce tabla
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{users}}
 \label{tab:dict_users}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{5.5cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -458,7 +440,7 @@ updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Última actualización del perfil
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{spaces}}
 \label{tab:dict_spaces}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{5.5cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -483,7 +465,7 @@ rotation & FLOAT & 8 bytes & No & - & Grados de rotación geométrica. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{rates}}
 \label{tab:dict_rates}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{5.5cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -504,7 +486,7 @@ vigente & BOOLEAN & 1 byte & No & - & Indica si es aplicable actualmente. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{reservations}}
 \label{tab:dict_reservations}
-\begin{tabular}{@{}p{4cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{2.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -529,7 +511,7 @@ fecha\_vencimiento\_tolerancia & TIMESTAMPTZ & 8 bytes & No & - & Límite de tie
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{vehicle\_logs}}
 \label{tab:dict_vehicle_logs}
-\begin{tabular}{@{}p{4.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{3.5cm} p{3.5cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -553,7 +535,7 @@ tiempo\_permanencia\_minutos & INTEGER & 4 bytes & Sí & - & Minutos netos. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{payments}}
 \label{tab:dict_payments}
-\begin{tabular}{@{}p{4.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{3.5cm} p{3.5cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -579,7 +561,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Momento de la transacción. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{parking\_info}}
 \label{tab:dict_parking_info}
-\begin{tabular}{@{}p{4cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
+\begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{2.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -606,7 +588,7 @@ updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{reviews}}
 \label{tab:dict_reviews}
-\begin{tabular}{@{}p{3cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
+\begin{tabular}{@{}p{3cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -628,7 +610,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Emisión de reseña. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{notifications}}
 \label{tab:dict_notifications}
-\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{5.5cm}@{}}
+\begin{tabular}{@{}p{2cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -651,7 +633,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{terms}}
 \label{tab:dict_terms}
-\begin{tabular}{@{}p{3.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
+\begin{tabular}{@{}p{3.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -673,7 +655,7 @@ fecha\_publicacion & TIMESTAMPTZ & 8 bytes & No & - & Entrada en vigencia. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{terms\_acceptance}}
 \label{tab:dict_terms_acceptance}
-\begin{tabular}{@{}p{3.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
+\begin{tabular}{@{}p{3.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -692,7 +674,7 @@ fecha\_aceptacion & TIMESTAMPTZ & 8 bytes & No & - & Momento exacto. \\
 \begin{table}[hbt!]
 \caption{Diccionario de la tabla \texttt{audit\_log}}
 \label{tab:dict_audit_log}
-\begin{tabular}{@{}p{2.5cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{5cm}@{}}
+\begin{tabular}{@{}p{2.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
 \midrule
@@ -760,11 +742,9 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 \begin{figure}[hbt!]
 \caption{Arquitectura de Lazy Loading del frontend}
 \label{fig:lazy_loading}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 11: Arquitectura Lazy Loading]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Representa la división y carga diferida de los módulos de Angular.
 \end{figure}
 
@@ -794,11 +774,9 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 \begin{figure}[hbt!]
 \caption{Secuencia completa del flujo de reserva}
 \label{fig:flujo_reserva_secuencia}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 12: Diagrama de secuencia]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta.
 \end{figure}
 
@@ -873,10 +851,8 @@ Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{a
 \begin{figure}[hbt!]
 \caption{Flujo completo de autenticación y autorización}
 \label{fig:flujo_auth}
-\vspace{2cm}
 \begin{center}
-\textit{[Espacio reservado para la Figura 14 y 15: Seguridad y Autenticación]}
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
 \end{center}
-\vspace{2cm}
 \textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
 \end{figure}
