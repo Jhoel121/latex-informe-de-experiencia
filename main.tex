@@ -1,0 +1,147 @@
+\documentclass[12pt, letterpaper]{article}
+
+% ----- CONFIGURACIÓN APA 7MA EDICIÓN -----
+
+% Márgenes de 2.54 cm (1 pulgada) en los cuatro bordes
+\usepackage[margin=1in]{geometry}
+
+% Fuente Times New Roman
+\usepackage{mathptmx}
+
+% Alineación a la izquierda (texto sin justificar) y sin guiones al final
+\usepackage[document]{ragged2e}
+\usepackage[none]{hyphenat}
+
+% Interlineado doble
+\usepackage{setspace}
+\doublespacing
+
+% Sangría de 1.27 cm (0.5 pulgadas) en la primera línea de cada párrafo
+\setlength{\parindent}{0.5in}
+
+% Paginación en la esquina superior derecha
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpiar encabezados y pies
+\renewcommand{\headrulewidth}{0pt} % Sin línea en el encabezado
+\rhead{\thepage} % Número de página a la derecha
+
+% ----- CONFIGURACIÓN DE TÍTULOS (JERARQUÍA APA 7) -----
+\usepackage{titlesec}
+\setcounter{secnumdepth}{0} % Sin numeración de títulos
+
+% Nivel 1: Centrado, Negrita
+\titleformat{\section}[block]{\normalfont\bfseries\centering}{\thesection}{0pt}{}
+\titlespacing*{\section}{0pt}{\baselineskip}{0pt}
+
+% Nivel 2: Alineado a la Izquierda, Negrita
+\titleformat{\subsection}[block]{\normalfont\bfseries\raggedright}{\thesubsection}{0pt}{}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0pt}
+
+% Nivel 3: Alineado a la Izquierda, Negrita y Cursiva
+\titleformat{\subsubsection}[block]{\normalfont\bfseries\itshape\raggedright}{\thesubsubsection}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{\baselineskip}{0pt}
+
+% Nivel 4: Sangría de 1.27 cm, Negrita, finalizado con punto (runin)
+\titleformat{\paragraph}[runin]{\normalfont\bfseries}{\theparagraph}{0pt}{}[.]
+\titlespacing*{\paragraph}{\parindent}{\baselineskip}{0.5em}
+
+% Nivel 5: Sangría de 1.27 cm, Negrita y Cursiva, finalizado con punto (runin)
+\titleformat{\subparagraph}[runin]{\normalfont\bfseries\itshape}{\thesubparagraph}{0pt}{}[.]
+\titlespacing*{\subparagraph}{\parindent}{\baselineskip}{0.5em}
+
+
+% ----- CONFIGURACIÓN DE TABLAS Y FIGURAS -----
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{array}
+
+% Formato para títulos de tablas y figuras según APA 7
+\captionsetup[table]{labelsep=newline, justification=raggedright, singlelinecheck=false, textfont=it, labelfont=bf, skip=0pt}
+\captionsetup[figure]{labelsep=newline, justification=raggedright, singlelinecheck=false, textfont=it, labelfont=bf, skip=0pt}
+
+% ----- IDIOMA Y ENCODING -----
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% Paquete para el índice con el formato adecuado
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\begin{document}
+\RaggedRight % Aplicar texto sin justificar
+
+% ----- CARÁTULA -----
+\begin{titlepage}
+    \begin{center}
+        \singlespacing % La portada suele tener un espaciado más controlado, aunque APA dice doble espacio en todo, respetamos el diseño visual solicitado
+        
+        \textbf{ESCUELA DE EDUCACIÓN SUPERIOR TECNOLÓGICA PRIVADA LA PONTIFICIA} \\
+        \vspace{0.2cm}
+        \textbf{DIRECCIÓN ACADÉMICA} \\
+        \vspace{0.2cm}
+        \rule{\textwidth}{1pt} \\
+        \vspace{0.5cm}
+        
+        \textbf{ESCUELA DE EDUCACIÓN SUPERIOR TECNOLÓGICA PRIVADA LA PONTIFICIA} \\
+        \vspace{0.5cm}
+        
+        Informe Ejecutivo de Experiencias Formativas en Situaciones Reales de Trabajo IV \\
+        en la modalidad de Proyecto Productivo y/o Proyecto de Innovación \\
+        \vspace{1.5cm}
+        
+        % Logo (Placeholder)
+        % \includegraphics[width=5cm]{IMAGENES/logo_elp.png} \\
+        \vspace{2cm}
+        
+        \textbf{Informe Ejecutivo de Experiencias Formativas en Situaciones Reales de Trabajo IV} \\
+        \textbf{de la carrera profesional de Ingeniería de Sistemas de Información} \\
+        \vspace{1.5cm}
+        
+        Informe correspondiente al Módulo Formativo IV denominado \\
+        \vspace{0.5cm}
+        \textbf{IMPLEMENTACIÓN DE PRUEBAS DE SOFTWARE} \\
+        \vspace{0.5cm}
+        ParkSys — Sistema de Gestión de Estacionamiento Vehicular para el establecimiento \\
+        ParkSys Central Ayacucho. \\
+        \vspace{1.5cm}
+        
+        \textbf{Docente:} \\
+        ING. SAUÑE PICHARDO, JHONATAN \\
+        \vspace{1.5cm}
+        
+        \textbf{desarrollado por el estudiante} \\
+        ASPUR YARANGA, JHOEL EMILIO \\
+        CONDORI COTAQUISPE, SULY JHOMY \\
+        \vspace{1.5cm}
+        
+        Huamanga, 04 de septiembre del 2026
+        
+    \end{center}
+\end{titlepage}
+
+\doublespacing
+
+% ----- ÍNDICES -----
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+
+% ----- INCLUSIÓN DE CAPÍTULOS -----
+\newpage
+\input{contenido/INTRODUCCION.tex}
+
+\newpage
+\input{contenido/CAPITULO_1.tex}
+
+\newpage
+\input{contenido/CAPITULO_2.tex}
+
+\newpage
+\input{contenido/CAPITULO_3.tex}
+
+\end{document}

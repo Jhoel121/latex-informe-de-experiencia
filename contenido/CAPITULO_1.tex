@@ -1,0 +1,493 @@
+\section{CAPÍTULO 1: DESARROLLO E IMPLEMENTACIÓN DEL SISTEMA}
+
+\subsection{1.1. DESCRIPCIÓN DEL SISTEMA ELEGIDO}
+
+El sistema desarrollado como parte de las presentes Experiencias Formativas en Situaciones Reales de Trabajo IV es ParkSys, una plataforma integral de gestión inteligente de estacionamientos (\textit{Smart Parking}), concebida para automatizar y optimizar de forma completa el ciclo de vida del proceso de aparcamiento, desde la reserva anticipada hasta el cobro final por el uso del espacio físico.
+
+\subsubsection{Propósito del sistema}
+
+ParkSys busca resolver los principales cuellos de botella operativos que enfrentan los establecimientos de estacionamiento tradicionales, tales como el control manual del acceso vehicular, el fraude o error humano en los cobros, y la falta de visibilidad en tiempo real sobre la disponibilidad de espacios. El sistema ofrece dos modalidades de uso simultáneas:
+
+\begin{enumerate}
+    \item \textbf{Registro in-situ (Walk-in):} controlado directamente por los operadores de garita física cuando un vehículo arriba sin reserva previa.
+    \item \textbf{Reserva anticipada (Self-service):} a través de un portal digital responsivo dirigido al conductor, con selección geométrica de cajón en mapa 2D y pasarela de pago en línea.
+\end{enumerate}
+
+\subsubsection{Módulos principales del sistema}
+
+\begin{table}[hbt!]
+\caption{Módulos principales del sistema}
+\label{tab:modulos}
+\begin{tabular}{@{}p{0.5cm} p{3.5cm} p{11cm}@{}}
+\toprule
+\textbf{N.º} & \textbf{Módulo} & \textbf{Descripción funcional} \\
+\midrule
+1 & Autenticación y Perfil & Inicio de sesión, registro de conductores, recuperación de credenciales por correo electrónico, autenticación federada con Google OAuth2 y administración de perfiles y vehículos frecuentes. \\
+2 & Portal del Conductor & Visualización gráfica de disponibilidad en mapa 2D, reserva de espacios, extensión de tiempo, historial de uso, calificaciones y pagos en línea mediante pasarela Stripe. \\
+3 & Módulo de Garita & Escaneo y validación de código de reserva/QR, registro rápido de vehículos sin reserva (\textit{walk-in}), cálculo automatizado de tarifas al minuto, liquidación de salidas y solicitud digital de pago. \\
+4 & Dashboard Administrativo & Indicadores clave de rendimiento (KPIs), gráficas interactivas de ingresos y ocupación en tiempo real, registro de actividad reciente y alertas operativas del sistema. \\
+5 & Configuración y Mapa 2D & Herramienta visual e interactiva Drag \& Drop para diseñar la distribución física de cajones, definir tarifas dinámicas por tipo de vehículo, administrar al personal y consultar bitácoras de auditoría. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe la función de cada uno de los cinco módulos que componen la plataforma ParkSys.
+\end{table}
+
+\subsubsection{Usuarios involucrados en el sistema}
+
+\begin{table}[hbt!]
+\caption{Usuarios involucrados en el sistema}
+\label{tab:usuarios}
+\begin{tabular}{@{}p{3cm} p{12cm}@{}}
+\toprule
+\textbf{Rol} & \textbf{Funciones principales} \\
+\midrule
+Conductor & Consulta disponibilidad de espacios en tiempo real, realiza reservas anticipadas, extiende su tiempo de estadía, efectúa pagos digitales en línea con tarjeta y califica la atención recibida. \\
+Trabajador (Garita) & Controla físicamente las barreras de entrada y salida del estacionamiento, valida reservas existentes, registra ingresos no programados (\textit{walk-in}), cobra en efectivo o solicita pago digital y emite comprobantes. \\
+Administrador & Supervisa el rendimiento financiero del negocio, configura tarifas por tipo de vehículo y turnos, modela la distribución geométrica del mapa 2D, gestiona las cuentas del personal y audita las operaciones del sistema. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Resume las funciones y alcances operativos del conductor, el trabajador y el administrador.
+\end{table}
+
+\subsubsection{Problema que resuelve dentro de la organización}
+
+\begin{itemize}
+    \item \textbf{Elimina la ineficiencia operativa:} reemplaza los boletos físicos de papel y las libretas de control por registros electrónicos instantáneos en base de datos.
+    \item \textbf{Erradica fugas de capital:} automatiza la liquidación económica mediante un algoritmo de cobro por minuto efectivo, impidiendo la manipulación deliberada o negligente de importes.
+    \item \textbf{Mejora el control de personal:} cada ingreso, salida o cobro queda asociado de forma indeleble al identificador único del trabajador en turno.
+    \item \textbf{Experiencia de usuario moderna (Contactless):} brinda al conductor la facultad de asegurar un espacio desde su dispositivo móvil, reduciendo tiempos de espera y emisión de gases contaminantes en la vía pública.
+    \item \textbf{Visibilidad gerencial basada en datos:} facilita la toma de decisiones estratégicas mediante paneles analíticos que reflejan horas de mayor demanda, ingresos proyectados e índice de cumplimiento de reservas.
+\end{itemize}
+
+\begin{figure}[hbt!]
+\caption{Diagrama general de la arquitectura del sistema ParkSys}
+\label{fig:arquitectura_general}
+% \includegraphics[width=\textwidth]{IMAGENES/figura_1.png}
+\vspace{2cm} % Espacio reservado para la imagen
+\begin{center}
+\textit{[Espacio reservado para la Figura 1: Diagrama general de la arquitectura del sistema ParkSys]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Muestra la relación e interoperabilidad entre el Portal del Conductor, el Módulo de Garita, el Dashboard Administrativo, la API RESTful de FastAPI y la Base de Datos central PostgreSQL.
+\end{figure}
+
+\subsection{1.2. CONFIGURACIÓN DEL ENTORNO DE DESARROLLO}
+
+Para el desarrollo de ParkSys se implementó un entorno de trabajo full-stack moderno, modular y completamente contenerizado, garantizando una rigurosa separación de entornos y dependencias.
+
+\begin{table}[hbt!]
+\caption{Lenguajes de programación empleados}
+\label{tab:lenguajes}
+\begin{tabular}{@{}p{2.5cm} p{2cm} p{2cm} p{8cm}@{}}
+\toprule
+\textbf{Componente} & \textbf{Lenguaje} & \textbf{Versión} & \textbf{Características y uso} \\
+\midrule
+Backend & Python & 3.11+ & Tipado estático con typing, concurrencia asíncrona nativa con asyncio y alto rendimiento de procesamiento. \\
+Frontend & TypeScript & 5.5 & Superset de JavaScript con tipado estricto, interfaces DTO compiladas y soporte avanzado para decoradores de Angular. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla el lenguaje, la versión y la justificación técnica empleada en el backend y en el frontend.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Frameworks principales}
+\label{tab:frameworks}
+\begin{tabular}{@{}p{2cm} p{3cm} p{10cm}@{}}
+\toprule
+\textbf{Capa} & \textbf{Framework} & \textbf{Justificación de uso} \\
+\midrule
+Backend & FastAPI 0.115 & Rendimiento a la par de NodeJS y Go gracias a Starlette y Pydantic v2; soporte nativo de asincronía (async/await), generación automática de documentación interactiva OpenAPI (Swagger UI) y validación declarativa de datos. \\
+Frontend & Angular 18.2 & Arquitectura moderna basada en Standalone Components (sin sobrecarga de NgModules), reactividad granular mediante Angular Signals, excelente soporte empresarial para pruebas y navegación optimizada con Lazy Loading. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Justifica la elección técnica de FastAPI en el backend y Angular en el frontend.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Gestor de base de datos y acceso a datos}
+\label{tab:bd}
+\begin{tabular}{@{}p{3cm} p{3cm} p{9cm}@{}}
+\toprule
+\textbf{Herramienta} & \textbf{Versión} & \textbf{Función dentro de ParkSys} \\
+\midrule
+PostgreSQL & 16 (Alpine Linux) & Motor de base de datos relacional principal, seleccionado por su alta concurrencia, soporte nativo de transacciones ACID y tipos de datos avanzados (UUID, Timestamp with Timezone, Enums). \\
+SQLAlchemy & 2.0 (modo asyncpg) & ORM en modo asíncrono no bloqueante que gestiona las transacciones y conexiones a la base de datos sin congelar el hilo principal de FastAPI. \\
+Alembic & 1.13 & Sistema de control de versiones y migraciones evolutivas del esquema DDL de la base de datos. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla la función de PostgreSQL, SQLAlchemy y Alembic dentro del entorno de ParkSys.
+\end{table}
+
+\subsection{1.3. DISEÑO DE LA BASE DE DATOS}
+
+La arquitectura de datos de ParkSys fue diseñada bajo un modelo relacional estrictamente normalizado en la Tercera Forma Normal (3FN), utilizando PostgreSQL 16. El diseño prioriza la integridad referencial, el aislamiento de transacciones para concurrencia masiva y la trazabilidad inmutable de eventos.
+
+\subsubsection{Modelo Entidad-Relación (MER)}
+
+\begin{table}[hbt!]
+\caption{Descripción general de entidades y su propósito en el sistema}
+\label{tab:entidades_general}
+\begin{tabular}{@{}p{2.5cm} p{3.5cm} p{8.5cm}@{}}
+\toprule
+\textbf{Categoría} & \textbf{Entidad} & \textbf{Propósito principal} \\
+\midrule
+Núcleo Central & \texttt{users}, \texttt{spaces} & Almacena los perfiles con RBAC y el catálogo de cajones del estacionamiento con sus coordenadas 2D. \\
+Transaccional & \texttt{reservations}, \texttt{vehicle\_logs}, \texttt{payments} & Maneja la vida útil de un servicio: reserva anticipada, ingreso físico, cálculo de duración y liquidación. \\
+Configuración & \texttt{rates}, \texttt{parking\_info} & Parametriza las tarifas dinámicas y las políticas del establecimiento (tolerancia, horarios). \\
+Legal y Soporte & \texttt{terms}, \texttt{reviews}, \texttt{audit\_log} & Controla versiones legales, calificaciones del servicio y la bitácora inmutable de acciones. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe las 13 tablas principales que componen el ecosistema de datos del proyecto agrupadas por categoría funcional.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Modelo de Entidad-Relación (MER) lógico del sistema ParkSys}
+\label{fig:mer}
+\vspace{2cm} % Espacio reservado para la imagen
+\begin{center}
+\textit{[Espacio reservado para la Figura 2: Diagrama MER de ParkSys]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Representa la cardinalidad y relaciones entre las tablas transaccionales, el catálogo de usuarios y las métricas de auditoría.
+\end{figure}
+
+\subsection{1.4. DICCIONARIO DE DATOS}
+
+El diccionario documenta la estructura de persistencia en PostgreSQL, generada a partir de los modelos asíncronos declarativos de SQLAlchemy 2.0.
+
+\subsubsection{BLOQUE A: NÚCLEO DE USUARIOS Y CONTROL DE ESPACIOS}
+
+\textbf{a) Tabla users — Archivo fuente: models/user.py.} Entidad central del sistema que administra el control de acceso (RBAC) y la identidad criptográfica de conductores, trabajadores y administradores.
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{users}}
+\label{tab:dict_users}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador único del usuario. \\
+nombre & VARCHAR & 100 & No & - & Nombre completo. \\
+correo & VARCHAR & 100 & No & UK, Index & Medio principal de login y notificaciones. \\
+password\_hash & VARCHAR & 255 & No & - & Contraseña cifrada en Argon2id. \\
+rol & ENUM & - & No & - & Nivel de acceso: conductor, trabajador, admin. \\
+created\_at & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal de creación (UTC). \\
+activo & BOOLEAN & 1 byte & No & - & Control de suspensión de cuenta (Soft-delete). \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Administra el control de acceso y la identidad criptográfica de los usuarios del sistema.
+\end{table}
+
+\textbf{b) Tabla spaces — Archivo fuente: models/space.py.} Representación digital y lógica de los cajones de estacionamiento.
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{spaces}}
+\label{tab:dict_spaces}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador único del espacio. \\
+codigo & VARCHAR & 10 & No & UK, Index & Nombre comercial (ej. A-01). \\
+tipo\_vehiculo & ENUM & - & No & - & Restricción física (auto, moto). \\
+estado & ENUM & - & No & - & Máquina de estados: disponible, ocupado, reservado. \\
+reservable & BOOLEAN & 1 byte & No & - & Bandera para excluir espacios. \\
+pos\_x & FLOAT & 8 bytes & No & - & Coordenada horizontal en plano 2D. \\
+pos\_y & FLOAT & 8 bytes & No & - & Coordenada vertical en plano 2D. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Define la geometría 2D, el estado operativo y las dimensiones de los espacios.
+\end{table}
+
+\subsubsection{BLOQUE B: TRANSACCIONALIDAD Y COBROS}
+
+\textbf{c) Tabla reservations — Archivo fuente: models/reservation.py.} Registra la intención de ocupación a futuro mediante autoservicio.
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{reservations}}
+\label{tab:dict_reservations}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador único. \\
+usuario\_id & INTEGER & 4 bytes & No & FK, Index & Llave foránea hacia \texttt{users.id}. \\
+espacio\_id & INTEGER & 4 bytes & No & FK, Index & Llave foránea hacia \texttt{spaces.id}. \\
+placa & VARCHAR & 20 & No & - & Matrícula del vehículo esperado. \\
+codigo\_reserva & VARCHAR & 12 & No & UK, Index & Token aleatorio de 8 dígitos alfanuméricos. \\
+fecha\_reserva & TIMESTAMPTZ & 8 bytes & No & - & Creación de la reserva. \\
+hora\_estimada & TIMESTAMPTZ & 8 bytes & No & - & Hora límite de tolerancia. \\
+estado & ENUM & - & No & - & Estados: pendiente, confirmada, cancelada, vencida. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Registra la intención de ocupación a futuro y la política de tolerancia.
+\end{table}
+
+\textbf{d) Tabla vehicle\_logs — Archivo fuente: models/vehicle\_log.py.} Tabla central de control de estadías efectivas (Walk-in y confirmación de reservas).
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{vehicle\_logs}}
+\label{tab:dict_vehicle_logs}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador del registro físico. \\
+placa & VARCHAR & 20 & No & Index & Matrícula registrada en garita. \\
+espacio\_id & INTEGER & 4 bytes & No & FK, Index & Cajón asignado. \\
+reserva\_id & INTEGER & 4 bytes & Sí & FK, Index & Nulo si es cliente walk-in. \\
+fecha\_ingreso & TIMESTAMPTZ & 8 bytes & No & - & Apertura de barrera de ingreso. \\
+fecha\_salida & TIMESTAMPTZ & 8 bytes & Sí & - & Apertura de barrera de salida. \\
+estado & ENUM & - & No & - & Estados: en\_curso, finalizado. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Tabla central de control de estadías efectivas que mide la ocupación física real.
+\end{table}
+
+\textbf{e) Tabla rates — Archivo fuente: models/rate.py.} Tarifario dinámico configurable por el administrador.
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{rates}}
+\label{tab:dict_rates}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador de tarifa. \\
+tipo\_vehiculo & ENUM & - & No & UK & auto, moto, camioneta. \\
+precio\_hora & NUMERIC & 10,2 & No & - & Tarifa para la primera hora. \\
+precio\_fraccion & NUMERIC & 10,2 & No & - & Costo por minuto adicional calculado matemáticamente. \\
+vigente & BOOLEAN & 1 byte & No & - & Indica si esta tarifa es aplicable actualmente. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Estructura el tarifario dinámico para el cálculo de cobros.
+\end{table}
+
+\textbf{f) Tabla payments — Archivo fuente: models/payment.py.} Registro inmutable de ingresos monetarios.
+
+\begin{table}[hbt!]
+\caption{Diccionario de la tabla \texttt{payments}}
+\label{tab:dict_payments}
+\begin{tabular}{@{}p{2cm} p{2cm} p{1.5cm} p{1cm} p{1.5cm} p{6cm}@{}}
+\toprule
+\textbf{Campo} & \textbf{Tipo SQL} & \textbf{Longitud} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción funcional} \\
+\midrule
+id & INTEGER & 4 bytes & No & PK & Identificador del comprobante. \\
+vehicle\_log\_id & INTEGER & 4 bytes & Sí & FK, Index & Estadía asociada. \\
+reserva\_id & INTEGER & 4 bytes & Sí & FK, Index & Reserva asociada (pagos por penalidad). \\
+monto & NUMERIC & 10,2 & No & - & Liquidación monetaria (soles). \\
+metodo\_pago & ENUM & - & No & - & efectivo, tarjeta\_online, yape. \\
+estado & ENUM & - & No & - & pendiente, completado, reembolsado. \\
+fecha\_pago & TIMESTAMPTZ & 8 bytes & No & - & Momento de la transacción. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Representa el registro inmutable de los ingresos monetarios.
+\end{table}
+
+\subsubsection{BLOQUE C: MARCO LEGAL Y AUDITORÍA INMUTABLE}
+
+Debido a su naturaleza complementaria, las tablas restantes se resumen como entidades de soporte institucional y cumplimiento normativo.
+
+\begin{table}[hbt!]
+\caption{Diccionario resumen de las entidades de soporte y auditoría}
+\label{tab:dict_soporte}
+\begin{tabular}{@{}p{3cm} p{11.5cm}@{}}
+\toprule
+\textbf{Entidad} & \textbf{Propósito y descripción funcional principal} \\
+\midrule
+\texttt{parking\_info} & Registra metadatos institucionales: nombre, dirección, coordenadas GPS, horarios (apertura y cierre L-V, Sab, Dom) y minutos de tolerancia por No-Show. \\
+\texttt{reviews} & Almacena comentarios y valoraciones (1 a 5 estrellas) emitidas por los conductores tras la culminación del servicio. Permite respuesta del administrador y moderación (visibilidad). \\
+\texttt{notifications} & Almacena mensajes directos y alertas emitidas a la bandeja personal del usuario (cobros, liberaciones, advertencias). \\
+\texttt{terms} & Administra las versiones publicadas (ej. "v1.0") de los términos de servicio, políticas de privacidad y condiciones de reserva. \\
+\texttt{terms\_acceptance} & Registra de forma inmutable el consentimiento legal explícito otorgado por cada usuario (\texttt{usuario\_id}) sobre una versión particular de los términos (\texttt{terms\_id}), con fecha exacta. \\
+\texttt{audit\_log} & Pista de auditoría inalterable (Audit Trail) para fiscalizar acciones administrativas sensibles (modificación de tarifas, anulación de reservas, eliminación de usuarios). Carece de operación DELETE. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza el propósito de las tablas de configuración, mensajería, legales y de trazabilidad (Tablas 20 a 26 del informe original).
+\end{table}
+
+\subsection{1.5. DESARROLLO DEL FRONTEND}
+
+La interfaz de usuario de ParkSys fue construida priorizando la fluidez, la velocidad de respuesta y una estética visual corporativa moderna, incorporando principios de Glassmorphism y microinteracciones fluidas.
+
+\subsubsection{Arquitectura de navegación y rendimiento}
+
+\begin{itemize}
+    \item \textbf{Lazy Loading:} los módulos de admin, worker, conductor y auth son empaquetados en chunks independientes de JavaScript, descargándose bajo demanda únicamente cuando el usuario navega a sus rutas específicas.
+    \item \textbf{Componentes Standalone:} se eliminó la sobrecarga estructural de NgModule, reduciendo el tamaño del bundle final y facilitando el aislamiento de dependencias.
+\end{itemize}
+
+\subsubsection{Diseño de experiencia de usuario (UX/UI)}
+
+\begin{table}[hbt!]
+\caption{Diseño de experiencia de usuario (UX/UI)}
+\label{tab:ux_ui}
+\begin{tabular}{@{}p{4cm} p{10cm}@{}}
+\toprule
+\textbf{Elemento de diseño} & \textbf{Especificación técnica implementada} \\
+\midrule
+Paleta de colores corporativa & Azul medianoche profundo (\#021024), azul marino oscuro (\#052659), azul acero (\#5483B3) y azul hielo (\#C1E8FF), combinados con fondos oscuros. \\
+Estilo visual & Glassmorphism elegante: bordes delgados semitransparentes (border-white/10), desenfoque de fondo (backdrop-blur-md) y sombras sutiles. \\
+Animaciones & Transiciones fluidas en entrada de listas (fade-in-up), elevación táctil (hover:translate-y-1), ondas de clic (ripples) y pulsos cromáticos. \\
+Semántica cromática & Verde esmeralda (libres), rojo carmesí (ocupados), ámbar cálido (reservados) y gris grafito (mantenimiento). \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Resume la identidad visual, la paleta cromática y los estándares estéticos aplicados en la interfaz.
+\end{table}
+
+\subsubsection{Gestión del estado reactivo}
+
+A diferencia de arquitecturas Angular tradicionales basadas exclusivamente en RxJS, ParkSys integra activamente \textbf{Angular Signals} para la reactividad de interfaz. RxJS se mantiene exclusivamente en la capa de infraestructura para manejar flujos asíncronos desacoplados (peticiones HTTP y WebSockets).
+
+\begin{table}[hbt!]
+\caption{Cuadro comparativo del enfoque reactivo}
+\label{tab:enfoque_reactivo}
+\begin{tabular}{@{}p{3cm} p{5.5cm} p{6cm}@{}}
+\toprule
+\textbf{Enfoque reactivo} & \textbf{Caso de uso principal} & \textbf{Ventaja técnica observada} \\
+\midrule
+RxJS (Observables) & Peticiones HTTP al backend, reconexión de sockets y manejo de streams temporizados. & Manejo robusto de flujos asíncronos y cancelación de solicitudes con \texttt{switchMap}. \\
+Angular Signals & Estado visual síncrono: cajón seleccionado, modales activos, contadores. & Cero sobrecarga de detección de cambios (Zoneless-ready) y reactividad granular. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Compara la complementariedad técnica entre RxJS y Angular Signals dentro del frontend.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Arquitectura de Lazy Loading del frontend}
+\label{fig:lazy_loading}
+\vspace{2cm} % Espacio reservado para la imagen
+\begin{center}
+\textit{[Espacio reservado para la Figura 11: Arquitectura Lazy Loading]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Representa la división y carga diferida de los módulos de Angular.
+\end{figure}
+
+\subsection{1.6. INTEGRACIÓN DE MÓDULOS}
+
+La comunicación integral del ecosistema se logra a través del protocolo HTTPS REST (para operaciones transaccionales) y WSS (WebSockets sobre TLS para sincronización push instantánea).
+
+\begin{table}[hbt!]
+\caption{Flujo integrado del proceso de reserva}
+\label{tab:flujo_reserva}
+\begin{tabular}{@{}p{0.5cm} p{3.5cm} p{2cm} p{8cm}@{}}
+\toprule
+\textbf{Paso} & \textbf{Emisor $\rightarrow$ Receptor} & \textbf{Protocolo} & \textbf{Acción técnica ejecutada} \\
+\midrule
+1 & Conductor $\rightarrow$ Frontend & Local UI & Selecciona espacio en mapa 2D; se computa estado reactivo con Signals. \\
+2 & Frontend $\rightarrow$ Backend & POST REST & Envía payload a \texttt{/reservations} con \texttt{espacio\_id}, placa y hora. \\
+3 & Backend $\rightarrow$ PostgreSQL & SQLAlchemy & Valida concurrencia y ejecuta el INSERT de la reserva. \\
+4 & Backend $\rightarrow$ PostgreSQL & SQLAlchemy & Actualiza el estado de la tabla \texttt{spaces} a 'reservado'. \\
+5 & Backend $\rightarrow$ WebSockets & Push Frame & Emite broadcast \texttt{\{"event": "refresh"\}} a todos los clientes. \\
+6 & WebSockets $\rightarrow$ Garita & Local UI & Panel del operador conmuta el cajón a color ámbar inmediatamente. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla paso a paso la coreografía entre el cliente web, la API RESTful y el motor de base de datos.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Secuencia completa del flujo de reserva}
+\label{fig:flujo_reserva_secuencia}
+\vspace{2cm} % Espacio reservado para la imagen
+\begin{center}
+\textit{[Espacio reservado para la Figura 12: Diagrama de secuencia]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta.
+\end{figure}
+
+\subsection{1.7. VALIDACIÓN DE DATOS Y MANEJO DE ERRORES}
+
+La robustez y resiliencia de ParkSys se garantiza mediante un modelo defensivo de doble anillo: validación síncrona en cliente y validación semántica estricta en servidor.
+
+\subsubsection{Validación en el Frontend y Backend}
+
+En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos (obligatoriedad, correo bien formado, expresiones regulares para placas). En el backend, cada payload JSON es interceptado por modelos Pydantic v2. Si una solicitud contiene tipos incorrectos, FastAPI responde automáticamente con \texttt{HTTP 422 Unprocessable Entity}.
+
+\begin{table}[hbt!]
+\caption{Cuadro de códigos de error gestionados}
+\label{tab:codigos_error}
+\begin{tabular}{@{}p{1.5cm} p{5.5cm} p{3.5cm} p{4cm}@{}}
+\toprule
+\textbf{Código HTTP} & \textbf{Escenario de activación} & \textbf{Componente de origen} & \textbf{Respuesta emitida al cliente} \\
+\midrule
+400 & Solicitud incorrecta (monto inferior a tarifa mínima). & Controladores & JSON con mensaje explicativo. \\
+401 & Token JWT ausente, alterado o expirado. & Dependencies & Redirección forzada hacia \texttt{/login}. \\
+403 & Rol del usuario insuficiente (RBAC). & \texttt{require\_role()} & Notificación de acceso denegado. \\
+404 & Identificador solicitado no existe. & SQLAlchemy query & Notificación en pantalla (no hallado). \\
+409 & Conflicto de estado (doble reserva concurrente). & Lógica de reservas & Mensaje de colisión de concurrencia. \\
+422 & Estructura JSON malformada o discordante. & Pydantic Validator & Desglose de restricciones infringidas. \\
+500 & Falla no controlada del servidor. & Middleware Global & Traza en logs y error neutralizado. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Enumera los códigos de estado HTTP manejados formalmente por la plataforma y su tratamiento.
+\end{table}
+
+\subsection{1.8. IMPLEMENTACIÓN DE LA SEGURIDAD Y AUTENTICACIÓN}
+
+ParkSys implementa un esquema de seguridad sin estado (Stateless), escalable y alineado con los lineamientos de OWASP Top 10. Las contraseñas se cifran mediante el algoritmo de derivación de claves Argon2id, y la autenticación se gestiona mediante tokens JWT simétricos (HS256) con ciclo de vida segmentado (Access Token de 15 minutos y Refresh Token de 7 días).
+
+\begin{table}[hbt!]
+\caption{Autorización basada en roles (RBAC)}
+\label{tab:rbac}
+\begin{tabular}{@{}p{2.5cm} p{12cm}@{}}
+\toprule
+\textbf{Rol} & \textbf{Nivel de acceso otorgado en el sistema} \\
+\midrule
+admin & Acceso total: lectura y escritura en tarifas, reportes financieros, editor 2D, administración de personal y consulta de auditoría inmutable. \\
+trabajador & Acceso operativo a garita: verificación de reservas, registro de clientes \textit{walk-in}, visualización de mapa y terminal de cobros. \\
+conductor & Acceso de autoservicio: exploración de mapa, apartado de cajones, pagos online con tarjeta, historial personal y gestión de matrículas. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe formalmente la matriz de privilegios y niveles de acceso autorizados.
+\end{table}
+
+\begin{table}[hbt!]
+\caption{Cuadro resumen de las capas de seguridad implementadas}
+\label{tab:seguridad_capas}
+\begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
+\toprule
+\textbf{Capa de seguridad} & \textbf{Mecanismo técnico} & \textbf{Herramienta / Estándar} \\
+\midrule
+Persistencia de Claves & Hashing criptográfico unidireccional con sal & Argon2id (passlib) \\
+Autenticación & Tokens criptográficos sin estado con expiración & JSON Web Tokens (HS256) \\
+Identidad Federada & Verificación asimétrica de tokens de terceros & Google OAuth2 \\
+Autorización (RBAC) & Control de acceso por roles inyectable & \texttt{require\_role()} (FastAPI) \\
+Rutas en Frontend & Guards reactivos de navegación cliente & authGuard y roleGuard \\
+Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitelist, nosniff \\
+Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
+\end{table}
+
+\begin{figure}[hbt!]
+\caption{Flujo completo de autenticación y autorización}
+\label{fig:flujo_auth}
+\vspace{2cm} % Espacio reservado para la imagen
+\begin{center}
+\textit{[Espacio reservado para la Figura 14 y 15: Seguridad y Autenticación]}
+\end{center}
+\vspace{2cm}
+\textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
+\end{figure}
