@@ -1,10 +1,17 @@
 \section{CAPÍTULO 1: DESARROLLO E IMPLEMENTACIÓN DEL SISTEMA}
 
+\newpage
 \subsection{1.1. DESCRIPCIÓN DEL SISTEMA ELEGIDO}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 El sistema desarrollado como parte de las presentes Experiencias Formativas en Situaciones Reales de Trabajo IV es ParkSys, una plataforma integral de gestión inteligente de estacionamientos (\textit{Smart Parking}), concebida para automatizar y optimizar de forma completa el ciclo de vida del proceso de aparcamiento, desde la reserva anticipada hasta el cobro final por el uso del espacio físico.
 
 \subsubsection{Propósito del sistema}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 ParkSys busca resolver los principales cuellos de botella operativos que enfrentan los establecimientos de estacionamiento tradicionales, tales como el control manual del acceso vehicular, el fraude o error humano en los cobros, y la falta de visibilidad en tiempo real sobre la disponibilidad de espacios. El sistema ofrece dos modalidades de uso simultáneas:
 
@@ -14,6 +21,9 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 \end{enumerate}
 
 \subsubsection{Módulos principales del sistema}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Módulos principales del sistema}
@@ -35,6 +45,9 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 
 \subsubsection{Usuarios involucrados en el sistema}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \begin{table}[hbt!]
 \caption{Usuarios involucrados en el sistema}
 \label{tab:usuarios}
@@ -52,6 +65,9 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \end{table}
 
 \subsubsection{Problema que resuelve dentro de la organización}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{itemize}
     \item \textbf{Elimina la ineficiencia operativa:} reemplaza los boletos físicos de papel y las libretas de control por registros electrónicos instantáneos en base de datos.
@@ -71,7 +87,11 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \textit{Nota.} Muestra la relación e interoperabilidad entre el Portal del Conductor, el Módulo de Garita, el Dashboard Administrativo, la API RESTful de FastAPI y la Base de Datos central PostgreSQL.
 \end{figure}
 
+\newpage
 \subsection{1.2. CONFIGURACIÓN DEL ENTORNO DE DESARROLLO}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 Para el desarrollo de ParkSys se implementó un entorno de trabajo full-stack moderno, modular y completamente contenerizado, garantizando una rigurosa separación de entornos y dependencias.
 
@@ -122,6 +142,9 @@ Alembic & 1.13 & Sistema de control de versiones y migraciones evolutivas del es
 \end{table}
 
 \subsubsection{Modelo de datos del entorno}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 Como parte de la configuración inicial del entorno, se modeló la estructura relacional completa que sustenta todas las operaciones de ParkSys, validada mediante migraciones automatizadas en Alembic. La base de datos PostgreSQL está compuesta por doce (12) tablas activas, definidas en el directorio \texttt{backend/app/models/}, además de la tabla técnica \texttt{alembic\_version}, encargada exclusivamente del control de versiones del esquema DDL. Dichas doce tablas se organizan en tres bloques funcionales:
 
@@ -192,6 +215,9 @@ users $\rightarrow$ audit\_log & 1 a N & Un usuario autenticado origina eventos 
 
 \subsubsection{Estilos e interfaz de usuario}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \begin{table}[hbt!]
 \caption{Estilos e interfaz de usuario}
 \label{tab:estilos}
@@ -230,6 +256,9 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 
 \subsubsection{Entorno de desarrollo integrado y herramientas de calidad}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \begin{itemize}
     \item \textbf{IDE Principal:} Visual Studio Code con extensiones habilitadas de ESLint, Prettier y Python Pylance.
     \item \textbf{Gestor de Contenedores:} Docker Desktop con Docker Compose v2.
@@ -244,7 +273,11 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 \textit{Nota.} Representa la orquestación del backend FastAPI y la base de datos PostgreSQL mediante docker-compose.yml.
 \end{figure}
 
+\newpage
 \subsection{1.3. ESTRUCTURACIÓN DEL PROYECTO Y CONTROL DE VERSIONES}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 ParkSys sigue la arquitectura de un monorepositorio con separación estricta de responsabilidades (\textit{Separation of Concerns}).
 
@@ -301,6 +334,9 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 
 \subsubsection{Control de versiones con Git}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \begin{itemize}
     \item \textbf{Estrategia de Ramas:} adopción de un flujo de trabajo basado en ramas temáticas (main, develop, feature/*, fix/*).
     \item \textbf{Commits Granulares:} registro estandarizado de cambios detallando mejoras de interfaz, reglas de negocio y migraciones de datos.
@@ -315,7 +351,11 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \textit{Nota.} Evidencia la trazabilidad del desarrollo mediante ramas de trabajo.
 \end{figure}
 
+\newpage
 \subsection{1.4. DESARROLLO DEL BACKEND}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Controladores (routers) desarrollados}
@@ -339,6 +379,9 @@ websockets.py & /api/v1/ws & Punto de enlace WebSocket bidireccional que gestion
 \end{table}
 
 \subsubsection{Lógica de negocio destacada}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{enumerate}
     \item \textbf{Liquidación dinámica de tarifas por minuto efectivo:} el algoritmo extrae la diferencia en segundos, convierte a minutos enteros hacia arriba y aplica el costo exacto calculado.
@@ -396,6 +439,9 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \end{figure}
 
 \subsubsection{Diccionario de datos completo de la base de datos (12 tablas)}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 A continuación se presenta el diccionario de datos exhaustivo de las doce tablas del modelo relacional de ParkSys.
 
@@ -690,11 +736,18 @@ fecha & TIMESTAMPTZ & 8 bytes & No & Index & Momento del evento. \\
 \textit{Nota.} Pista de auditoría inalterable.
 \end{table}
 
+\newpage
 \subsection{1.5. DESARROLLO DEL FRONTEND}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 La interfaz de usuario de ParkSys fue construida priorizando la fluidez, la velocidad de respuesta y una estética visual corporativa moderna, incorporando principios de Glassmorphism y microinteracciones fluidas.
 
 \subsubsection{Arquitectura de navegación y rendimiento}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{itemize}
     \item \textbf{Lazy Loading:} los módulos de admin, worker, conductor y auth son empaquetados en chunks independientes de JavaScript, descargándose bajo demanda.
@@ -702,6 +755,9 @@ La interfaz de usuario de ParkSys fue construida priorizando la fluidez, la velo
 \end{itemize}
 
 \subsubsection{Diseño de experiencia de usuario (UX/UI)}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Diseño de experiencia de usuario (UX/UI)}
@@ -721,6 +777,9 @@ Semántica cromática & Verde esmeralda, rojo carmesí, ámbar cálido y gris gr
 \end{table}
 
 \subsubsection{Gestión del estado reactivo}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 A diferencia de arquitecturas Angular tradicionales basadas exclusivamente en RxJS, ParkSys integra activamente \textbf{Angular Signals} para la reactividad de interfaz. RxJS se mantiene en la capa de infraestructura para manejar flujos asíncronos.
 
@@ -748,7 +807,11 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 \textit{Nota.} Representa la división y carga diferida de los módulos de Angular.
 \end{figure}
 
+\newpage
 \subsection{1.6. INTEGRACIÓN DE MÓDULOS}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 La comunicación integral del ecosistema se logra a través del protocolo HTTPS REST (para operaciones transaccionales) y WSS (WebSockets sobre TLS para sincronización push instantánea).
 
@@ -780,11 +843,18 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 \textit{Nota.} Ilustra el ciclo completo desde la selección del cajón hasta la actualización en caseta.
 \end{figure}
 
+\newpage
 \subsection{1.7. VALIDACIÓN DE DATOS Y MANEJO DE ERRORES}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 La robustez y resiliencia de ParkSys se garantiza mediante un modelo defensivo de doble anillo: validación síncrona en cliente y validación semántica estricta en servidor.
 
 \subsubsection{Validación en el Frontend y Backend}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos. En el backend, cada payload JSON es interceptado por modelos Pydantic v2. Si una solicitud contiene tipos incorrectos, FastAPI responde automáticamente con \texttt{HTTP 422 Unprocessable Entity}.
 
@@ -808,7 +878,11 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 \textit{Nota.} Enumera los códigos de estado HTTP manejados formalmente por la plataforma y su tratamiento.
 \end{table}
 
+\newpage
 \subsection{1.8. IMPLEMENTACIÓN DE LA SEGURIDAD Y AUTENTICACIÓN}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 ParkSys implementa un esquema de seguridad sin estado (Stateless), escalable y alineado con los lineamientos de OWASP Top 10. Las contraseñas se cifran mediante el algoritmo Argon2id, y la autenticación se gestiona mediante tokens JWT simétricos (HS256).
 

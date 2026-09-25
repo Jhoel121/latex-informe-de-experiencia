@@ -1,8 +1,15 @@
 \section{CAPÍTULO 2: PRUEBAS, OPTIMIZACIÓN Y DESPLIEGUE}
 
+\newpage
 \subsection{2.1. PRUEBAS UNITARIAS, DE INTEGRACIÓN Y DE ACEPTACIÓN}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \subsubsection{Estrategia general de pruebas}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Implementación de Pruebas de Software), el aseguramiento de la calidad de ParkSys se ejecutó bajo la metodología de la Pirámide de Pruebas de Software, segmentando la verificación en tres niveles formales. La estrategia adoptada consistió en realizar una auditoría endpoint por endpoint tanto en el Backend (API REST con FastAPI) como en el Frontend (Angular 18), registrando para cada funcionalidad la tecnología utilizada, los errores detectados en la primera versión, las correcciones aplicadas en la segunda versión y las recomendaciones pendientes para futuras iteraciones.
 
@@ -16,6 +23,9 @@ Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Imple
 \end{figure}
 
 \subsubsection{Herramientas y tecnologías utilizadas}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Herramientas y tecnologías empleadas en las pruebas de ParkSys}
@@ -40,6 +50,9 @@ RxJS & 7.x & Pruebas de flujos reactivos (WebSocket, Observables) & Frontend \\
 \end{table}
 
 \subsubsection{Cuadros consolidados de evaluación endpoint por endpoint}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Pruebas unitarias y de integración en endpoints — Backend (FastAPI / Python)}
@@ -103,6 +116,9 @@ Pasarela & Error & Stripe API & HTTP 400 por $<$ S/ 2.00. & Derivación a efecti
 
 \subsubsection{2.1.1. Pruebas unitarias (Unit Testing)}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 Las pruebas unitarias verificaron de forma aislada las funciones puras y algoritmos críticos del sistema, sin dependencia de bases de datos externas ni servidores HTTP. Se ejecutaron 30 pruebas unitarias distribuidas en tres componentes fundamentales del backend.
 
 \textbf{Archivo fuente: backend/tests/test\_unit\_billing.py} \\
@@ -158,6 +174,9 @@ UT-25 a UT-30 & schemas.py & Datos válidos/inválidos & ValidationError o ok & 
 
 \subsubsection{2.1.2. Pruebas de integración (Integration Testing)}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 Se ejecutaron 12 pruebas de integración.
 
 \begin{verbatim}
@@ -191,6 +210,9 @@ IT-09, 10 & Bitácora vehicle\_logs & Ingreso/salida walk-in & Log persistido co
 
 \subsubsection{2.1.3. Pruebas de aceptación (UAT)}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 Se ejecutaron 6 pruebas de aceptación (Gherkin).
 
 \begin{table}[hbt!]
@@ -221,7 +243,11 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 \textit{Nota.} Gráfico de barras que muestra la distribución de las 48 pruebas automatizadas ejecutadas (30 unitarias, 12 de integración y 6 de aceptación), con una tasa de éxito del 100 por ciento en todas ellas.
 \end{figure}
 
+\newpage
 \subsection{2.2. REPORTE DE ERRORES}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Registro formal de errores identificados y resueltos}
@@ -266,9 +292,16 @@ Bajo (mejoras de UX sin bloqueo) & 2 & Hallazgos UAT en sección 2.4 \\
 \textit{Nota.} Clasifica los errores documentados según su severidad.
 \end{table}
 
+\newpage
 \subsection{2.3. OPTIMIZACIÓN DEL RENDIMIENTO}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \subsubsection{2.3.1. Frontend: Lazy Loading y Standalone Components}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Componentes con Lazy Loading implementado}
@@ -296,6 +329,9 @@ Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSucces
 \end{figure}
 
 \subsubsection{2.3.2. Backend y base de datos: asyncpg e indexación}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Campos indexados en el sistema}
@@ -356,7 +392,11 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \textit{Nota.} Gráfico de barras que compara el throughput del servidor.
 \end{figure}
 
+\newpage
 \subsection{2.4. PRUEBAS DE USUARIO (UAT)}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Parámetros de ejecución de las pruebas de usuario}
@@ -460,7 +500,11 @@ Tiempo promedio aprendizaje & Menos de 3 minutos por rol \\
 \textit{Nota.} Sintetiza los indicadores cuantitativos de UAT.
 \end{table}
 
+\newpage
 \subsection{2.5. DOCUMENTACIÓN TÉCNICA Y MANUAL DE USUARIO}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Documentos técnicos del repositorio}
@@ -543,6 +587,9 @@ ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 
 \subsubsection{2.5.2. Manual de Usuario (Dirigido al Usuario Final)}
 
+% [INSERTAR TEXTO AQUÍ]
+
+
 \begin{table}[hbt!]
 \caption{Manual del Conductor}
 \label{tab:manual_conductor_v2}
@@ -607,7 +654,11 @@ ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 \textit{Nota.} Funciones administrativas.
 \end{table}
 
+\newpage
 \subsection{2.6. DESPLIEGUE DEL SISTEMA}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{figure}[hbt!]
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
@@ -734,7 +785,11 @@ SMTP\_USER & Credenciales correo alertas \\
 \textit{Nota.} Sintetiza el .env productivo.
 \end{table}
 
+\newpage
 \subsection{2.7. ENTREGA Y PUESTA EN MARCHA}
+
+% [INSERTAR TEXTO AQUÍ]
+
 
 \begin{table}[hbt!]
 \caption{Checklist de entregables del proyecto ParkSys}
