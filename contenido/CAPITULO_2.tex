@@ -12,7 +12,7 @@
 
 Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Implementación de Pruebas de Software), el aseguramiento de la calidad de ParkSys se ejecutó bajo la metodología de la Pirámide de Pruebas de Software, segmentando la verificación en tres niveles formales. La estrategia adoptada consistió en realizar una auditoría endpoint por endpoint tanto en el Backend (API REST con FastAPI) como en el Frontend (Angular 18), registrando para cada funcionalidad la tecnología utilizada, los errores detectados en la primera versión, las correcciones aplicadas en la segunda versión y las recomendaciones pendientes para futuras iteraciones.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Pirámide de pruebas de software aplicada a ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_16.png}
@@ -255,7 +255,7 @@ UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencid
 \textit{Nota.} Sintetiza los seis flujos de aceptación validados en formato Gherkin.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Resumen del total de pruebas ejecutadas por nivel}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_17.png}
@@ -288,7 +288,7 @@ ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_
 \textit{Nota.} Registra los cinco errores críticos y de impacto medio.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_18.png}
@@ -342,7 +342,7 @@ Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSucces
 \textit{Nota.} Detalla la distribución de componentes cargados de forma diferida.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_19.png}
@@ -421,7 +421,7 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \textit{Nota.} Sintetiza las métricas de rendimiento antes y después.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_20.png}
@@ -429,7 +429,7 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \par\noindent\textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Comparativa de throughput del servidor antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_21.png}
@@ -463,7 +463,7 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \textit{Nota.} Describe las condiciones de ejecución de las pruebas.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_22.png}
@@ -576,7 +576,7 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \textit{Nota.} Enumera artefactos documentales.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura del sistema (Resumen técnico de capas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_23.png}
@@ -705,7 +705,7 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
@@ -802,7 +802,7 @@ Tipo de servicio & Sitio estático SPA \\
 \textit{Nota.} Frontend productivo SPA.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
@@ -878,7 +878,7 @@ SMTP\_USER & Credenciales correo alertas \\
 \textit{Nota.} Describe las 9 fases de puesta en marcha operativa.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}

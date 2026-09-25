@@ -87,7 +87,7 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Mapa de módulos del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_2.png}
@@ -186,7 +186,7 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 \textit{Nota.} Consolida las doce tablas del sistema, precisando su archivo ORM de origen y el bloque funcional al que pertenecen.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
@@ -270,7 +270,7 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
     \item \textbf{Gestor de Contenedores:} Docker Desktop con Docker Compose v2.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de contenedores Docker}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
@@ -327,7 +327,7 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \textit{Nota.} Describe la organización modular por características implementada en el cliente web Angular.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Árbol de directorios del proyecto ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
@@ -345,7 +345,7 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
     \item \textbf{Commits Granulares:} registro estandarizado de cambios detallando mejoras de interfaz, reglas de negocio y migraciones de datos.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de control de versiones con Git (ParkSys)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
@@ -412,7 +412,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \textit{Nota.} Resume el framework, ORM y herramientas del backend.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
@@ -420,7 +420,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \par\noindent\textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Secuencia del procesamiento de pagos mediante Stripe}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
@@ -428,7 +428,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \par\noindent\textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
@@ -443,7 +443,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 A continuación se presenta el diccionario de datos exhaustivo de las doce tablas del modelo relacional de ParkSys.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Modelo relacional de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
@@ -794,7 +794,7 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 \textit{Nota.} Compara la complementariedad técnica entre RxJS y Angular Signals.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de Lazy Loading del frontend}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
@@ -828,7 +828,7 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 \textit{Nota.} Detalla paso a paso la coreografía entre el cliente web, la API RESTful y el motor de base de datos.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Secuencia completa del flujo de reserva}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
@@ -871,7 +871,7 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 \end{table}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo del manejo de errores}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_13.png}
@@ -904,64 +904,37 @@ conductor & Acceso de autoservicio: exploración de mapa, apartado de cajones, p
 
 \begin{table}[hbt!]
 
-\begin{figure}[H]
+\begin{figure}[htbp]
+\caption{Flujo completo de autenticación y autorización}
+\centering
+\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
+\vspace{0.2cm}
+\par\noindent\textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
+\end{figure}
+
+\caption{Cuadro resumen de las capas de seguridad implementadas}
+\label{tab:seguridad_capas}
+\begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
+\toprule
+\textbf{Capa de seguridad} & \textbf{Mecanismo técnico} & \textbf{Herramienta / Estándar} \\
+\midrule
+Persistencia de Claves & Hashing criptográfico unidireccional con sal & Argon2id (passlib) \\
+Autenticación & Tokens criptográficos sin estado con expiración & JSON Web Tokens (HS256) \\
+Identidad Federada & Verificación asimétrica de tokens de terceros & Google OAuth2 \\
+Autorización (RBAC) & Control de acceso por roles inyectable & \texttt{require\_role()} (FastAPI) \\
+Rutas en Frontend & Guards reactivos de navegación cliente & authGuard y roleGuard \\
+Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitelist, nosniff \\
+Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
+\end{table}
+
+\begin{figure}[htbp]
 \caption{Esquema de capas de seguridad del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_15.png}
 \vspace{0.2cm}
 \par\noindent\textit{Nota.} Resume las cuatro capas concéntricas de protección implementadas, desde el perímetro de red hasta el almacenamiento seguro de datos.
-\end{figure}
-
-\caption{Cuadro resumen de las capas de seguridad implementadas}
-\label{tab:seguridad_capas}
-\begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
-\toprule
-\textbf{Capa de seguridad} & \textbf{Mecanismo técnico} & \textbf{Herramienta / Estándar} \\
-\midrule
-Persistencia de Claves & Hashing criptográfico unidireccional con sal & Argon2id (passlib) \\
-Autenticación & Tokens criptográficos sin estado con expiración & JSON Web Tokens (HS256) \\
-Identidad Federada & Verificación asimétrica de tokens de terceros & Google OAuth2 \\
-Autorización (RBAC) & Control de acceso por roles inyectable & \texttt{require\_role()} (FastAPI) \\
-Rutas en Frontend & Guards reactivos de navegación cliente & authGuard y roleGuard \\
-Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitelist, nosniff \\
-Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
-\end{table}
-
-\begin{figure}[H]
-\caption{Flujo completo de autenticación y autorización}
-\centering
-\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
-\vspace{0.2cm}
-\par\noindent\textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
-\end{figure}
-
-\caption{Cuadro resumen de las capas de seguridad implementadas}
-\label{tab:seguridad_capas}
-\begin{tabular}{@{}p{3.5cm} p{7cm} p{4cm}@{}}
-\toprule
-\textbf{Capa de seguridad} & \textbf{Mecanismo técnico} & \textbf{Herramienta / Estándar} \\
-\midrule
-Persistencia de Claves & Hashing criptográfico unidireccional con sal & Argon2id (passlib) \\
-Autenticación & Tokens criptográficos sin estado con expiración & JSON Web Tokens (HS256) \\
-Identidad Federada & Verificación asimétrica de tokens de terceros & Google OAuth2 \\
-Autorización (RBAC) & Control de acceso por roles inyectable & \texttt{require\_role()} (FastAPI) \\
-Rutas en Frontend & Guards reactivos de navegación cliente & authGuard y roleGuard \\
-Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitelist, nosniff \\
-Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
-\end{table}
-
-\begin{figure}[H]
-\caption{Flujo completo de autenticación y autorización}
-\centering
-\includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
-\vspace{0.2cm}
-\par\noindent\textit{Nota.} Muestra la secuencia desde el inicio de sesión hasta la verificación de permisos en endpoints protegidos.
 \end{figure}
