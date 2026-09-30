@@ -103,7 +103,7 @@ CheckoutComponent & Integración & Jasmine, Karma & 220 ms. PDF no descargaba au
 Base de datos & Rendimiento & PostgreSQL & Consultas lentas por placa, queries O(N). & Índices B-Tree en 10 campos. O(log N). & Particionar vehicle\_logs. \\
 Facturación & Error & ReportLab & Desfase UTC en PDF. & zoneinfo America/Lima en backend/front. & PDFs asíncronos. \\
 Frontend SPA & Rendimiento & Angular 18 & FCP de 3.8s en móviles. & Standalone Components y Lazy Loading. FCP 1.1s. & Habilitar SSR (Angular Univ.). \\
-API REST & Error & FastAPI & CORS bloqueado en Railway. & Regex allow\_origin\_regex. & CSP y restricción CORS. \\
+API REST & Error & FastAPI & CORS bloqueado en Vercel/Render. & Regex allow\_origin\_regex. & CSP y restricción CORS. \\
 WebSockets & Error & FastAPI+Ang. & Desconexión silenciosa. & Reconexión automática. & Ping/pong heartbeat. \\
 Pasarela & Error & Stripe API & HTTP 400 por $<$ S/ 2.00. & Derivación a efectivo. & MercadoPago alternativo. \\
 \bottomrule
@@ -281,7 +281,7 @@ ERR-01 & Base de Datos & Condición de carrera: reservas duplicadas simultáneas
 ERR-02 & WebSockets & Desconexión silenciosa en inactividad. & Medio & Sin reconexión, micro-cortes WiFi. & Reconexión (3s) en Angular, limpieza de sockets backend. \\
 ERR-03 & Zonas Horarias & Desfase de 5h UTC en PDF. & Medio & Servidor UTC, sede UTC-5. & zoneinfo.ZoneInfo("America/Lima"). \\
 ERR-04 & Stripe API & HTTP 400 por cobro $<$ S/ 2.00. & Medio & Mínimo de Stripe 0.50 USD. & Validación backend: derivar a efectivo. \\
-ERR-05 & CORS Deploy & CORS bloqueado en subdominios Railway. & Alto & ALLOWED\_ORIGINS estático. & Regex allow\_origin\_regex en middleware CORS. \\
+ERR-05 & CORS Deploy & CORS bloqueado en subdominios de Vercel/Render. & Alto & ALLOWED\_ORIGINS estático. & Regex allow\_origin\_regex en middleware CORS. \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
@@ -455,7 +455,7 @@ Fecha de ejecución & Agosto del 2026 \\
 Lugar & Sede ParkSys Central — Ayacucho \\
 Participantes & Tres usuarios (un administrador, un trabajador y un conductor) \\
 Dispositivos empleados & PC de escritorio (garita), laptop (admin), smartphone Android \\
-Entorno de prueba & Producción (Railway), conectado a PostgreSQL remoto \\
+Entorno de prueba & Producción (Vercel + Render + Supabase) \\
 Metodología aplicada & Observación directa, cuestionario post-uso y registro de incidencias \\
 \bottomrule
 \end{tabular}
@@ -702,180 +702,215 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 
 \subsection{2.6. DESPLIEGUE DEL SISTEMA}
 
+El despliegue de ParkSys se realizó bajo una arquitectura moderna y desacoplada, en la que cada capa del sistema se aloja en una plataforma especializada y todas se comunican entre sí de forma automática. El ecosistema productivo se apoya en cuatro herramientas principales: \textbf{Vercel} (interfaz visual), \textbf{Render} (lógica de negocio), \textbf{Supabase} (base de datos) y \textbf{GitHub} (control de versiones y orquestación CI/CD). Adicionalmente, el sistema integra proveedores externos para pagos, autenticación federada y correo electrónico.
 
-
+Esta separación permite escalar, actualizar o reemplazar cada capa de manera independiente, sin afectar a las demás, y elimina la necesidad de configurar servidores o cableado de red manualmente.
 
 \begin{figure}[htbp]
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
 \vspace{0.2cm}
-\par\noindent\textit{Nota.} Ilustra la disposición de los servicios en producción y local.
+\par\noindent\textit{Nota.} Ilustra la disposición de los servicios en producción (Vercel, Render, Supabase, Stripe, Google OAuth2 y SMTP) y en el entorno local (Docker Compose).
 \end{figure}
 
+\subsubsection{2.6.1. Frontend en Vercel (interfaz visual)}
+
+\textbf{Responsabilidad.} Aloja exclusivamente el código de Angular 18 contenido en la carpeta \texttt{frontend/}.
+
+\textbf{Funcionamiento.} Vercel actúa como una CDN (Red de Entrega de Contenidos) global que sirve la aplicación de página única (SPA) a los usuarios con baja latencia. Desde el navegador se ejecutan el renderizado de los mapas interactivos con Leaflet, los gráficos estadísticos con Chart.js y los estilos construidos con Tailwind CSS y Angular Material. Gracias a la configuración de \textit{Hash Routing}, Vercel puede atender redirecciones directas provenientes de pasarelas de pago (por ejemplo, el retorno desde Stripe Checkout) sin perder la ruta de la aplicación.
+
+\textbf{Automatización.} Vercel detecta cualquier \texttt{git push} sobre la rama \texttt{main} de GitHub, ejecuta la compilación estricta de Angular (\texttt{npm run build}) y reemplaza la versión en vivo (\texttt{park-sys-delta.vercel.app}) por la nueva, sin caídas de servicio.
+
 \begin{table}[hbt!]
-\caption{Configuración del servicio de base de datos (entorno local)}
-\label{tab:config_bd_local}
+\caption{Configuración del frontend en Vercel}
+\label{tab:config_vercel}
+\begin{tabular}{@{}p{5cm} p{10cm}@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Directorio raíz & \texttt{/frontend} \\
+Framework detectado & Angular 18 \\
+Comando de compilación & \texttt{npm run build} (configuración de producción) \\
+Directorio de salida & \texttt{dist/frontend/browser} \\
+Tipo de servicio & Sitio estático SPA servido por CDN \\
+Enrutamiento & Hash Routing (compatible con redirecciones de pasarelas de pago) \\
+Rama de producción & \texttt{main} \\
+URL pública & \texttt{park-sys-delta.vercel.app} \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Detalla los parámetros de publicación del cliente web en Vercel.
+\end{table}
+
+\subsubsection{2.6.2. Backend en Render (lógica de negocio)}
+
+\textbf{Responsabilidad.} Aloja y ejecuta el servidor API asíncrono construido en Python con FastAPI (carpeta \texttt{backend/}).
+
+\textbf{Funcionamiento.} Render es el <<cerebro>> del sistema en la nube. Recibe las peticiones del frontend (inicio de sesión, creación de reservas, registro de ingresos y salidas), procesa las reglas de negocio (como el cálculo de cobros al minuto según la tolerancia configurada y la generación de comprobantes PDF con ReportLab) y gestiona la seguridad mediante tokens JWT. Además, mantiene activas las conexiones WebSocket en tiempo real, de modo que la pantalla de la garita se actualiza automáticamente cuando se registra un cobro o una reserva.
+
+\textbf{Automatización.} Render escucha a GitHub a través del flujo CI/CD. Cuando hay cambios en el código Python, o nuevas librerías en \texttt{requirements.txt}, construye un nuevo contenedor a partir del \texttt{Dockerfile}, instala las dependencias desde cero y ejecuta las migraciones de base de datos (\texttt{alembic upgrade head}). Solo cuando el nuevo servicio arranca correctamente, apaga el anterior, lo que evita tiempos de inactividad en la API (\texttt{parksys-59uv.onrender.com}).
+
+\begin{table}[hbt!]
+\caption{Configuración del backend en Render}
+\label{tab:config_render}
 \begin{tabular}{@{}p{4cm} p{11cm}@{}}
 \toprule
 \textbf{Parámetro} & \textbf{Valor} \\
 \midrule
-Imagen & postgres:16-alpine \\
-Base de datos & parksys \\
-Puerto expuesto & 5432 \\
-Volumen persistente & postgres\_data \\
-Healthcheck & pg\_isready, cada 5 segundos, 5 reintentos \\
+Directorio raíz & \texttt{/backend} \\
+Entorno de ejecución & Docker (uso de \texttt{Dockerfile}, imagen base \texttt{python:3.11-slim}) \\
+Comando de inicio & \texttt{alembic upgrade head \&\& uvicorn app.main:app --host 0.0.0.0 --port \} \\
+Rama de producción & \texttt{main} \\
+Despliegue & Automático por \textit{webhook} de GitHub \\
+Estrategia de publicación & El servicio anterior se apaga solo si el nuevo inicia correctamente \\
+URL pública & \texttt{parksys-59uv.onrender.com} \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Contenedor PostgreSQL local.
+\textit{Nota.} Detalla la configuración del servidor FastAPI en producción.
 \end{table}
 
-\begin{table}[hbt!]
-\caption{Configuración del servicio backend (entorno local)}
-\label{tab:config_backend_local}
-\begin{tabular}{@{}p{4cm} p{11cm}@{}}
-\toprule
-\textbf{Parámetro} & \textbf{Valor} \\
-\midrule
-Build & ./backend/Dockerfile \\
-Imagen base & python:3.11-slim \\
-Puerto & 8000 \\
-Dependencia & Espera healthcheck PostgreSQL \\
-Comando & alembic upgrade head \&\& uvicorn app.main:app \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Contenedor FastAPI local.
-\end{table}
+\subsubsection{2.6.3. Base de datos en Supabase}
 
-\begin{table}[hbt!]
-\caption{Criterios de selección de la plataforma de despliegue (Railway)}
-\label{tab:criterios_railway}
-\begin{tabular}{@{}p{3.5cm} p{12cm}@{}}
-\toprule
-\textbf{Criterio} & \textbf{Justificación} \\
-\midrule
-Costo & Capa gratuita MVP \\
-Facilidad & CI/CD automático con GitHub Webhook \\
-PostgreSQL & Soporte nativo manejado con backups \\
-Docker & Soporte nativo de Dockerfile \\
-Certificados & HTTPS automático let's encrypt \\
-Variables entorno & Panel unificado amigable \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Justifica Railway como PaaS productivo.
-\end{table}
+\textbf{Responsabilidad.} Provee el servidor en la nube para la base de datos relacional PostgreSQL del sistema.
 
-\begin{table}[hbt!]
-\caption{Configuración del backend en Railway}
-\label{tab:config_railway_backend}
-\begin{tabular}{@{}p{4cm} p{11cm}@{}}
-\toprule
-\textbf{Parámetro} & \textbf{Valor} \\
-\midrule
-Directorio raíz & /backend \\
-Comando Build & pip install -r requirements.txt \\
-Comando Inicio & alembic upgrade head \&\& uvicorn ... --port \$PORT \\
-Uso Dockerfile & Sí \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Backend productivo.
-\end{table}
+\textbf{Funcionamiento.} Supabase es el almacenamiento definitivo y persistente de ParkSys. Conserva las cuentas de usuario, los perfiles y vehículos registrados de los conductores, el estado en tiempo real de los cajones de estacionamiento, las transacciones de Stripe y el historial de auditoría. El backend alojado en Render se conecta a Supabase mediante el motor \texttt{asyncpg} y SQLAlchemy 2.0 asíncrono, realizando consultas y escrituras de forma continua y concurrente.
 
-\begin{table}[hbt!]
-\caption{Configuración del frontend en Railway}
-\label{tab:config_railway_frontend}
-\begin{tabular}{@{}p{4cm} p{11cm}@{}}
-\toprule
-\textbf{Parámetro} & \textbf{Valor} \\
-\midrule
-Directorio raíz & /frontend \\
-Comando Build & npm install \&\& ng build --configuration production \\
-Dir de salida & dist/frontend/browser \\
-Tipo de servicio & Sitio estático SPA \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-\textit{Nota.} Frontend productivo SPA.
-\end{table}
+\subsubsection{2.6.4. GitHub: control de versiones y orquestación CI/CD}
+
+\textbf{Responsabilidad.} El repositorio \texttt{Jhoel121/ParkSys} es la bóveda central que resguarda todo el código fuente y su historial de cambios.
+
+\textbf{Funcionamiento.} GitHub actúa como interruptor principal y director de orquesta. Cuando el desarrollador sube cambios con \texttt{git push}, GitHub recibe el código y dispara \textit{webhooks} de forma simultánea hacia Vercel y Render, comunicándoles que existe código nuevo validado en la rama principal. Ambas plataformas inician entonces su proceso de actualización, y el despliegue completo a producción es limpio, predecible y no requiere intervención manual sobre servidores.
 
 \begin{figure}[htbp]
 \caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
 \vspace{0.2cm}
-\par\noindent\textit{Nota.} Ilustra la secuencia desde GitHub hasta producción automática.
+\par\noindent\textit{Nota.} Ilustra la secuencia desde el \texttt{git push} en GitHub hasta la publicación automática en Vercel (frontend) y Render (backend), con conexión a Supabase.
 \end{figure}
+
+\begin{table}[hbt!]
+\caption{Resumen del ecosistema de despliegue en producción}
+\label{tab:ecosistema_prod}
+\begin{tabular}{@{}p{2.5cm} p{4cm} p{8cm}@{}}
+\toprule
+\textbf{Plataforma} & \textbf{Capa} & \textbf{Rol y automatización} \\
+\midrule
+Vercel & Frontend (Angular 18) & CDN global; compila y publica al detectar un \texttt{push} en \texttt{main}. \\
+Render & Backend (FastAPI) & Construye el contenedor, migra con Alembic y reemplaza el servicio sin caídas. \\
+Supabase & Base de datos (PostgreSQL) & Almacenamiento persistente; consumido por el backend vía \texttt{asyncpg}. \\
+GitHub & Control de versiones & Dispara \textit{webhooks} hacia Vercel y Render. \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Sintetiza la responsabilidad de cada herramienta del ecosistema productivo.
+\end{table}
+
+\subsubsection{2.6.5. Integraciones externas activas}
+
+\begin{itemize}
+  \item \textbf{Stripe:} gestiona las sesiones seguras de \textit{Checkout}. Cuando el conductor paga desde su celular, Stripe avisa al frontend y al backend, lo que activa la confirmación del pago, la actualización de la reserva y la notificación por WebSockets.
+  \item \textbf{Google Auth (OAuth2):} inicio de sesión seguro en un solo clic, sin contraseñas adicionales.
+  \item \textbf{Servidores SMTP:} envío asíncrono de correos transaccionales (recuperación de cuentas y envío de tickets), sin ralentizar la respuesta del servidor.
+\end{itemize}
+
+\subsubsection{2.6.6. Variables de entorno de producción}
+
+Los secretos no se almacenan en el repositorio: se configuran en el panel de cada plataforma.
 
 \begin{table}[hbt!]
 \caption{Variables de entorno configuradas en el entorno de producción}
 \label{tab:env_produccion}
-\begin{tabular}{@{}p{6cm} p{9cm}@{}}
+\begin{tabular}{@{}p{5cm} p{2cm} p{8cm}@{}}
 \toprule
-\textbf{Variable} & \textbf{Descripción} \\
+\textbf{Variable} & \textbf{Plataforma} & \textbf{Descripción} \\
 \midrule
-DATABASE\_URL & Conexión PG (Railway inject) \\
-JWT\_SECRET & Firma HS256 JWT \\
-STRIPE\_SECRET\_KEY & Pasarela de pagos secreta \\
-ALLOWED\_ORIGINS & Dominios CORS permitidos \\
-SMTP\_USER & Credenciales correo alertas \\
+\texttt{DATABASE\_URL} & Render & Cadena de conexión a Supabase (\texttt{postgresql+asyncpg://...}). \\
+\texttt{JWT\_SECRET} & Render & Clave de firma de tokens JWT (HS256). \\
+\texttt{STRIPE\_SECRET\_KEY} & Render & Clave secreta de la pasarela de pagos. \\
+\texttt{ALLOWED\_ORIGINS} & Render & Dominios CORS permitidos (incluye el dominio de Vercel). \\
+\texttt{SMTP\_USER} & Render & Credenciales del servidor de correo para alertas y tickets. \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Sintetiza el .env productivo.
+\textit{Nota.} Sintetiza las variables sensibles del entorno productivo. Ajustar a los nombres exactos usados en el proyecto.
+\end{table}
+
+\subsubsection{2.6.7. Entorno local con Docker Compose}
+
+Para desarrollo y contingencia, el sistema puede ejecutarse localmente con \texttt{docker-compose.yml}, que levanta PostgreSQL 16 y el backend FastAPI.
+
+\begin{table}[hbt!]
+\caption{Configuración de los servicios del entorno local}
+\label{tab:config_entorno_local}
+\begin{tabular}{@{}p{3cm} p{3.5cm} p{8cm}@{}}
+\toprule
+\textbf{Servicio} & \textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Base de datos & Imagen & \texttt{postgres:16-alpine} \\
+ & Puerto / volumen & 5432 / \texttt{postgres\_data} \\
+ & Healthcheck & \texttt{pg\_isready}, cada 5 segundos, 5 reintentos \\
+Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3.11-slim} \\
+ & Puerto & 8000 \\
+ & Dependencia & Espera el \textit{healthcheck} de PostgreSQL \\
+ & Comando & \texttt{alembic upgrade head \&\& uvicorn app.main:app} \\
+\bottomrule
+\end{tabular}
+\\ \vspace{0.2cm}
+\textit{Nota.} Describe los contenedores del entorno local de desarrollo.
 \end{table}
 
 \subsection{2.7. ENTREGA Y PUESTA EN MARCHA}
 
-
-
+\subsubsection{2.7.1. Entregables del proyecto}
 
 \begin{table}[hbt!]
 \caption{Checklist de entregables del proyecto ParkSys}
 \label{tab:checklist_entregables}
-\begin{tabular}{@{}p{1cm} p{4cm} p{7cm} p{2cm}@{}}
+\begin{tabular}{@{}p{1cm} p{3.5cm} p{7cm} p{2.5cm}@{}}
 \toprule
 \textbf{N.°} & \textbf{Entregable} & \textbf{Descripción} & \textbf{Estado} \\
 \midrule
-1 & Código fuente & Repositorio Git completo & Entregado \\
-2 & Base de datos & PG 16 migrado + seed & Entregado \\
-3 & Backend desplegado & FastAPI activo en Railway & Operativo \\
-4 & Frontend desplegado & Angular 18 activo & Operativo \\
-5 & Documentación & Manuales técnicos MD & Entregado \\
-6 & Manual Usuario & Manuales por perfil & Entregado \\
-7 & Seed Data & seed.py ejecutado & Ejecutado \\
-8 & Credenciales & Cuentas admin/trab/cond & Entregado \\
-9 & Suite de pruebas & 48 automatizadas (100\% ok) & Entregado \\
-10 & Docker local & Config docker-compose & Entregado \\
+1 & Código fuente & Repositorio GitHub \texttt{Jhoel121/ParkSys} completo & Entregado \\
+2 & Base de datos & PostgreSQL 16 en Supabase, migrada con Alembic + \textit{seed} & Entregado \\
+3 & Backend desplegado & FastAPI activo en Render & Operativo \\
+4 & Frontend desplegado & Angular 18 activo en Vercel & Operativo \\
+5 & Documentación & Manuales técnicos en Markdown & Entregado \\
+6 & Manual de usuario & Manuales por perfil (conductor, garita, administrador) & Entregado \\
+7 & Datos iniciales & \texttt{seed.py} ejecutado & Ejecutado \\
+8 & Credenciales & Cuentas de administrador, trabajador y conductor & Entregado \\
+9 & Suite de pruebas & 48 pruebas automatizadas (100\% conformes) & Entregado \\
+10 & Docker local & Configuración \texttt{docker-compose} & Entregado \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Consolida el estado de cumplimiento entregables.
+\textit{Nota.} Consolida el estado de cumplimiento de los entregables.
 \end{table}
+
+\subsubsection{2.7.2. Procedimiento de puesta en marcha}
 
 \begin{table}[hbt!]
 \caption{Fases del procedimiento de puesta en marcha}
 \label{tab:fases_puesta_marcha}
-\begin{tabular}{@{}p{0.5cm} p{9.5cm} p{2cm} p{2cm}@{}}
+\begin{tabular}{@{}p{0.8cm} p{9cm} p{2.5cm} p{2cm}@{}}
 \toprule
 \textbf{Fase} & \textbf{Actividad} & \textbf{Respon.} & \textbf{Estado} \\
 \midrule
-1 & Verificación infraestructura red garita & Técnico & Cumplido \\
-2 & Despliegue producción Railway & Dev & Cumplido \\
-3 & Migración DDL alembic & Dev & Cumplido \\
-4 & Carga inicial seed.py & Dev & Cumplido \\
-5 & Configuración tarifas/tolerancia admin & Admin & Cumplido \\
-6 & Diseño mapa 2D interactivo & Admin & Cumplido \\
-7 & Capacitación de garita (walk-in/checkout) & Dev/Trabaj & Cumplido \\
-8 & Prueba completa real E2E & Todos & Cumplido \\
-9 & Acta Aceptación & Admin & Cumplido \\
+1 & Verificación de la infraestructura de red en la garita & Técnico & Cumplido \\
+2 & Despliegue en producción: frontend en Vercel y backend en Render & Dev & Cumplido \\
+3 & Conexión a Supabase y migración DDL con Alembic & Dev & Cumplido \\
+4 & Carga inicial con \texttt{seed.py} & Dev & Cumplido \\
+5 & Configuración de tarifas y tolerancia & Admin & Cumplido \\
+6 & Diseño del mapa 2D interactivo & Admin & Cumplido \\
+7 & Capacitación de garita (\textit{walk-in} y \textit{checkout}) & Dev/Trabaj. & Cumplido \\
+8 & Prueba completa real de extremo a extremo (E2E) & Todos & Cumplido \\
+9 & Firma del acta de aceptación & Admin & Cumplido \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Describe las 9 fases de puesta en marcha operativa.
+\textit{Nota.} Describe las nueve fases de la puesta en marcha operativa.
 \end{table}
 
 \begin{figure}[htbp]
@@ -883,8 +918,10 @@ SMTP\_USER & Credenciales correo alertas \\
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}
 \vspace{0.2cm}
-\par\noindent\textit{Nota.} Ilustra la secuencia cronológica de puesta en marcha.
+\par\noindent\textit{Nota.} Ilustra la secuencia cronológica de la puesta en marcha.
 \end{figure}
+
+\subsubsection{2.7.3. Plan de contingencia posterior a la entrega}
 
 \begin{table}[hbt!]
 \caption{Plan de contingencia post-entrega}
@@ -893,31 +930,35 @@ SMTP\_USER & Credenciales correo alertas \\
 \toprule
 \textbf{Riesgo} & \textbf{Acción} & \textbf{Responsable} \\
 \midrule
-Caída servidor Railway & Auto-restart; o levantar Docker local. & Dev \\
-Pérdida internet garita & Log manual temporal (libreta), sync posterior. & Trabajador \\
-Error Base de datos & Restaurar backup diario Railway automático. & Dev \\
-Bug productivo & Hotfix git push $\rightarrow$ auto-deploy. & Dev \\
-Aumento de tráfico & Scale up de memoria/CPU en Railway panel. & Dev \\
+Caída del backend en Render & Reinicio del servicio desde el panel o redespliegue; como alternativa, levantar el entorno con Docker local. & Dev \\
+Pérdida de internet en la garita & Registro manual temporal (libreta) y sincronización posterior. & Trabajador \\
+Error en la base de datos (Supabase) & Restaurar la copia de respaldo disponible en Supabase y verificar con Alembic. & Dev \\
+Error en producción (\textit{bug}) & \textit{Hotfix} con \texttt{git push}, que dispara el redespliegue automático en Vercel y Render. & Dev \\
+Aumento de tráfico & Escalar recursos (memoria/CPU) del servicio en el panel de Render. & Dev \\
+Falla de pasarela de pago & Derivar el cobro a efectivo desde garita. & Trabajador \\
 \bottomrule
 \end{tabular}
 \\ \vspace{0.2cm}
-\textit{Nota.} Acciones previstas ante escenarios operativos.
+\textit{Nota.} Acciones previstas ante escenarios operativos adversos.
 \end{table}
+
+\subsubsection{2.7.4. Acta de aceptación final}
 
 \begin{table}[hbt!]
 \caption{Acta de aceptación final del proyecto ParkSys}
 \label{tab:acta_aceptacion}
-\begin{tabular}{@{}p{4cm} p{11cm}@{}}
+\begin{tabular}{@{}p{4.5cm} p{10.5cm}@{}}
 \toprule
 \textbf{Campo} & \textbf{Detalle} \\
 \midrule
-Proyecto & ParkSys — Sistema de Gestión Estacionamiento \\
-Cliente & Estacionamiento Central — Ayacucho \\
-Fecha entrega & Agosto 2026 \\
-Equipo & Aspur Yaranga, Condori Cotaquispe \\
-Módulos entregados & Conductor, Garita, Admin, Stripe, WS, PDF, Aud \\
-Pruebas ejecutadas & 48 automatizadas, 17 tareas reales \\
-Tasa de éxito & 100\% ok \\
+Proyecto & ParkSys --- Sistema de Gestión de Estacionamiento Vehicular \\
+Cliente & ParkSys Central --- Ayacucho \\
+Fecha de entrega & Septiembre de 2026 \\
+Equipo & Aspur Yaranga, Jhoel Emilio; Condori Cotaquispe, Suly Jhomy \\
+Módulos entregados & Conductor, Garita, Administrador, Stripe, WebSockets, PDF, Auditoría \\
+Plataformas de producción & Vercel (frontend), Render (backend), Supabase (base de datos) \\
+Pruebas ejecutadas & 48 automatizadas y 17 tareas reales de usuario \\
+Tasa de éxito & 100\% \\
 Conformidad & Aceptado sin observaciones \\
 \bottomrule
 \end{tabular}
