@@ -24,7 +24,7 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 % [INSERTAR TEXTO AQUÍ]
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Módulos principales del sistema}
 \label{tab:modulos}
 \begin{tabular}{@{}p{0.5cm} p{3.5cm} p{11cm}@{}}
@@ -38,7 +38,7 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 5 & Configuración y Mapa 2D & Herramienta visual e interactiva Drag \& Drop para diseñar la distribución física de cajones, definir tarifas dinámicas por tipo de vehículo, administrar al personal y consultar bitácoras de auditoría. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe la función de cada uno de los cinco módulos que componen la plataforma ParkSys.
 \end{table}
 
@@ -47,7 +47,7 @@ ParkSys busca resolver los principales cuellos de botella operativos que enfrent
 % [INSERTAR TEXTO AQUÍ]
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Usuarios involucrados en el sistema}
 \label{tab:usuarios}
 \begin{tabular}{@{}p{5cm} p{10cm}@{}}
@@ -59,7 +59,7 @@ Trabajador (Garita) & Controla físicamente las barreras de entrada y salida del
 Administrador & Supervisa el rendimiento financiero del negocio, configura tarifas por tipo de vehículo y turnos, modela la distribución geométrica del mapa 2D, gestiona las cuentas del personal y audita las operaciones del sistema. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Resume las funciones y alcances operativos del conductor, el trabajador y el administrador.
 \end{table}
 
@@ -76,7 +76,7 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
     \item \textbf{Visibilidad gerencial basada en datos:} facilita la toma de decisiones estratégicas mediante paneles analíticos que reflejan horas de mayor demanda, ingresos proyectados e índice de cumplimiento de reservas.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Diagrama general de la arquitectura del sistema ParkSys}
 \label{fig:arquitectura_general}
 % \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figura_1.png}
@@ -87,7 +87,7 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Mapa de módulos del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_2.png}
@@ -102,7 +102,7 @@ Administrador & Supervisa el rendimiento financiero del negocio, configura tarif
 
 Para el desarrollo de ParkSys se implementó un entorno de trabajo full-stack moderno, modular y completamente contenerizado, garantizando una rigurosa separación de entornos y dependencias.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Lenguajes de programación empleados}
 \label{tab:lenguajes}
 \begin{tabular}{@{}p{2.5cm} p{2.2cm} p{2.2cm} p{8cm}@{}}
@@ -113,11 +113,11 @@ Backend & Python & 3.11+ & Tipado estático con typing, concurrencia asíncrona 
 Frontend & TypeScript & 5.5 & Superset de JavaScript con tipado estricto, interfaces DTO compiladas y soporte avanzado para decoradores de Angular. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla el lenguaje, la versión y la justificación técnica empleada en el backend y en el frontend.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Frameworks principales}
 \label{tab:frameworks}
 \begin{tabular}{@{}p{2cm} p{3cm} p{10cm}@{}}
@@ -128,11 +128,11 @@ Backend & FastAPI 0.115 & Rendimiento a la par de NodeJS y Go gracias a Starlett
 Frontend & Angular 18.2 & Arquitectura moderna basada en Standalone Components (sin sobrecarga de NgModules), reactividad granular mediante Angular Signals, excelente soporte empresarial para pruebas y navegación optimizada con Lazy Loading. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Justifica la elección técnica de FastAPI en el backend y Angular en el frontend.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Gestor de base de datos y acceso a datos}
 \label{tab:bd}
 \begin{tabular}{@{}p{3cm} p{3cm} p{9cm}@{}}
@@ -144,7 +144,7 @@ SQLAlchemy & 2.0 (modo asyncpg) & ORM en modo asíncrono no bloqueante que gesti
 Alembic & 1.13 & Sistema de control de versiones y migraciones evolutivas del esquema DDL de la base de datos. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla la función de PostgreSQL, SQLAlchemy y Alembic dentro del entorno de ParkSys.
 \end{table}
 
@@ -161,7 +161,7 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
     \item \textbf{Bloque C — Marco Legal y Auditoría Inmutable (3 tablas):} terms, terms\_acceptance, audit\_log.
 \end{itemize}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Distribución de las doce tablas del modelo relacional de ParkSys}
 \label{tab:distribucion_tablas}
 \begin{tabular}{@{}p{0.5cm} p{2cm} p{3.5cm} p{3.5cm} p{4cm}@{}}
@@ -182,11 +182,11 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 12 & audit\_log & models/audit\_log.py & C — Marco Legal & Pista de auditoría inalterable. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Consolida las doce tablas del sistema, precisando su archivo ORM de origen y el bloque funcional al que pertenecen.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Diagrama Entidad-Relación (DER) de la base de datos ParkSys (12 tablas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_3.png}
@@ -194,7 +194,7 @@ Como parte de la configuración inicial del entorno, se modeló la estructura re
 \par\noindent\textit{Nota.} Ilustra las entidades principales del núcleo transaccional junto con las entidades de soporte, marco legal y auditoría.
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Relaciones principales entre entidades}
 \label{tab:relaciones_entidades}
 \begin{tabular}{@{}p{3.5cm} p{2cm} p{9cm}@{}}
@@ -215,7 +215,7 @@ terms $\rightarrow$ terms\_acc... & 1 a N & Cada versión legal puede ser acepta
 users $\rightarrow$ audit\_log & 1 a N & Un usuario autenticado origina eventos auditables. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla las cardinalidades y la semántica de negocio de las relaciones del modelo relacional.
 \end{table}
 
@@ -224,7 +224,7 @@ users $\rightarrow$ audit\_log & 1 a N & Un usuario autenticado origina eventos 
 % [INSERTAR TEXTO AQUÍ]
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Estilos e interfaz de usuario}
 \label{tab:estilos}
 \begin{tabular}{@{}p{2.5cm} p{1.5cm} p{10cm}@{}}
@@ -235,11 +235,11 @@ Tailwind CSS & 3.4 & Maquetación responsiva ágil basada en clases de utilidad.
 Angular Material & 18.2 & Componentes accesibles validados bajo especificaciones WCAG. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Especifica el rol de Tailwind CSS y Angular Material en el diseño de interfaces accesibles.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Librerías adicionales empleadas}
 \label{tab:librerias}
 \begin{tabular}{@{}p{2.5cm} p{1.5cm} p{10cm}@{}}
@@ -256,7 +256,7 @@ Chart.js / ng2 & Frontend & Renderizado de gráficas estadísticas gerenciales. 
 Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera las librerías de validación, seguridad, pagos y soporte gráfico integradas.
 \end{table}
 
@@ -270,7 +270,7 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
     \item \textbf{Gestor de Contenedores:} Docker Desktop con Docker Compose v2.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de contenedores Docker}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_4.png}
@@ -285,7 +285,7 @@ Leaflet 1.9 & Frontend & Representación cartográfica interactiva (mapa 2D). \\
 
 ParkSys sigue la arquitectura de un monorepositorio con separación estricta de responsabilidades (\textit{Separation of Concerns}).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Estructura del backend (/backend)}
 \label{tab:backend_struct}
 \begin{tabular}{@{}p{5cm} p{10cm}@{}}
@@ -303,11 +303,11 @@ seed.py & Script de inicialización de datos base. \\
 main.py & Punto de entrada de la aplicación FastAPI. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe el contenido y propósito de cada componente dentro de la arquitectura en capas del backend.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Estructura del frontend (/frontend)}
 \label{tab:frontend_struct}
 \begin{tabular}{@{}p{5cm} p{10cm}@{}}
@@ -323,11 +323,11 @@ src/app/features/auth/ & Vistas de inicio de sesión y registro. \\
 src/app/app.routes.ts & Definición central del árbol de rutas. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe la organización modular por características implementada en el cliente web Angular.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Árbol de directorios del proyecto ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_5.png}
@@ -345,7 +345,7 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
     \item \textbf{Commits Granulares:} registro estandarizado de cambios detallando mejoras de interfaz, reglas de negocio y migraciones de datos.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de control de versiones con Git (ParkSys)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_6.png}
@@ -358,7 +358,7 @@ src/app/app.routes.ts & Definición central del árbol de rutas. \\
 % [INSERTAR TEXTO AQUÍ]
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Controladores (routers) desarrollados}
 \label{tab:routers}
 \begin{tabular}{@{}p{2.5cm} p{3cm} p{8.5cm}@{}}
@@ -375,7 +375,7 @@ reports.py & /api/v1/reports & Consolidación de ingresos, ocupación instantán
 websockets.py & /api/v1/ws & Punto de enlace WebSocket bidireccional que gestiona conexiones. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera los controladores REST expuestos por la API, especificando sus prefijos y responsabilidades.
 \end{table}
 
@@ -391,7 +391,7 @@ websockets.py & /api/v1/ws & Punto de enlace WebSocket bidireccional que gestion
     \item \textbf{Comunicación en tiempo real sin polling:} el gestor ConnectionManager transmite eventos broadcast a operadores eliminando tráfico innecesario.
 \end{enumerate}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Cuadro resumen de tecnologías del backend}
 \label{tab:tech_backend}
 \begin{tabular}{@{}p{3.5cm} p{4cm} p{7cm}@{}}
@@ -408,11 +408,11 @@ Generación PDF & ReportLab 4.2 & Creación dinámica en memoria de comprobantes
 Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamadas. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Resume el framework, ORM y herramientas del backend.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de la liquidación dinámica de tarifas (billing.py)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_7.png}
@@ -420,7 +420,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \par\noindent\textit{Nota.} Describe paso a paso el cálculo matemático del monto a liquidar.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Secuencia del procesamiento de pagos mediante Stripe}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_8.png}
@@ -428,7 +428,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 \par\noindent\textit{Nota.} Detalla el flujo transaccional desde la solicitud del pago digital hasta la verificación asíncrona.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de comunicación en tiempo real mediante WebSockets}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_9.png}
@@ -443,7 +443,7 @@ Automatización & APScheduler 3.10 & Limpieza periódica de reservas no reclamad
 
 A continuación se presenta el diccionario de datos exhaustivo de las doce tablas del modelo relacional de ParkSys.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Modelo relacional de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_10.png}
@@ -455,7 +455,7 @@ A continuación se presenta el diccionario de datos exhaustivo de las doce tabla
 
 \textbf{a) Tabla users — Archivo fuente: models/user.py.} Entidad central del sistema que administra el control de acceso.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{users}}
 \label{tab:dict_users}
 \begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
@@ -474,13 +474,13 @@ created\_at & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal de creación (UTC)
 updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Última actualización del perfil. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Administra el control de acceso y la identidad criptográfica de los usuarios del sistema.
 \end{table}
 
 \textbf{b) Tabla spaces — Archivo fuente: models/space.py.} Representación digital y lógica de los cajones de estacionamiento.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{spaces}}
 \label{tab:dict_spaces}
 \begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
@@ -499,13 +499,13 @@ height & FLOAT & 8 bytes & No & - & Altura del cajón. \\
 rotation & FLOAT & 8 bytes & No & - & Grados de rotación geométrica. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Define la geometría 2D, el estado operativo y las dimensiones de los espacios.
 \end{table}
 
 \textbf{c) Tabla rates — Archivo fuente: models/rate.py.} Tarifario dinámico configurable por el administrador.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{rates}}
 \label{tab:dict_rates}
 \begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
@@ -520,13 +520,13 @@ tarifa\_nocturna & NUMERIC & 10,2 & Sí & - & Tarifa diferenciada nocturna. \\
 vigente & BOOLEAN & 1 byte & No & - & Indica si es aplicable actualmente. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Estructura el tarifario dinámico para el cálculo de cobros.
 \end{table}
 
 \textbf{d) Tabla reservations — Archivo fuente: models/reservation.py.} Registra la intención de ocupación a futuro mediante autoservicio.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{reservations}}
 \label{tab:dict_reservations}
 \begin{tabular}{@{}p{5.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
@@ -545,13 +545,13 @@ fecha\_creacion & TIMESTAMPTZ & 8 bytes & No & - & Momento exacto. \\
 fecha\_vencimiento\_tolerancia & TIMESTAMPTZ & 8 bytes & No & - & Límite de tiempo. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Registra la intención de ocupación a futuro y la política de tolerancia.
 \end{table}
 
 \textbf{e) Tabla vehicle\_logs — Archivo fuente: models/vehicle\_log.py.} Tabla central de control de estadías efectivas (Walk-in y confirmación de reservas).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{vehicle\_logs}}
 \label{tab:dict_vehicle_logs}
 \begin{tabular}{@{}p{6cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
@@ -569,13 +569,13 @@ confirmado\_por & INTEGER & 4 bytes & No & FK & Operario responsable. \\
 tiempo\_permanencia\_minutos & INTEGER & 4 bytes & Sí & - & Minutos netos. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Tabla central de control de estadías efectivas que mide la ocupación física real.
 \end{table}
 
 \textbf{f) Tabla payments — Archivo fuente: models/payment.py.} Registro inmutable de ingresos monetarios.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{payments}}
 \label{tab:dict_payments}
 \begin{tabular}{@{}p{6cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
@@ -593,7 +593,7 @@ comprobante\_url & VARCHAR & 500 & Sí & - & Enlace del PDF. \\
 fecha & TIMESTAMPTZ & 8 bytes & No & - & Momento de la transacción. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Representa el registro inmutable de los ingresos monetarios.
 \end{table}
 
@@ -601,7 +601,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Momento de la transacción. \\
 
 \textbf{g) Tabla parking\_info — Archivo fuente: models/parking\_info.py.} Registro maestro de metadatos, geolocalización y políticas del establecimiento.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{parking\_info}}
 \label{tab:dict_parking_info}
 \begin{tabular}{@{}p{5.5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3cm}@{}}
@@ -622,13 +622,13 @@ logo\_url & VARCHAR & 500 & Sí & - & Ruta del logotipo. \\
 updated\_at & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Registra los metadatos institucionales, geolocalización y políticas.
 \end{table}
 
 \textbf{h) Tabla reviews — Archivo fuente: models/review.py.} Almacena las valoraciones y comentarios emitidos por los conductores.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{reviews}}
 \label{tab:dict_reviews}
 \begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
@@ -644,13 +644,13 @@ visible & BOOLEAN & 1 byte & No & - & Bandera de moderación. \\
 fecha & TIMESTAMPTZ & 8 bytes & No & - & Emisión de reseña. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Almacena las valoraciones y comentarios de conductores.
 \end{table}
 
 \textbf{i) Tabla notifications — Archivo fuente: models/notification.py.} Mensajería y alertas a la bandeja del usuario.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{notifications}}
 \label{tab:dict_notifications}
 \begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
@@ -665,7 +665,7 @@ leido & BOOLEAN & 1 byte & No & - & Estado de lectura. \\
 fecha & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Registra la mensajería personal del usuario.
 \end{table}
 
@@ -673,7 +673,7 @@ fecha & TIMESTAMPTZ & 8 bytes & No & - & Sello temporal. \\
 
 \textbf{j) Tabla terms — Archivo fuente: models/terms.py.} Controla el versionado legal de términos de servicio.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{terms}}
 \label{tab:dict_terms}
 \begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
@@ -689,13 +689,13 @@ vigente & BOOLEAN & 1 byte & No & - & Indica si está vigente. \\
 fecha\_publicacion & TIMESTAMPTZ & 8 bytes & No & - & Entrada en vigencia. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Controla el versionado legal.
 \end{table}
 
 \textbf{k) Tabla terms\_acceptance — Archivo fuente: models/terms.py.} Tabla asociativa del consentimiento.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{terms\_acceptance}}
 \label{tab:dict_terms_acceptance}
 \begin{tabular}{@{}p{5cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{3.5cm}@{}}
@@ -708,13 +708,13 @@ terms\_id & INTEGER & 4 bytes & No & FK, Index & Versión aceptada. \\
 fecha\_aceptacion & TIMESTAMPTZ & 8 bytes & No & - & Momento exacto. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Registra el consentimiento legal.
 \end{table}
 
 \textbf{l) Tabla audit\_log — Archivo fuente: models/audit\_log.py.} Pista de auditoría inalterable.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diccionario de la tabla \texttt{audit\_log}}
 \label{tab:dict_audit_log}
 \begin{tabular}{@{}p{4cm} p{3cm} p{1.5cm} p{1cm} p{1.5cm} p{4cm}@{}}
@@ -729,7 +729,7 @@ entidad\_id & INTEGER & 4 bytes & No & - & Registro específico. \\
 fecha & TIMESTAMPTZ & 8 bytes & No & Index & Momento del evento. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Pista de auditoría inalterable.
 \end{table}
 
@@ -755,7 +755,7 @@ La interfaz de usuario de ParkSys fue construida priorizando la fluidez, la velo
 % [INSERTAR TEXTO AQUÍ]
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Diseño de experiencia de usuario (UX/UI)}
 \label{tab:ux_ui}
 \begin{tabular}{@{}p{4cm} p{10cm}@{}}
@@ -768,7 +768,7 @@ Animaciones & Transiciones fluidas en entrada, elevación táctil y ondas de cli
 Semántica cromática & Verde esmeralda, rojo carmesí, ámbar cálido y gris grafito. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Resume la identidad visual y los estándares estéticos.
 \end{table}
 
@@ -779,7 +779,7 @@ Semántica cromática & Verde esmeralda, rojo carmesí, ámbar cálido y gris gr
 
 A diferencia de arquitecturas Angular tradicionales basadas exclusivamente en RxJS, ParkSys integra activamente \textbf{Angular Signals} para la reactividad de interfaz. RxJS se mantiene en la capa de infraestructura para manejar flujos asíncronos.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Cuadro comparativo del enfoque reactivo}
 \label{tab:enfoque_reactivo}
 \begin{tabular}{@{}p{3cm} p{5.5cm} p{6cm}@{}}
@@ -790,11 +790,11 @@ RxJS (Observables) & Peticiones HTTP y WebSockets. & Manejo robusto de flujos as
 Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de cambios. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Compara la complementariedad técnica entre RxJS y Angular Signals.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de Lazy Loading del frontend}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_11.png}
@@ -809,7 +809,7 @@ Angular Signals & Estado visual síncrono. & Cero sobrecarga de detección de ca
 
 La comunicación integral del ecosistema se logra a través del protocolo HTTPS REST (para operaciones transaccionales) y WSS (WebSockets sobre TLS para sincronización push instantánea).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Flujo integrado del proceso de reserva}
 \label{tab:flujo_reserva}
 \begin{tabular}{@{}p{0.5cm} p{3.5cm} p{2cm} p{8cm}@{}}
@@ -824,11 +824,11 @@ La comunicación integral del ecosistema se logra a través del protocolo HTTPS 
 6 & WebSockets $\rightarrow$ Garita & Local UI & Panel del operador conmuta el cajón a color ámbar inmediatamente. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla paso a paso la coreografía entre el cliente web, la API RESTful y el motor de base de datos.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Secuencia completa del flujo de reserva}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_12.png}
@@ -850,7 +850,7 @@ La robustez y resiliencia de ParkSys se garantiza mediante un modelo defensivo d
 
 En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos. En el backend, cada payload JSON es interceptado por modelos Pydantic v2. Si una solicitud contiene tipos incorrectos, FastAPI responde automáticamente con \texttt{HTTP 422 Unprocessable Entity}.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Cuadro de códigos de error gestionados}
 \label{tab:codigos_error}
 \begin{tabular}{@{}p{1.5cm} p{5.5cm} p{3.5cm} p{4cm}@{}}
@@ -866,12 +866,12 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 500 & Falla no controlada del servidor. & Middleware Global & Traza en logs y error neutralizado. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera los códigos de estado HTTP manejados formalmente por la plataforma y su tratamiento.
 \end{table}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo del manejo de errores}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_13.png}
@@ -886,7 +886,7 @@ En el frontend se emplea \texttt{ReactiveFormsModule} con validadores síncronos
 
 ParkSys implementa un esquema de seguridad sin estado (Stateless), escalable y alineado con los lineamientos de OWASP Top 10. Las contraseñas se cifran mediante el algoritmo Argon2id, y la autenticación se gestiona mediante tokens JWT simétricos (HS256).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Autorización basada en roles (RBAC)}
 \label{tab:rbac}
 \begin{tabular}{@{}p{2.5cm} p{12cm}@{}}
@@ -898,13 +898,13 @@ trabajador & Acceso operativo a garita: verificación de reservas, registro de c
 conductor & Acceso de autoservicio: exploración de mapa, apartado de cajones, pagos online con tarjeta, historial personal y gestión de matrículas. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe formalmente la matriz de privilegios y niveles de acceso autorizados.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo completo de autenticación y autorización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_14.png}
@@ -927,11 +927,11 @@ Protección de Dominio & Control de orígenes y cabeceras anti-XSS & CORS Whitel
 Trazabilidad Legal & Registro inmutable de eventos y consentimientos & \texttt{audit\_log}, \texttt{terms\_acceptance} \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza los mecanismos defensivos en las distintas capas del sistema.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Esquema de capas de seguridad del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_15.png}

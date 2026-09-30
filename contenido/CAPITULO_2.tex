@@ -12,7 +12,7 @@
 
 Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Implementación de Pruebas de Software), el aseguramiento de la calidad de ParkSys se ejecutó bajo la metodología de la Pirámide de Pruebas de Software, segmentando la verificación en tres niveles formales. La estrategia adoptada consistió en realizar una auditoría endpoint por endpoint tanto en el Backend (API REST con FastAPI) como en el Frontend (Angular 18), registrando para cada funcionalidad la tecnología utilizada, los errores detectados en la primera versión, las correcciones aplicadas en la segunda versión y las recomendaciones pendientes para futuras iteraciones.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Pirámide de pruebas de software aplicada a ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_16.png}
@@ -25,7 +25,7 @@ Para dar estricto cumplimiento a las directrices del Módulo Formativo IV (Imple
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Herramientas y tecnologías empleadas en las pruebas de ParkSys}
 \label{tab:herramientas_pruebas}
 \begin{tabular}{@{}p{3cm} p{1.5cm} p{8cm} p{2.5cm}@{}}
@@ -43,7 +43,7 @@ Angular Signals & 18.x & Detección de cambios reactiva para validar re-renders 
 RxJS & 7.x & Pruebas de flujos reactivos (WebSocket, Observables) & Frontend \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera las herramientas de prueba utilizadas en cada capa del sistema, con su versión y propósito técnico.
 \end{table} 
 
@@ -69,7 +69,7 @@ PATCH /vehicles/../checkout & Integración & pytest, SQLAlch. & 190 ms. Cálculo
 GET /reports/pdf/id & Integración & pytest, ReportLab & 350 ms. Desfase UTC de 5 horas. & zoneinfo.ZoneInfo("America/Lima"). Tiempo: 280 ms. & Worker Celery+RabbitMQ para PDF. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Consolida la evolución de las pruebas backend en el formato Versión 1 $\rightarrow$ Versión 2 $\rightarrow$ Recomendaciones.
 \end{table}
 
@@ -89,7 +89,7 @@ PaymentComponent & Integración & Jasmine, HttpClient & 280 ms. Doble clic sin s
 CheckoutComponent & Integración & Jasmine, Karma & 220 ms. PDF no descargaba auto. & blob y window.open(). & Impresora POS térmica. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Consolida la evolución de las pruebas frontend en el formato Versión 1 $\rightarrow$ Versión 2 $\rightarrow$ Recomendaciones.
 \end{table}
 
@@ -108,7 +108,7 @@ WebSockets & Error & FastAPI+Ang. & Desconexión silenciosa. & Reconexión autom
 Pasarela & Error & Stripe API & HTTP 400 por $<$ S/ 2.00. & Derivación a efectivo. & MercadoPago alternativo. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza los hallazgos y mejoras de rendimiento y estabilidad a nivel de sistema completo.
 \end{table}
 
@@ -152,7 +152,7 @@ def test_ut26_registro_password_corto(self):
         RegisterRequest(nombre="Test", correo="t@t.com", password="123")
 \end{verbatim}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Matriz completa de pruebas unitarias (30 pruebas)}
 \label{tab:matriz_ut}
 \begin{tabular}{@{}p{2.5cm} p{3.5cm} p{4cm} p{3.5cm} p{2cm}@{}}
@@ -166,7 +166,7 @@ UT-20 a UT-24 & security.py / JWT & Payloads acceso/refresco & Tokens gen/decod/
 UT-25 a UT-30 & schemas.py & Datos válidos/inválidos & ValidationError o ok & Conforme \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Resume la matriz completa de 30 pruebas unitarias.
 \end{table}
 
@@ -185,7 +185,7 @@ async def test_it02_crear_reserva_cambia_espacio_a_reservado(...):
     assert space_db.estado == SpaceStatus.reservado
 \end{verbatim}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Matriz completa de pruebas de integración (12 pruebas)}
 \label{tab:matriz_it}
 \begin{tabular}{@{}p{2cm} p{4cm} p{4cm} p{3cm} p{2cm}@{}}
@@ -202,7 +202,7 @@ IT-08 & Cajón bloqueado & reservable=False & HTTP 409 Rechazo & Conforme \\
 IT-09, 10 & Bitácora vehicle\_logs & Ingreso/salida walk-in & Log persistido con mins & Conforme \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Resume la matriz completa de 12 pruebas de integración.
 \end{table}
 
@@ -236,7 +236,7 @@ class TestUAT03CobroExacto:
 
 Se ejecutaron 6 pruebas de aceptación (Gherkin).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Matriz de pruebas de aceptación (6 pruebas)}
 \label{tab:matriz_uat}
 \begin{tabular}{@{}p{4cm} p{3.5cm} p{3.5cm} p{4.5cm}@{}}
@@ -251,11 +251,11 @@ UAT-05: Cancelación reserva & Conductor reserva B-03 & Pulsa "Cancelar" & Cajó
 UAT-06: Expiración auto & Reserva vencida & APScheduler ejecuta & Estado vencida, cajón liberado \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza los seis flujos de aceptación validados en formato Gherkin.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Resumen del total de pruebas ejecutadas por nivel}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_17.png}
@@ -270,7 +270,7 @@ Durante las etapas de desarrollo, integración y despliegue del sistema se regis
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Registro formal de errores identificados y resueltos}
 \label{tab:registro_errores_v2}
 \begin{tabular}{@{}p{1.2cm} p{2cm} p{4cm} p{1.8cm} p{2.5cm} p{3.5cm}@{}}
@@ -284,11 +284,11 @@ ERR-04 & Stripe API & HTTP 400 por cobro $<$ S/ 2.00. & Medio & Mínimo de Strip
 ERR-05 & CORS Deploy & CORS bloqueado en subdominios de Vercel/Render. & Alto & ALLOWED\_ORIGINS estático. & Regex allow\_origin\_regex en middleware CORS. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Registra los cinco errores críticos y de impacto medio.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo de diagnóstico y resolución de errores (ERR-01 a ERR-05)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_18.png}
@@ -296,7 +296,7 @@ ERR-05 & CORS Deploy & CORS bloqueado en subdominios de Vercel/Render. & Alto & 
 \par\noindent\textit{Nota.} Diagrama de flujo que ilustra el proceso seguido para cada incidencia.
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Distribución de errores por nivel de impacto}
 \label{tab:distribucion_errores}
 \begin{tabular}{@{}p{6cm} p{3cm} p{6cm}@{}}
@@ -308,7 +308,7 @@ Medio (afecta experiencia/precisión) & 3 & ERR-02, ERR-03, ERR-04 \\
 Bajo (mejoras de UX sin bloqueo) & 2 & Hallazgos UAT en sección 2.4 \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Clasifica los errores documentados según su severidad.
 \end{table}
 
@@ -326,7 +326,7 @@ Angular 18 permite definir cada componente como Standalone (standalone: true), e
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Componentes con Lazy Loading implementado}
 \label{tab:lazy_loading_v2}
 \begin{tabular}{@{}p{3cm} p{9cm} p{3cm}@{}}
@@ -338,11 +338,11 @@ Conductor & SecuritySettings, NotificationSettings, EditProfile, Receipt, Pendin
 Público & ResetPassword, Terms, PublicLegal, PublicSupport, PublicPaymentSuccess & $\sim$ 60 KB \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla la distribución de componentes cargados de forma diferida.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Comparativa de First Contentful Paint antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_19.png}
@@ -380,7 +380,7 @@ Se crearon 10 índices explícitos en las columnas más consultadas, reduciendo 
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Campos indexados en el sistema}
 \label{tab:indices_bd_v2}
 \begin{tabular}{@{}p{3cm} p{3.5cm} p{3.5cm} p{5cm}@{}}
@@ -399,11 +399,11 @@ payments & vehicle\_log\_id & B-Tree FK & Asociación pago-registro \\
 payments & reserva\_id & B-Tree FK & Asociación pago-reserva \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera los diez índices creados sobre columnas de mayor frecuencia.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Métricas de optimización y benchmarks}
 \label{tab:metricas_optimizacion}
 \begin{tabular}{@{}p{5cm} p{3cm} p{3cm} p{4cm}@{}}
@@ -417,11 +417,11 @@ Consumo de RAM en reposo & 180 MB & 78 MB & 56\% más liviano \\
 Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza las métricas de rendimiento antes y después.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de indexación y acceso asíncrono a la base de datos}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_20.png}
@@ -429,7 +429,7 @@ Throughput del servidor & 320 req/s & 800+ req/s & 150\% de incremento \\
 \par\noindent\textit{Nota.} Diagrama que ilustra el flujo con asyncpg e índices B-Tree.
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Comparativa de throughput del servidor antes y después de la optimización}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_21.png}
@@ -444,7 +444,7 @@ Las pruebas de usuario se ejecutaron en un entorno controlado con usuarios reale
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Parámetros de ejecución de las pruebas de usuario}
 \label{tab:parametros_uat}
 \begin{tabular}{@{}p{4cm} p{11cm}@{}}
@@ -459,11 +459,11 @@ Entorno de prueba & Producción (Vercel + Render + Supabase) \\
 Metodología aplicada & Observación directa, cuestionario post-uso y registro de incidencias \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe las condiciones de ejecución de las pruebas.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Evidencia fotográfica de la sesión de pruebas de usuario en la sede ParkSys Central}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_22.png}
@@ -471,7 +471,7 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 \par\noindent\textit{Nota.} Registra el momento de la ejecución de las pruebas con usuarios operando el sistema.
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Escenarios de prueba — Rol Conductor}
 \label{tab:uat_conductor}
 \begin{tabular}{@{}p{0.5cm} p{4.5cm} p{4.5cm} p{1.8cm} p{3.7cm}@{}}
@@ -486,11 +486,11 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 6 & Pagar Stripe online & Checkout exitoso/recibo & Cumplido & Redirect de 3 seg \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla las tareas ejecutadas por el conductor.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Escenarios de prueba — Rol Trabajador de Garita}
 \label{tab:uat_trabajador}
 \begin{tabular}{@{}p{0.5cm} p{3.7cm} p{4cm} p{1.8cm} p{4.5cm}@{}}
@@ -504,11 +504,11 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 5 & Buscar por placa & Resultado rápido & Cumplido & 40 ms indexado \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe las tareas del trabajador de garita.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Escenarios de prueba — Rol Administrador}
 \label{tab:uat_admin}
 \begin{tabular}{@{}p{0.5cm} p{3.7cm} p{4cm} p{1.8cm} p{4.5cm}@{}}
@@ -523,11 +523,11 @@ Metodología aplicada & Observación directa, cuestionario post-uso y registro d
 6 & Revisar auditoría & Registro temporal OK & Cumplido & - \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla las tareas administrativas del administrador.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Resultados consolidados de las pruebas de usuario}
 \label{tab:resultados_uat_v2}
 \begin{tabular}{@{}p{8cm} p{7cm}@{}}
@@ -541,7 +541,7 @@ Satisfacción general (escala 1-5) & 4.7 \\
 Tiempo promedio aprendizaje & Menos de 3 minutos por rol \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza los indicadores cuantitativos de UAT.
 \end{table}
 
@@ -554,7 +554,7 @@ La documentación técnica de ParkSys se encuentra distribuida en los siguientes
 
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Documentos técnicos del repositorio}
 \label{tab:documentos_tecnicos}
 \begin{tabular}{@{}p{4cm} p{4cm} p{7.5cm}@{}}
@@ -572,11 +572,11 @@ Dockerfile & ./backend/Docker... & Imagen Python Uvicorn \\
 Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Enumera artefactos documentales.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura del sistema (Resumen técnico de capas)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_23.png}
@@ -584,7 +584,7 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 \par\noindent\textit{Nota.} Ilustra la disposición en capas del sistema: el frontend en Angular 18 con sus tres módulos por rol, el backend en FastAPI con los routers, la capa de servicios y el ORM asíncrono, y la base de datos PostgreSQL 16 con sus índices B-Tree.
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Endpoints de la API REST (15 routers registrados)}
 \label{tab:endpoints_api}
 \begin{tabular}{@{}p{3.5cm} p{3.5cm} p{8cm}@{}}
@@ -608,11 +608,11 @@ Swagger OpenAPI & /docs (FastAPI) & Documentación interactiva de API \\
 /api/v1/ws & websockets.py & Real-time WebSockets \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Conjunto de controladores REST de la API.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Modelos de base de datos referenciados en la documentación}
 \label{tab:modelos_bd}
 \begin{tabular}{@{}p{3cm} p{3cm} p{9cm}@{}}
@@ -628,7 +628,7 @@ Rate & rates & id, tipo\_vehiculo, precio\_hora \\
 ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Referencia rápida de ORMs.
 \end{table}
 
@@ -636,7 +636,7 @@ ParkingInfo & parking\_info & id, horarios, nombre, direccion \\
 
 El manual de usuario fue diseñado para los tres perfiles del sistema, con instrucciones secuenciales para cada flujo de trabajo principal.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Manual del Conductor}
 \label{tab:manual_conductor_v2}
 \begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
@@ -655,11 +655,11 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 10 & Descargar comprobante PDF & Historial \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Procedimiento paso a paso para el conductor.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Manual del Trabajador de Garita}
 \label{tab:manual_trabajador_v2}
 \begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
@@ -675,11 +675,11 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 7 & Comprobante PDF entregado & Comprobante \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Operativa en garita.
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Manual del Administrador}
 \label{tab:manual_admin_v2}
 \begin{tabular}{@{}p{0.5cm} p{10.5cm} p{4cm}@{}}
@@ -696,7 +696,7 @@ El manual de usuario fue diseñado para los tres perfiles del sistema, con instr
 8 & Listado clientes & Clientes \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Funciones administrativas.
 \end{table}
 
@@ -707,7 +707,7 @@ El despliegue de ParkSys se realizó bajo una arquitectura moderna y desacoplada
 
 Esta separación permite escalar, actualizar o reemplazar cada capa de manera independiente, sin afectar a las demás, y elimina la necesidad de configurar servidores o cableado de red manualmente.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Arquitectura de despliegue de ParkSys (entorno de producción y entorno local)}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_24.png}
@@ -723,7 +723,7 @@ Esta separación permite escalar, actualizar o reemplazar cada capa de manera in
 
 \textbf{Automatización.} Vercel detecta cualquier \texttt{git push} sobre la rama \texttt{main} de GitHub, ejecuta la compilación estricta de Angular (\texttt{npm run build}) y reemplaza la versión en vivo (\texttt{park-sys-delta.vercel.app}) por la nueva, sin caídas de servicio.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Configuración del frontend en Vercel}
 \label{tab:config_vercel}
 \begin{tabular}{@{}p{5cm} p{10cm}@{}}
@@ -740,7 +740,7 @@ Rama de producción & \texttt{main} \\
 URL pública & \texttt{park-sys-delta.vercel.app} \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla los parámetros de publicación del cliente web en Vercel.
 \end{table}
 
@@ -752,7 +752,7 @@ URL pública & \texttt{park-sys-delta.vercel.app} \\
 
 \textbf{Automatización.} Render escucha a GitHub a través del flujo CI/CD. Cuando hay cambios en el código Python, o nuevas librerías en \texttt{requirements.txt}, construye un nuevo contenedor a partir del \texttt{Dockerfile}, instala las dependencias desde cero y ejecuta las migraciones de base de datos (\texttt{alembic upgrade head}). Solo cuando el nuevo servicio arranca correctamente, apaga el anterior, lo que evita tiempos de inactividad en la API (\texttt{parksys-59uv.onrender.com}).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Configuración del backend en Render}
 \label{tab:config_render}
 \begin{tabular}{@{}p{4cm} p{11cm}@{}}
@@ -768,7 +768,7 @@ Estrategia de publicación & El servicio anterior se apaga solo si el nuevo inic
 URL pública & \texttt{parksys-59uv.onrender.com} \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Detalla la configuración del servidor FastAPI en producción.
 \end{table}
 
@@ -784,7 +784,7 @@ URL pública & \texttt{parksys-59uv.onrender.com} \\
 
 \textbf{Funcionamiento.} GitHub actúa como interruptor principal y director de orquesta. Cuando el desarrollador sube cambios con \texttt{git push}, GitHub recibe el código y dispara \textit{webhooks} de forma simultánea hacia Vercel y Render, comunicándoles que existe código nuevo validado en la rama principal. Ambas plataformas inician entonces su proceso de actualización, y el despliegue completo a producción es limpio, predecible y no requiere intervención manual sobre servidores.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Flujo del pipeline de despliegue continuo (CI/CD) de ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_25.png}
@@ -792,7 +792,7 @@ URL pública & \texttt{parksys-59uv.onrender.com} \\
 \par\noindent\textit{Nota.} Ilustra la secuencia desde el \texttt{git push} en GitHub hasta la publicación automática en Vercel (frontend) y Render (backend), con conexión a Supabase.
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Resumen del ecosistema de despliegue en producción}
 \label{tab:ecosistema_prod}
 \begin{tabular}{@{}p{2.5cm} p{4cm} p{8cm}@{}}
@@ -805,7 +805,7 @@ Supabase & Base de datos (PostgreSQL) & Almacenamiento persistente; consumido po
 GitHub & Control de versiones & Dispara \textit{webhooks} hacia Vercel y Render. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza la responsabilidad de cada herramienta del ecosistema productivo.
 \end{table}
 
@@ -821,7 +821,7 @@ GitHub & Control de versiones & Dispara \textit{webhooks} hacia Vercel y Render.
 
 Los secretos no se almacenan en el repositorio: se configuran en el panel de cada plataforma.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Variables de entorno configuradas en el entorno de producción}
 \label{tab:env_produccion}
 \begin{tabular}{@{}p{5cm} p{2cm} p{8cm}@{}}
@@ -835,7 +835,7 @@ Los secretos no se almacenan en el repositorio: se configuran en el panel de cad
 \texttt{SMTP\_USER} & Render & Credenciales del servidor de correo para alertas y tickets. \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Sintetiza las variables sensibles del entorno productivo. Ajustar a los nombres exactos usados en el proyecto.
 \end{table}
 
@@ -843,7 +843,7 @@ Los secretos no se almacenan en el repositorio: se configuran en el panel de cad
 
 Para desarrollo y contingencia, el sistema puede ejecutarse localmente con \texttt{docker-compose.yml}, que levanta PostgreSQL 16 y el backend FastAPI.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Configuración de los servicios del entorno local}
 \label{tab:config_entorno_local}
 \begin{tabular}{@{}p{3cm} p{3.5cm} p{8cm}@{}}
@@ -859,7 +859,7 @@ Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3
  & Comando & \texttt{alembic upgrade head \&\& uvicorn app.main:app} \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe los contenedores del entorno local de desarrollo.
 \end{table}
 
@@ -868,7 +868,7 @@ Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3
 
 \subsubsection{2.7.1. Entregables del proyecto}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Checklist de entregables del proyecto ParkSys}
 \label{tab:checklist_entregables}
 \begin{tabular}{@{}p{1cm} p{3.5cm} p{7cm} p{2.5cm}@{}}
@@ -887,14 +887,14 @@ Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3
 10 & Docker local & Configuración \texttt{docker-compose} & Entregado \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Consolida el estado de cumplimiento de los entregables.
 \end{table}
 
 \clearpage
 \subsubsection{2.7.2. Procedimiento de puesta en marcha}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Fases del procedimiento de puesta en marcha}
 \label{tab:fases_puesta_marcha}
 \begin{tabular}{@{}p{0.8cm} p{9cm} p{2.5cm} p{2cm}@{}}
@@ -912,11 +912,11 @@ Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3
 9 & Firma del acta de aceptación & Admin & Cumplido \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Describe las nueve fases de la puesta en marcha operativa.
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \caption{Diagrama de flujo del procedimiento de puesta en marcha del sistema ParkSys}
 \centering
 \includegraphics[width=\textwidth,height=9cm,keepaspectratio]{IMAGENES/figuras/figura_26.png}
@@ -926,7 +926,7 @@ Backend & Build / imagen base & \texttt{./backend/Dockerfile} / \texttt{python:3
 
 \subsubsection{2.7.3. Plan de contingencia posterior a la entrega}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Plan de contingencia post-entrega}
 \label{tab:plan_contingencia}
 \begin{tabular}{@{}p{4cm} p{8cm} p{3cm}@{}}
@@ -941,13 +941,13 @@ Aumento de tráfico & Escalar recursos (memoria/CPU) del servicio en el panel de
 Falla de pasarela de pago & Derivar el cobro a efectivo desde garita. & Trabajador \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Acciones previstas ante escenarios operativos adversos.
 \end{table}
 
 \subsubsection{2.7.4. Acta de aceptación final}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Acta de aceptación final del proyecto ParkSys}
 \label{tab:acta_aceptacion}
 \begin{tabular}{@{}p{4.5cm} p{10.5cm}@{}}
@@ -965,6 +965,6 @@ Tasa de éxito & 100\% \\
 Conformidad & Aceptado sin observaciones \\
 \bottomrule
 \end{tabular}
-\\ \vspace{0.2cm}
+\par\vspace{0.2cm}
 \textit{Nota.} Documenta formalmente la conformidad del cliente.
 \end{table}
