@@ -747,7 +747,7 @@ URL pública & \texttt{park-sys-delta.vercel.app} \\
 
 \textbf{Responsabilidad.} Aloja y ejecuta el servidor API asíncrono construido en Python con FastAPI (carpeta \texttt{backend/}).
 
-\textbf{Funcionamiento.} Render es el <<cerebro>> del sistema en la nube. Recibe las peticiones del frontend (inicio de sesión, creación de reservas, registro de ingresos y salidas), procesa las reglas de negocio (como el cálculo de cobros al minuto según la tolerancia configurada y la generación de comprobantes PDF con ReportLab) y gestiona la seguridad mediante tokens JWT. Además, mantiene activas las conexiones WebSocket en tiempo real, de modo que la pantalla de la garita se actualiza automáticamente cuando se registra un cobro o una reserva.
+\textbf{Funcionamiento.} Render es el "cerebro" del sistema en la nube. Recibe las peticiones del frontend (inicio de sesión, creación de reservas, registro de ingresos y salidas), procesa las reglas de negocio (como el cálculo de cobros al minuto según la tolerancia configurada y la generación de comprobantes PDF con ReportLab) y gestiona la seguridad mediante tokens JWT. Además, mantiene activas las conexiones WebSocket en tiempo real, de modo que la pantalla de la garita se actualiza automáticamente cuando se registra un cobro o una reserva.
 
 \textbf{Automatización.} Render escucha a GitHub a través del flujo CI/CD. Cuando hay cambios en el código Python, o nuevas librerías en \texttt{requirements.txt}, construye un nuevo contenedor a partir del \texttt{Dockerfile}, instala las dependencias desde cero y ejecuta las migraciones de base de datos (\texttt{alembic upgrade head}). Solo cuando el nuevo servicio arranca correctamente, apaga el anterior, lo que evita tiempos de inactividad en la API (\texttt{parksys-59uv.onrender.com}).
 
@@ -760,7 +760,7 @@ URL pública & \texttt{park-sys-delta.vercel.app} \\
 \midrule
 Directorio raíz & \texttt{/backend} \\
 Entorno de ejecución & Docker (uso de \texttt{Dockerfile}, imagen base \texttt{python:3.11-slim}) \\
-Comando de inicio & \texttt{alembic upgrade head \&\& uvicorn app.main:app --host 0.0.0.0 --port \} \\
+Comando de inicio & \texttt{alembic upgrade head \&\& uvicorn app.main:app --host 0.0.0.0 --port \$PORT} \\
 Rama de producción & \texttt{main} \\
 Despliegue & Automático por \textit{webhook} de GitHub \\
 Estrategia de publicación & El servicio anterior se apaga solo si el nuevo inicia correctamente \\
