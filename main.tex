@@ -79,6 +79,11 @@
 % ----- ENLACES CLICKABLES (NDICES REDIRECCIONABLES) -----
 \usepackage[colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black, bookmarks=true]{hyperref}
 
+% Redefinición segura de newpage para que imprima las tablas/figuras pendientes antes del salto
+\usepackage{placeins}
+\let\oldnewpage\newpage
+\renewcommand{\newpage}{\FloatBarrier\oldnewpage}
+
 \begin{document}
 \RaggedRight % Aplicar texto sin justificar
 
